@@ -44,6 +44,9 @@ namespace RecruitmentAPI.Models
         [ForeignKey("Employer")]
         public int? EmployerId { get; set; } // Nullable olarak tanımlandı
         public Employer? Employer { get; set; }
+        
+        [MaxLength(100)]
+        public string? JobType { get; set; }
 
         [NotMapped]
         public string? Email

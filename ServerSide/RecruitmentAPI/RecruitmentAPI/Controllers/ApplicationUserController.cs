@@ -115,7 +115,7 @@ namespace RecruitmentAPI.Controllers
         }
 
         [HttpDelete("JobApplications/{id}")]
-        public async Task<ActionResult<IEnumerable<JobApplication>>> DeleteApplication(string id)
+        public async Task<ActionResult<IEnumerable<JobApplication>>> DeleteApplication(int id)
         {
             var appToDelete = await _context.JobApplications.FindAsync(id);
 

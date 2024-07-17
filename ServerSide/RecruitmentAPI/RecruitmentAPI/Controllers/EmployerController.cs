@@ -26,7 +26,7 @@ namespace RecruitmentAPI.Controllers
         {
             if (employer == null)
             {
-                return BadRequest("Employer bilgileri eksik.");
+                return BadRequest("Employer information missing.");
             }
 
             _context.Employers.Add(employer);
@@ -36,7 +36,7 @@ namespace RecruitmentAPI.Controllers
         }
 
        
-        [HttpGet("{id}")]
+        [HttpGet("EmployerProfile/{id}")]
         public async Task<ActionResult<Employer>> GetEmployerById(int id)
         {
             var employer = await _context.Employers.FindAsync(id);
@@ -49,7 +49,7 @@ namespace RecruitmentAPI.Controllers
         }
 
         
-        [HttpPatch("{id}")]
+        [HttpPatch("EmployerUpdate{id}")]
         public async Task<IActionResult> UpdateEmployer(int id, Employer updatedEmployer)
         {
             if (id != updatedEmployer.Id)
@@ -189,6 +189,43 @@ namespace RecruitmentAPI.Controllers
             return Ok(result);
 
         }
+        
+        [HttpGet("GetEmployeeById/{id}")]
+        public async Task<ActionResult<AddEmployee>> GetEmployeeById(int id)
+        {
+            var employee = await _context.ApplicationUsers.FindAsync(id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(employee);
+        }
+
+
+        [HttpPost("AddEmployee")]
+        public async Task<ActionResult<ApplicationUser>> CreateEmployee(AddEmployee employee)
+        {
+            if (employee == null)
+            {
+                return BadRequest("Employee informations missing.");
+            }
+
+            var newEmployee = new ApplicationUser
+            {
+                Name = employee.Name,
+                Surname = employee.Surname,
+                Email = employee.Email,
+                JobType = employee.JobType,
+                EmployerId = employee.EmployerId
+            };
+
+            _context.ApplicationUsers.Add(newEmployee);
+            await _context.SaveChangesAsync();
+    
+            return CreatedAtAction(nameof(GetEmployeeById), new { id = newEmployee.Id }, newEmployee);
+        }
+
 
     }
 }

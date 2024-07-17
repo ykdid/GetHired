@@ -7,9 +7,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2360cc7-8cdd-4033-801c-3f5a15dcb952" name="Changes" comment="added filter endpoint for employer controller">
+    <list default="true" id="d2360cc7-8cdd-4033-801c-3f5a15dcb952" name="Changes" comment="added deleteapplicaton and jobfilter endpoint for application user controller">
+      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Models/AddEmployee.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.RecruitmentAPI/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RecruitmentAPI/.idea/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RecruitmentAPI/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RecruitmentAPI/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/ApplicationUserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/ApplicationUserController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/EmployerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/EmployerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Models/ApplicationUser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Models/ApplicationUser.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/ref/RecruitmentAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/ref/RecruitmentAPI.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/refint/RecruitmentAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/refint/RecruitmentAPI.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/RecruitmentAPI.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/RecruitmentAPI.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/RecruitmentAPI.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/RecruitmentAPI.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/rider.project.model.nuget.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +58,9 @@
     "accountId": "2524ca19-1463-4454-b46c-5458095fa2a0"
   }
 }]]></component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Users/yusufkaya/Desktop/HiringProject/ServerSide/RecruitmentAPI/RecruitmentAPI/Controllers/ApplicationUserController.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
@@ -128,7 +150,7 @@
       <updated>1720778430244</updated>
       <workItem from="1720778431280" duration="37997000" />
       <workItem from="1721204494219" duration="25000" />
-      <workItem from="1721204540487" duration="5918000" />
+      <workItem from="1721204540487" duration="11191000" />
     </task>
     <task id="LOCAL-00001" summary="added filter endpoint for employer controller">
       <option name="closed" value="true" />
@@ -138,7 +160,23 @@
       <option name="project" value="LOCAL" />
       <updated>1721212069071</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="added deleteapplication endpoint and jobfilter endpoint for ApplicationUserController.cs">
+      <option name="closed" value="true" />
+      <created>1721215643693</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1721215643693</updated>
+    </task>
+    <task id="LOCAL-00003" summary="added deleteapplicaton and jobfilter endpoint for application user controller">
+      <option name="closed" value="true" />
+      <created>1721215703218</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1721215703218</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -149,7 +187,9 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="added filter endpoint for employer controller" />
-    <option name="LAST_COMMIT_MESSAGE" value="added filter endpoint for employer controller" />
+    <MESSAGE value="added deleteapplication endpoint and jobfilter endpoint for ApplicationUserController.cs" />
+    <MESSAGE value="added deleteapplicaton and jobfilter endpoint for application user controller" />
+    <option name="LAST_COMMIT_MESSAGE" value="added deleteapplicaton and jobfilter endpoint for application user controller" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
