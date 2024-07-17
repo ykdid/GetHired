@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using RecruitmentAPI.Data;
 using RecruitmentAPI.Models;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace RecruitmentAPI.Controllers
 {
@@ -18,7 +20,7 @@ namespace RecruitmentAPI.Controllers
             _context = context;
         }
 
-        // İşveren ekler
+        
         [HttpPost("AddEmployer")]
         public async Task<ActionResult<Employer>> CreateEmployer(Employer employer)
         {
@@ -33,7 +35,7 @@ namespace RecruitmentAPI.Controllers
             return CreatedAtAction(nameof(GetEmployerById), new { id = employer.Id }, employer);
         }
 
-        // İşveren bilgilerini getirir
+       
         [HttpGet("{id}")]
         public async Task<ActionResult<Employer>> GetEmployerById(int id)
         {
@@ -46,7 +48,7 @@ namespace RecruitmentAPI.Controllers
             return Ok(employer);
         }
 
-        // İşveren bilgilerini günceller
+        
         [HttpPatch("{id}")]
         public async Task<IActionResult> UpdateEmployer(int id, Employer updatedEmployer)
         {
@@ -73,7 +75,7 @@ namespace RecruitmentAPI.Controllers
             return NoContent();
         }
 
-        // İlan oluşturur
+       
         [HttpPost("PostJob")]
         public async Task<ActionResult<BackOfficeJobListing>> CreateJobListing(BackOfficeJobListing jobListing)
         {
@@ -88,7 +90,7 @@ namespace RecruitmentAPI.Controllers
             return CreatedAtAction(nameof(GetJobListingById), new { id = jobListing.Id }, jobListing);
         }
 
-        // İlanları getirir
+        
         [HttpGet("MyAdvertisements/{employerId}")]
         public async Task<ActionResult<IEnumerable<BackOfficeJobListing>>> GetAdvertisementsByEmployer(int employerId)
         {
@@ -104,7 +106,7 @@ namespace RecruitmentAPI.Controllers
             return Ok(advertisements);
         }
 
-        // İlanı getirir
+      
         [HttpGet("Job/{id}")]
         public async Task<ActionResult<BackOfficeJobListing>> GetJobListingById(int id)
         {
@@ -116,8 +118,8 @@ namespace RecruitmentAPI.Controllers
 
             return Ok(jobListing);
         }
-
-        // İlan başvurularını getirir
+ 
+       
         [HttpGet("Job/{jobId}/Applications")]
         public async Task<ActionResult<IEnumerable<JobApplication>>> GetJobApplications(int jobId)
         {
@@ -134,7 +136,7 @@ namespace RecruitmentAPI.Controllers
             return Ok(applications);
         }
 
-        // Çalışanları getirir
+        
         [HttpGet("MyStaff/{employerId}")]
         public async Task<ActionResult<IEnumerable<ApplicationUser>>> GetStaffByEmployer(int employerId)
         {
@@ -149,5 +151,44 @@ namespace RecruitmentAPI.Controllers
 
             return Ok(staff);
         }
+
+        [HttpGet("EmployeeFilter/{employer.Id}")]
+
+        public async Task<ActionResult<IEnumerable<ApplicationUser>>> GetEmployeesWithFilter(
+            string? name = null,
+            string? surname = null,
+            string? regNo = null,
+            string? identityNo = null
+        )
+        {
+            var query = _context.ApplicationUsers.AsQueryable();
+
+            if (!string.IsNullOrEmpty(identityNo))
+            {
+                query = query.Where(x => x.IdentityNumber == identityNo);
+            }
+
+            if (!string.IsNullOrEmpty(regNo))
+            {
+                query = query.Where(x => x.RegistrationNumber == regNo);
+
+            }
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                query = query.Where(x => x.Name == name);
+            }
+
+            if (!string.IsNullOrEmpty(surname))
+            {
+                query = query.Where(x => x.Surname == surname);
+            }
+
+            var result = await query.ToListAsync();
+
+            return Ok(result);
+
+        }
+
     }
 }

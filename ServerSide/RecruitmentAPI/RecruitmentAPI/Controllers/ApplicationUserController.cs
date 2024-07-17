@@ -18,7 +18,7 @@ namespace RecruitmentAPI.Controllers
             _context = context;
         }
 
-        // Kullanıcı ekler
+       
         [HttpPost("AddUser")]
         public async Task<ActionResult<ApplicationUser>> CreateUser(ApplicationUser user)
         {
@@ -33,7 +33,7 @@ namespace RecruitmentAPI.Controllers
             return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
         }
 
-        // Kullanıcı bilgilerini getirir
+       
         [HttpGet("{id}")]
         public async Task<ActionResult<ApplicationUser>> GetUserById(int id)
         {
@@ -46,7 +46,7 @@ namespace RecruitmentAPI.Controllers
             return Ok(user);
         }
 
-        // Kullanıcı bilgilerini günceller
+       
         [HttpPatch("{id}")]
         public async Task<IActionResult> UpdateUser(int id, ApplicationUser updatedUser)
         {
@@ -75,7 +75,7 @@ namespace RecruitmentAPI.Controllers
             return NoContent();
         }
 
-        // İlanları getirir
+        
         [HttpGet("JobListings")]
         public async Task<ActionResult<IEnumerable<BackOfficeJobListing>>> GetAllJobListings()
         {
@@ -83,7 +83,7 @@ namespace RecruitmentAPI.Controllers
             return Ok(jobListing);
         }
 
-        // Başvurularımı getirir
+        
         [HttpGet("{id}/Applications")]
         public async Task<ActionResult<IEnumerable<JobApplication>>> GetUserApplications(int id)
         {
