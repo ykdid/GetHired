@@ -34,7 +34,7 @@ namespace RecruitmentAPI.Controllers
         }
 
        
-        [HttpGet("{id}")]
+        [HttpGet("UserProfile{id}")]
         public async Task<ActionResult<ApplicationUser>> GetUserById(int id)
         {
             var user = await _context.ApplicationUsers.FindAsync(id);
@@ -47,7 +47,7 @@ namespace RecruitmentAPI.Controllers
         }
 
        
-        [HttpPatch("{id}")]
+        [HttpPatch("UserUpdate{id}")]
         public async Task<IActionResult> UpdateUser(int id, ApplicationUser updatedUser)
         {
             if (id != updatedUser.Id)
@@ -99,5 +99,36 @@ namespace RecruitmentAPI.Controllers
 
             return Ok(applications);
         }
+
+        [HttpGet("JobTypeFilter/{jobtype}")]
+        public async Task<ActionResult<IEnumerable<BackOfficeJobListing>>> GetFiltredJobByType(string jobtype)
+        {
+            var filtredJobs = await _context.BackOfficeJobListings
+                .Where(jt => jt.JobType == jobtype)
+                .ToListAsync();
+            if (!filtredJobs.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(filtredJobs);
+        }
+
+        [HttpDelete("JobApplications/{id}")]
+        public async Task<ActionResult<IEnumerable<JobApplication>>> DeleteApplication(string id)
+        {
+            var appToDelete = await _context.JobApplications.FindAsync(id);
+
+            if (appToDelete  == null)
+            {
+                return NotFound();
+            }
+
+            _context.JobApplications.Remove(appToDelete);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+        
     }
 }

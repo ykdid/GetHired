@@ -7,10 +7,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2360cc7-8cdd-4033-801c-3f5a15dcb952" name="Changes" comment="">
+    <list default="true" id="d2360cc7-8cdd-4033-801c-3f5a15dcb952" name="Changes" comment="added filter endpoint for employer controller">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RecruitmentAPI/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RecruitmentAPI/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/ApplicationUserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/ApplicationUserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/EmployerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/EmployerController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +43,7 @@
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
 }</component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -128,16 +128,28 @@
       <updated>1720778430244</updated>
       <workItem from="1720778431280" duration="37997000" />
       <workItem from="1721204494219" duration="25000" />
-      <workItem from="1721204540487" duration="3379000" />
+      <workItem from="1721204540487" duration="5918000" />
     </task>
+    <task id="LOCAL-00001" summary="added filter endpoint for employer controller">
+      <option name="closed" value="true" />
+      <created>1721212069071</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1721212069071</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="added filter endpoint for employer controller" />
+    <option name="LAST_COMMIT_MESSAGE" value="added filter endpoint for employer controller" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
