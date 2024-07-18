@@ -204,27 +204,35 @@ namespace RecruitmentAPI.Controllers
 
 
         [HttpPost("AddEmployee")]
-        public async Task<ActionResult<ApplicationUser>> CreateEmployee(AddEmployee employee)
+        public async Task<ActionResult<AddEmployee>> AddEmployee(AddEmployee newEmployee)
         {
-            if (employee == null)
+            try
             {
-                return BadRequest("Employee informations missing.");
+                if (newEmployee == null)
+                {
+                    return BadRequest("Employee details are required.");
+                }
+
+                var employee = new ApplicationUser
+                {
+                    Name = newEmployee.Name,
+                    Surname = newEmployee.Surname,
+                    Email = newEmployee.Email,
+                    JobType = newEmployee.JobType,
+                    EmployerId = newEmployee.EmployerId
+                };
+
+                _context.ApplicationUsers.Add(employee);
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction(nameof(GetEmployeeById), new { id = employee.Id }, employee);
             }
-
-            var newEmployee = new ApplicationUser
+            catch (Exception ex)
             {
-                Name = employee.Name,
-                Surname = employee.Surname,
-                Email = employee.Email,
-                JobType = employee.JobType,
-                EmployerId = employee.EmployerId
-            };
-
-            _context.ApplicationUsers.Add(newEmployee);
-            await _context.SaveChangesAsync();
-    
-            return CreatedAtAction(nameof(GetEmployeeById), new { id = newEmployee.Id }, newEmployee);
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
+
 
 
     }

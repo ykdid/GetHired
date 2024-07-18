@@ -22,6 +22,38 @@ namespace RecruitmentAPI.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("RecruitmentAPI.Models.AddEmployee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("EmployerId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("JobType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AddEmployees");
+                });
+
             modelBuilder.Entity("RecruitmentAPI.Models.ApplicationUser", b =>
                 {
                     b.Property<int>("Id")
@@ -43,6 +75,10 @@ namespace RecruitmentAPI.Migrations
                     b.Property<string>("IdentityNumber")
                         .HasMaxLength(11)
                         .HasColumnType("character varying(11)");
+
+                    b.Property<string>("JobType")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(100)

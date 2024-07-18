@@ -15,6 +15,8 @@ namespace RecruitmentAPI.Data
         public DbSet<Employer> Employers { get; set; }
         public DbSet<BackOfficeJobListing> BackOfficeJobListings { get; set; }
         public DbSet<JobApplication> JobApplications { get; set; }
+        public DbSet<AddEmployee> AddEmployees { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
