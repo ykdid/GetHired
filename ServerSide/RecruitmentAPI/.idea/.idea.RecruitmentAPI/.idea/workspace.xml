@@ -9,11 +9,9 @@
   <component name="ChangeListManager">
     <list default="true" id="d2360cc7-8cdd-4033-801c-3f5a15dcb952" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RecruitmentAPI/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RecruitmentAPI/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/EmployerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/EmployerController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Data/RecruitmentDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Data/RecruitmentDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Migrations/20240717061425_Update.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Migrations/20240717061425_Update.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Migrations/RecruitmentDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Migrations/RecruitmentDbContextModelSnapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Models/BackOfficeJobListing.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Models/BackOfficeJobListing.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.AssemblyInfo.cs" afterDir="false" />
@@ -148,7 +146,8 @@
       <workItem from="1720778431280" duration="37997000" />
       <workItem from="1721204494219" duration="25000" />
       <workItem from="1721204540487" duration="11946000" />
-      <workItem from="1721225164963" duration="6926000" />
+      <workItem from="1721225164963" duration="8093000" />
+      <workItem from="1721286551155" duration="4543000" />
     </task>
     <task id="LOCAL-00001" summary="added filter endpoint for employer controller">
       <option name="closed" value="true" />
@@ -182,7 +181,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721224591584</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="new model added and migrated">
+      <option name="closed" value="true" />
+      <created>1721285283311</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1721285283311</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -196,14 +203,15 @@
     <MESSAGE value="added deleteapplication endpoint and jobfilter endpoint for ApplicationUserController.cs" />
     <MESSAGE value="added deleteapplicaton and jobfilter endpoint for application user controller" />
     <MESSAGE value="Added some methods for &#10;EmployerController" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added some methods for &#10;EmployerController" />
+    <MESSAGE value="new model added and migrated" />
+    <option name="LAST_COMMIT_MESSAGE" value="new model added and migrated" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/RecruitmentAPI/Data/RecruitmentDbContext.cs</url>
-          <line>7</line>
+          <line>6</line>
           <properties documentPath="$PROJECT_DIR$/RecruitmentAPI/Data/ApplicationDbContext.cs" containingFunctionPresentation="Constructor 'ApplicationDbContext'" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>

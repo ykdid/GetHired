@@ -51,7 +51,7 @@ namespace RecruitmentAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AddEmployees");
+                    b.ToTable("AddEmployees", "backoffice");
                 });
 
             modelBuilder.Entity("RecruitmentAPI.Models.ApplicationUser", b =>
@@ -100,7 +100,7 @@ namespace RecruitmentAPI.Migrations
 
                     b.HasIndex("EmployerId");
 
-                    b.ToTable("ApplicationUsers");
+                    b.ToTable("ApplicationUsers", "userapplication");
                 });
 
             modelBuilder.Entity("RecruitmentAPI.Models.BackOfficeJobListing", b =>
@@ -144,7 +144,7 @@ namespace RecruitmentAPI.Migrations
 
                     b.HasIndex("EmployerId");
 
-                    b.ToTable("BackOfficeJobListings");
+                    b.ToTable("BackOfficeJobListings", "backoffice");
                 });
 
             modelBuilder.Entity("RecruitmentAPI.Models.Employer", b =>
@@ -181,7 +181,7 @@ namespace RecruitmentAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Employers");
+                    b.ToTable("Employers", "backoffice");
                 });
 
             modelBuilder.Entity("RecruitmentAPI.Models.JobApplication", b =>
@@ -212,7 +212,7 @@ namespace RecruitmentAPI.Migrations
 
                     b.HasIndex("EmployerId");
 
-                    b.ToTable("JobApplications");
+                    b.ToTable("JobApplications", "userapplication");
                 });
 
             modelBuilder.Entity("RecruitmentAPI.Models.ApplicationUser", b =>
@@ -226,13 +226,11 @@ namespace RecruitmentAPI.Migrations
 
             modelBuilder.Entity("RecruitmentAPI.Models.BackOfficeJobListing", b =>
                 {
-                    b.HasOne("RecruitmentAPI.Models.Employer", "Employer")
+                    b.HasOne("RecruitmentAPI.Models.Employer", null)
                         .WithMany("Advertisements")
                         .HasForeignKey("EmployerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Employer");
                 });
 
             modelBuilder.Entity("RecruitmentAPI.Models.JobApplication", b =>
