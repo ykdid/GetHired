@@ -16,4 +16,10 @@ public class AddEmployee
     public string? JobType { get; set; }
     public int EmployerId { get; set; }
     
+    [MaxLength(20)]
+    public string? RegistrationNumber { get; set; } 
+    
+    [MaxLength(11)]
+    public string? IdentityNumber { get; set; } 
+    
 }
