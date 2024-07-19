@@ -28,7 +28,7 @@ namespace RecruitmentAPI.Controllers
             {
                 return BadRequest("Employer information missing.");
             }
-
+            
             _context.Employers.Add(employer);
             await _context.SaveChangesAsync();
 
