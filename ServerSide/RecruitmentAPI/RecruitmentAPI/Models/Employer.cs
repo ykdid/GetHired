@@ -9,16 +9,16 @@ namespace RecruitmentAPI.Models
         public int Id { get; set; }
 
         [MaxLength(100)]
-        public string? Name { get; set; }
+        public string Name { get; set; }
 
         [MaxLength(100)]
-        public string? Surname { get; set; }
+        public string Surname { get; set; }
 
         [MaxLength(100)]
-        public string? Email { get; set; }
+        public string Email { get; set; }
 
         [MaxLength(100)]
-        public string? Password { get; set; }
+        public string Password { get; set; }
 
         [MaxLength(100)]
         public string? CompanyName { get; set; }

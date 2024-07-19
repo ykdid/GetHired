@@ -49,6 +49,9 @@ namespace RecruitmentAPI.Data
 
             modelBuilder.Entity<JobApplication>()
                 .HasKey(ja => ja.Id);
+            
+            modelBuilder.Entity<AddEmployee>()
+                .HasKey(ae => ae.Id);
 
             modelBuilder.Entity<JobApplication>()
                 .HasOne(ja => ja.ApplicationUser)
