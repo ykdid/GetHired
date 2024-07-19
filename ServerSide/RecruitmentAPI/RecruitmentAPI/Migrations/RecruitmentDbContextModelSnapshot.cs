@@ -17,6 +17,7 @@ namespace RecruitmentAPI.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("public")
                 .HasAnnotation("ProductVersion", "8.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
@@ -31,23 +32,23 @@ namespace RecruitmentAPI.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<int>("EmployerId")
                         .HasColumnType("integer");
 
                     b.Property<string>("JobType")
-                        .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
 
@@ -226,11 +227,13 @@ namespace RecruitmentAPI.Migrations
 
             modelBuilder.Entity("RecruitmentAPI.Models.BackOfficeJobListing", b =>
                 {
-                    b.HasOne("RecruitmentAPI.Models.Employer", null)
+                    b.HasOne("RecruitmentAPI.Models.Employer", "Employer")
                         .WithMany("Advertisements")
                         .HasForeignKey("EmployerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Employer");
                 });
 
             modelBuilder.Entity("RecruitmentAPI.Models.JobApplication", b =>

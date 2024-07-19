@@ -2,10 +2,14 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
+#nullable disable
+
 namespace RecruitmentAPI.Migrations
 {
-    public partial class UpdateModels : Migration
+    /// <inheritdoc />
+    public partial class NewSchemas : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
@@ -21,10 +25,10 @@ namespace RecruitmentAPI.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Surname = table.Column<string>(type: "text", nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: false),
-                    JobType = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    Surname = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    Email = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    JobType = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
                     EmployerId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -76,8 +80,7 @@ namespace RecruitmentAPI.Migrations
                         column: x => x.EmployerId,
                         principalSchema: "backoffice",
                         principalTable: "Employers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -177,6 +180,7 @@ namespace RecruitmentAPI.Migrations
                 column: "EmployerId");
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

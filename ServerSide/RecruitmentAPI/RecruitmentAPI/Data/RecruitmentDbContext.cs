@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RecruitmentAPI.Models;
 
+
 namespace RecruitmentAPI.Data
 {
     public class RecruitmentDbContext : DbContext
@@ -14,52 +15,57 @@ namespace RecruitmentAPI.Data
         public DbSet<Employer> Employers { get; set; }
         public DbSet<BackOfficeJobListing> BackOfficeJobListings { get; set; }
         public DbSet<JobApplication> JobApplications { get; set; }
-        public DbSet<AddEmployee> AddEmployees { get; set; }
+        public DbSet<AddEmployee>  AddEmployees { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            
+            modelBuilder.HasDefaultSchema("public");
 
-            // ApplicationUsers ve JobApplications tabloları userapplication şemasında olacak
-            modelBuilder.Entity<ApplicationUser>(entity =>
-            {
-                entity.ToTable("ApplicationUsers", "userapplication");
-                entity.HasKey(au => au.Id);
-            });
+            modelBuilder.Entity<Employer>()
+                .ToTable("Employers", schema: "backoffice");
 
-            modelBuilder.Entity<JobApplication>(entity =>
-            {
-                entity.ToTable("JobApplications", "userapplication");
-                entity.HasKey(ja => ja.Id);
-                entity.HasOne(ja => ja.ApplicationUser)
-                      .WithMany(u => u.JobApplications)
-                      .HasForeignKey(ja => ja.ApplicationUserId);
-                entity.HasOne(ja => ja.BackOfficeJobListing)
-                      .WithMany(bjl => bjl.JobApplications)
-                      .HasForeignKey(ja => ja.BackOfficeJobListingId);
-                entity.HasOne(ja => ja.Employer)
-                      .WithMany(e => e.JobApplications)
-                      .HasForeignKey(ja => ja.EmployerId);
-            });
+            modelBuilder.Entity<BackOfficeJobListing>()
+                .ToTable("BackOfficeJobListings", schema: "backoffice");
 
-            // Employers, BackOfficeJobListings ve AddEmployees tabloları backoffice şemasında olacak
-            modelBuilder.Entity<Employer>(entity =>
-            {
-                entity.ToTable("Employers", "backoffice");
-                entity.HasKey(e => e.Id);
-            });
+            modelBuilder.Entity<AddEmployee>()
+                .ToTable("AddEmployees", schema: "backoffice");
 
-            modelBuilder.Entity<BackOfficeJobListing>(entity =>
-            {
-                entity.ToTable("BackOfficeJobListings", "backoffice");
-                entity.HasKey(bjl => bjl.Id);
-            });
+            modelBuilder.Entity<ApplicationUser>()
+                .ToTable("ApplicationUsers", schema: "userapplication");
 
-            modelBuilder.Entity<AddEmployee>(entity =>
-            {
-                entity.ToTable("AddEmployees", "backoffice");
-                entity.HasKey(ae => ae.Id);
-            });
+            modelBuilder.Entity<JobApplication>()
+                .ToTable("JobApplications", schema: "userapplication");
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasKey(au => au.Id);
+
+            modelBuilder.Entity<Employer>()
+                .HasKey(e => e.Id);
+
+            modelBuilder.Entity<BackOfficeJobListing>()
+                .HasKey(bjl => bjl.Id);
+
+            modelBuilder.Entity<JobApplication>()
+                .HasKey(ja => ja.Id);
+
+            modelBuilder.Entity<JobApplication>()
+                .HasOne(ja => ja.ApplicationUser)
+                .WithMany(u => u.JobApplications) 
+                .HasForeignKey(ja => ja.ApplicationUserId);
+
+            modelBuilder.Entity<JobApplication>()
+                .HasOne(ja => ja.BackOfficeJobListing)
+                .WithMany(bjl => bjl.JobApplications) 
+                .HasForeignKey(ja => ja.BackOfficeJobListingId);
+
+            modelBuilder.Entity<JobApplication>()
+                .HasOne(ja => ja.Employer)
+                .WithMany(e => e.JobApplications) 
+                .HasForeignKey(ja => ja.EmployerId);
+            
+            
         }
     }
 }

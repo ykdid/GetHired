@@ -193,7 +193,7 @@ namespace RecruitmentAPI.Controllers
         [HttpGet("GetEmployeeById/{id}")]
         public async Task<ActionResult<AddEmployee>> GetEmployeeById(int id)
         {
-            var employee = await _context.ApplicationUsers.FindAsync(id);
+            var employee = await _context.AddEmployees.FindAsync(id);
             if (employee == null)
             {
                 return NotFound();
@@ -204,35 +204,27 @@ namespace RecruitmentAPI.Controllers
 
 
         [HttpPost("AddEmployee")]
-        public async Task<ActionResult<AddEmployee>> AddEmployee(AddEmployee newEmployee)
+        public async Task<ActionResult<ApplicationUser>> CreateEmployee(AddEmployee employee)
         {
-            try
+            if (employee == null)
             {
-                if (newEmployee == null)
-                {
-                    return BadRequest("Employee details are required.");
-                }
-
-                var employee = new ApplicationUser
-                {
-                    Name = newEmployee.Name,
-                    Surname = newEmployee.Surname,
-                    Email = newEmployee.Email,
-                    JobType = newEmployee.JobType,
-                    EmployerId = newEmployee.EmployerId
-                };
-
-                _context.ApplicationUsers.Add(employee);
-                await _context.SaveChangesAsync();
-
-                return CreatedAtAction(nameof(GetEmployeeById), new { id = employee.Id }, employee);
+                return BadRequest("Employee informations missing.");
             }
-            catch (Exception ex)
+
+            var newEmployee = new AddEmployee
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+                Name = employee.Name,
+                Surname = employee.Surname,
+                Email = employee.Email,
+                JobType = employee.JobType,
+                EmployerId = employee.EmployerId
+            };
+
+            _context.AddEmployees.Add(newEmployee);
+            await _context.SaveChangesAsync();
+    
+            return CreatedAtAction(nameof(GetEmployeeById), new { id = newEmployee.Id }, newEmployee);
         }
-
 
 
     }
