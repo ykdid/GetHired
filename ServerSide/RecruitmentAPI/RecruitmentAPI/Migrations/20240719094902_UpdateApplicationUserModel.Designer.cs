@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RecruitmentAPI.Data;
@@ -11,9 +12,11 @@ using RecruitmentAPI.Data;
 namespace RecruitmentAPI.Migrations
 {
     [DbContext(typeof(RecruitmentDbContext))]
-    partial class RecruitmentDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240719094902_UpdateApplicationUserModel")]
+    partial class UpdateApplicationUserModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,7 +35,6 @@ namespace RecruitmentAPI.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
@@ -40,33 +42,26 @@ namespace RecruitmentAPI.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("IdentityNumber")
-                        .IsRequired()
                         .HasMaxLength(11)
                         .HasColumnType("character varying(11)");
 
                     b.Property<string>("JobType")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
                     b.Property<string>("RegistrationNumber")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
 
                     b.Property<string>("Surname")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EmployerId");
 
                     b.ToTable("AddEmployees", "backoffice");
                 });
@@ -86,21 +81,21 @@ namespace RecruitmentAPI.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
                     b.Property<int?>("EmployerId")
                         .HasColumnType("integer");
 
                     b.Property<string>("EncryptedEmail")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
                     b.Property<string>("EncryptedPassword")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
                     b.Property<string>("EncryptedPhoneNumber")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
@@ -109,10 +104,20 @@ namespace RecruitmentAPI.Migrations
                         .HasMaxLength(11)
                         .HasColumnType("character varying(11)");
 
+                    b.Property<string>("JobType")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
 
                     b.Property<string>("RegistrationNumber")
                         .IsRequired()
@@ -247,21 +252,10 @@ namespace RecruitmentAPI.Migrations
                     b.ToTable("JobApplications", "userapplication");
                 });
 
-            modelBuilder.Entity("RecruitmentAPI.Models.AddEmployee", b =>
-                {
-                    b.HasOne("RecruitmentAPI.Models.Employer", "Employer")
-                        .WithMany("Employees")
-                        .HasForeignKey("EmployerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Employer");
-                });
-
             modelBuilder.Entity("RecruitmentAPI.Models.ApplicationUser", b =>
                 {
                     b.HasOne("RecruitmentAPI.Models.Employer", "Employer")
-                        .WithMany("UserEmployees")
+                        .WithMany("Employees")
                         .HasForeignKey("EmployerId");
 
                     b.Navigation("Employer");
@@ -322,8 +316,6 @@ namespace RecruitmentAPI.Migrations
                     b.Navigation("Employees");
 
                     b.Navigation("JobApplications");
-
-                    b.Navigation("UserEmployees");
                 });
 #pragma warning restore 612, 618
         }

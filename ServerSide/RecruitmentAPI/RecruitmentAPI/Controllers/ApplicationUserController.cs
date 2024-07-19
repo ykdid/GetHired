@@ -24,7 +24,7 @@ namespace RecruitmentAPI.Controllers
         {
             if (user == null)
             {
-                return BadRequest("User bilgileri eksik.");
+                return BadRequest("User information missing.");
             }
 
             _context.ApplicationUsers.Add(user);

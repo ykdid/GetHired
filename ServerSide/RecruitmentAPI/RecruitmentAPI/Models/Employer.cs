@@ -29,6 +29,7 @@ namespace RecruitmentAPI.Models
         public ICollection<BackOfficeJobListing>? Advertisements { get; set; }
         public ICollection<JobApplication>? JobApplications { get; set; }
         
-        public ICollection<ApplicationUser>? Employees { get; set; }
+        public ICollection<ApplicationUser>? UserEmployees { get; set; }
+        public ICollection<AddEmployee>? Employees { get; set; }
     }
 }

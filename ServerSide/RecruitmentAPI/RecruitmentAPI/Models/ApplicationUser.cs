@@ -12,10 +12,10 @@ namespace RecruitmentAPI.Models
         public int Id { get; set; }
 
         [MaxLength(100)]
-        public string? Name { get; set; }
+        public string Name { get; set; }
 
         [MaxLength(100)]
-        public string? Surname { get; set; }
+        public string Surname { get; set; }
 
         [Range(0, 120)]
         public int Age { get; set; }
@@ -24,30 +24,27 @@ namespace RecruitmentAPI.Models
         public string? UserProfileImagePath { get; set; }
 
         [MaxLength(100)]
-        private string? EncryptedEmail { get; set; }
+        public string EncryptedEmail { get; set; }
 
         [MaxLength(100)]
-        private string? EncryptedPhoneNumber { get; set; }
+        public string EncryptedPhoneNumber { get; set; }
 
         [MaxLength(100)]
         public string? CvFilePath { get; set; }
 
         [MaxLength(100)]
-        private string? EncryptedPassword { get; set; }
+        public string EncryptedPassword { get; set; }
 
         [MaxLength(20)]
-        public string? RegistrationNumber { get; set; } 
+        public string RegistrationNumber { get; set; } 
 
         [MaxLength(11)]
-        public string? IdentityNumber { get; set; } 
+        public string IdentityNumber { get; set; } 
         
         [ForeignKey("Employer")]
-        public int? EmployerId { get; set; } // Nullable olarak tanımlandı
+        public int? EmployerId { get; set; } 
         public Employer? Employer { get; set; }
         
-        [MaxLength(100)]
-        public string? JobType { get; set; }
-
         [NotMapped]
         public string? Email
         {

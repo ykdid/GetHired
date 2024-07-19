@@ -65,6 +65,11 @@ namespace RecruitmentAPI.Data
                 .WithMany(e => e.JobApplications) 
                 .HasForeignKey(ja => ja.EmployerId);
             
+            modelBuilder.Entity<AddEmployee>()
+                .HasOne(e => e.Employer) 
+                .WithMany(emp => emp.Employees) 
+                .HasForeignKey(e => e.EmployerId);
+            
             
         }
     }
