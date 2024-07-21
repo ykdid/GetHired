@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using RecruitmentAPI.Models;
+using RecruitmentAPI.Entities;
 
 
 namespace RecruitmentAPI.Data

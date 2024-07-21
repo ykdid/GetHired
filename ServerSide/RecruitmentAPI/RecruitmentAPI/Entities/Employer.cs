@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using RecruitmentAPI.Entities;
 
-namespace RecruitmentAPI.Models
+namespace RecruitmentAPI.Entities
 {
     public class Employer
     {
@@ -15,6 +16,7 @@ namespace RecruitmentAPI.Models
         public string Surname { get; set; }
 
         [MaxLength(100)]
+        //[EmailAddress]
         public string Email { get; set; }
 
         [MaxLength(100)]

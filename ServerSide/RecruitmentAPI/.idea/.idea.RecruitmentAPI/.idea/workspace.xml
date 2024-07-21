@@ -7,24 +7,125 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2360cc7-8cdd-4033-801c-3f5a15dcb952" name="Changes" comment="models are updated">
-      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Migrations/20240719124211_NewUp.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Migrations/20240719124211_NewUp.cs" afterDir="false" />
+    <list default="true" id="d2360cc7-8cdd-4033-801c-3f5a15dcb952" name="Changes" comment="migration">
+      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/AuthController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Models/Request/LoginRequest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Models/Response/BaseResponse.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Models/Response/LoginResponse.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Models/UserModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Repositories/Abstractions/IAuthRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Repositories/Abstractions/IUserRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Repositories/UserRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/Abstractions/IAuthService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/AuthService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/.idea/.idea.WebApplication1/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/.idea/.idea.WebApplication1/.idea/aws.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/.idea/.idea.WebApplication1/.idea/indexLayout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/.idea/.idea.WebApplication1/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/Controllers/WeatherForecastController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/Program.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/Properties/launchSettings.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/WeatherForecast.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/WebApplication1.csproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/WebApplication1.http" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/appsettings.Development.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/appsettings.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Azure.Core.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Azure.Identity.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Azure.Security.KeyVault.Certificates.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Azure.Security.KeyVault.Secrets.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.OpenIdConnect.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Microsoft.Bcl.AsyncInterfaces.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Microsoft.Identity.Abstractions.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Microsoft.Identity.Client.Extensions.Msal.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Microsoft.Identity.Client.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Microsoft.Identity.Web.Certificate.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Microsoft.Identity.Web.Certificateless.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Microsoft.Identity.Web.Diagnostics.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Microsoft.Identity.Web.DownstreamApi.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Microsoft.Identity.Web.TokenAcquisition.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Microsoft.Identity.Web.TokenCache.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Microsoft.Identity.Web.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Microsoft.IdentityModel.LoggingExtensions.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Microsoft.IdentityModel.Validators.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Microsoft.OpenApi.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Microsoft.Win32.SystemEvents.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/System.Drawing.Common.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/System.Security.Cryptography.ProtectedData.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/WebApplication1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/WebApplication1.deps.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/WebApplication1.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/WebApplication1.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/WebApplication1.runtimeconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/appsettings.Development.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/appsettings.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/runtimes/unix/lib/netcoreapp3.0/System.Drawing.Common.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/runtimes/win/lib/netcoreapp3.0/Microsoft.Win32.SystemEvents.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/runtimes/win/lib/netcoreapp3.0/System.Drawing.Common.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/bin/Debug/net8.0/runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/Debug/net8.0/.NETCoreApp,Version=v8.0.AssemblyAttributes.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/Debug/net8.0/WebAppli.7D14BD69.Up2Date" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/Debug/net8.0/WebApplication1.AssemblyInfo.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/Debug/net8.0/WebApplication1.AssemblyInfoInputs.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/Debug/net8.0/WebApplication1.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/Debug/net8.0/WebApplication1.GlobalUsings.g.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/Debug/net8.0/WebApplication1.MvcApplicationPartsAssemblyInfo.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/Debug/net8.0/WebApplication1.MvcApplicationPartsAssemblyInfo.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/Debug/net8.0/WebApplication1.assets.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/Debug/net8.0/WebApplication1.csproj.AssemblyReference.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/Debug/net8.0/WebApplication1.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/Debug/net8.0/WebApplication1.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/Debug/net8.0/WebApplication1.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/Debug/net8.0/WebApplication1.genruntimeconfig.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/Debug/net8.0/WebApplication1.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/Debug/net8.0/WebApplication1.sourcelink.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/Debug/net8.0/apphost" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/Debug/net8.0/ref/WebApplication1.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/Debug/net8.0/refint/WebApplication1.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/Debug/net8.0/staticwebassets.build.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/Debug/net8.0/staticwebassets/msbuild.build.WebApplication1.props" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.WebApplication1.props" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.WebApplication1.props" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/WebApplication1.csproj.nuget.dgspec.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/WebApplication1.csproj.nuget.g.props" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/WebApplication1.csproj.nuget.g.targets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/project.assets.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/project.nuget.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/project.packagespec.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1/obj/rider.project.restore.info" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RecruitmentAPI/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RecruitmentAPI/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/ApplicationUserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/ApplicationUserController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Data/RecruitmentDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Data/RecruitmentDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Migrations/RecruitmentDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Migrations/RecruitmentDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Models/Employer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Models/Employer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Models/AddEmployee.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Entities/AddEmployee.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Models/ApplicationUser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Entities/ApplicationUser.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Models/BackOfficeJobListing.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Entities/BackOfficeJobListing.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Models/Employer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Entities/Employer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Models/JobApplication.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Entities/JobApplication.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.sourcelink.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/ref/RecruitmentAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/ref/RecruitmentAPI.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/refint/RecruitmentAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/refint/RecruitmentAPI.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/RecruitmentAPI.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/RecruitmentAPI.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/RecruitmentAPI.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/RecruitmentAPI.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/project.nuget.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -209,7 +310,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721384887082</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="migration">
+      <option name="closed" value="true" />
+      <created>1721392959609</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1721392959609</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -217,6 +326,17 @@
   </component>
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
@@ -227,7 +347,8 @@
     <MESSAGE value="addemployer model updated." />
     <MESSAGE value="models changed" />
     <MESSAGE value="models are updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="models are updated" />
+    <MESSAGE value="migration" />
+    <option name="LAST_COMMIT_MESSAGE" value="migration" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

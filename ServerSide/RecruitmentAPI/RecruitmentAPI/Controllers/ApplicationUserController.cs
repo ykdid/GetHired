@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RecruitmentAPI.Data;
-using RecruitmentAPI.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using RecruitmentAPI.Entities;
 
 namespace RecruitmentAPI.Controllers
 {
