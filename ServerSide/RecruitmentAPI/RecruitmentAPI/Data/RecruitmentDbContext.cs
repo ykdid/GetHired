@@ -11,17 +11,17 @@ namespace RecruitmentAPI.Data
         {
         }
 
-        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Employer> Employers { get; set; }
         public DbSet<BackOfficeJobListing> BackOfficeJobListings { get; set; }
         public DbSet<JobApplication> JobApplications { get; set; }
-        public DbSet<AddEmployee>  AddEmployees { get; set; }
+        public DbSet<Employee> Employees { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             
-            modelBuilder.HasDefaultSchema("public");
+            modelBuilder.HasDefaultSchema("operation");
 
             modelBuilder.Entity<Employer>()
                 .ToTable("Employers", schema: "backoffice");
@@ -29,16 +29,16 @@ namespace RecruitmentAPI.Data
             modelBuilder.Entity<BackOfficeJobListing>()
                 .ToTable("BackOfficeJobListings", schema: "backoffice");
 
-            modelBuilder.Entity<AddEmployee>()
-                .ToTable("AddEmployees", schema: "backoffice");
+            modelBuilder.Entity<Employee>()
+                .ToTable("Employees", schema: "backoffice");
 
-            modelBuilder.Entity<ApplicationUser>()
-                .ToTable("ApplicationUsers", schema: "userapplication");
+            modelBuilder.Entity<User>()
+                .ToTable("Users", schema: "userapplication");
 
             modelBuilder.Entity<JobApplication>()
-                .ToTable("JobApplications", schema: "userapplication");
+                .ToTable("JobApplications", schema: "operation");
 
-            modelBuilder.Entity<ApplicationUser>()
+            modelBuilder.Entity<User>()
                 .HasKey(au => au.Id);
 
             modelBuilder.Entity<Employer>()
@@ -50,13 +50,13 @@ namespace RecruitmentAPI.Data
             modelBuilder.Entity<JobApplication>()
                 .HasKey(ja => ja.Id);
             
-            modelBuilder.Entity<AddEmployee>()
+            modelBuilder.Entity<Employee>()
                 .HasKey(ae => ae.Id);
 
             modelBuilder.Entity<JobApplication>()
-                .HasOne(ja => ja.ApplicationUser)
+                .HasOne(ja => ja.User)
                 .WithMany(u => u.JobApplications) 
-                .HasForeignKey(ja => ja.ApplicationUserId);
+                .HasForeignKey(ja => ja.UserId);
 
             modelBuilder.Entity<JobApplication>()
                 .HasOne(ja => ja.BackOfficeJobListing)
@@ -68,7 +68,7 @@ namespace RecruitmentAPI.Data
                 .WithMany(e => e.JobApplications) 
                 .HasForeignKey(ja => ja.EmployerId);
             
-            modelBuilder.Entity<AddEmployee>()
+            modelBuilder.Entity<Employee>()
                 .HasOne(e => e.Employer) 
                 .WithMany(emp => emp.Employees) 
                 .HasForeignKey(e => e.EmployerId);

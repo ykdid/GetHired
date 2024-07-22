@@ -19,15 +19,15 @@ namespace RecruitmentAPI.Controllers
         }
 
        
-        [HttpPost("AddUser")]
-        public async Task<ActionResult<ApplicationUser>> CreateUser(ApplicationUser user)
+        [HttpPost("addUser")]
+        public async Task<ActionResult<User>> CreateUser(User user)
         {
             if (user == null)
             {
                 return BadRequest("User information missing.");
             }
 
-            _context.ApplicationUsers.Add(user);
+            _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
@@ -35,9 +35,9 @@ namespace RecruitmentAPI.Controllers
 
        
         [HttpGet("UserProfile{id}")]
-        public async Task<ActionResult<ApplicationUser>> GetUserById(int id)
+        public async Task<ActionResult<User>> GetUserById(int id)
         {
-            var user = await _context.ApplicationUsers.FindAsync(id);
+            var user = await _context.Users.FindAsync(id);
             if (user == null)
             {
                 return NotFound();
@@ -48,14 +48,14 @@ namespace RecruitmentAPI.Controllers
 
        
         [HttpPatch("UserUpdate{id}")]
-        public async Task<IActionResult> UpdateUser(int id, ApplicationUser updatedUser)
+        public async Task<IActionResult> UpdateUser(int id, User updatedUser)
         {
             if (id != updatedUser.Id)
             {
                 return BadRequest();
             }
 
-            var user = await _context.ApplicationUsers.FindAsync(id);
+            var user = await _context.Users.FindAsync(id);
             if (user == null)
             {
                 return NotFound();
@@ -82,6 +82,8 @@ namespace RecruitmentAPI.Controllers
             var jobListing = await _context.BackOfficeJobListings.ToListAsync();
             return Ok(jobListing);
         }
+        
+        [HttpPost("")]
 
         
         [HttpGet("{id}/Applications")]
@@ -89,7 +91,7 @@ namespace RecruitmentAPI.Controllers
         {
             var applications = await _context.JobApplications
                 .Include(ja => ja.BackOfficeJobListing)
-                .Where(ja => ja.ApplicationUserId == id)
+                .Where(ja => ja.UserId == id)
                 .ToListAsync();
 
             if (applications == null)

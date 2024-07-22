@@ -15,7 +15,7 @@ public class UserRepository: IUserRepository
 
     public async Task<UserModel> GetUserByEmailAsync(string email)
     {
-        await _context.ApplicationUsers.FindAsync();
+        await _context.Users.FindAsync();
         return new UserModel();
     }
 }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RecruitmentAPI.Entities;
 
-public class AddEmployee
+public class Employee
 {
     [Key]
     public int Id { get; set; }

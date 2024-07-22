@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Threading.Tasks;
 using System.Linq;
+using RecruitmentAPI.Entities;
 
 namespace RecruitmentAPI.Controllers
 {
@@ -124,7 +125,7 @@ namespace RecruitmentAPI.Controllers
         public async Task<ActionResult<IEnumerable<JobApplication>>> GetJobApplications(int jobId)
         {
             var applications = await _context.JobApplications
-                .Include(ja => ja.ApplicationUser)
+                .Include(ja => ja.User)
                 .Where(ja => ja.BackOfficeJobListingId == jobId)
                 .ToListAsync();
 
@@ -138,9 +139,9 @@ namespace RecruitmentAPI.Controllers
 
         
         [HttpGet("MyStaff/{employerId}")]
-        public async Task<ActionResult<IEnumerable<ApplicationUser>>> GetStaffByEmployer(int employerId)
+        public async Task<ActionResult<IEnumerable<User>>> GetStaffByEmployer(int employerId)
         {
-            var staff = await _context.ApplicationUsers
+            var staff = await _context.Users
                 .Where(au => au.EmployerId == employerId)
                 .ToListAsync();
 
@@ -154,14 +155,14 @@ namespace RecruitmentAPI.Controllers
 
         [HttpGet("EmployeeFilter/{employer.Id}")]
 
-        public async Task<ActionResult<IEnumerable<ApplicationUser>>> GetEmployeesWithFilter(
+        public async Task<ActionResult<IEnumerable<User>>> GetEmployeesWithFilter(
             string? name = null,
             string? surname = null,
             string? regNo = null,
             string? identityNo = null
         )
         {
-            var query = _context.ApplicationUsers.AsQueryable();
+            var query = _context.Users.AsQueryable();
 
             if (!string.IsNullOrEmpty(identityNo))
             {
@@ -191,9 +192,9 @@ namespace RecruitmentAPI.Controllers
         }
         
         [HttpGet("GetEmployeeById/{id}")]
-        public async Task<ActionResult<AddEmployee>> GetEmployeeById(int id)
+        public async Task<ActionResult<Employee>> GetEmployeeById(int id)
         {
-            var employee = await _context.AddEmployees.FindAsync(id);
+            var employee = await _context.Employees.FindAsync(id);
             if (employee == null)
             {
                 return NotFound();
@@ -204,26 +205,43 @@ namespace RecruitmentAPI.Controllers
 
 
         [HttpPost("AddEmployee")]
-        public async Task<ActionResult<ApplicationUser>> CreateEmployee(AddEmployee employee)
+        public async Task<ActionResult<User>> CreateEmployee(Employee employee)
         {
             if (employee == null)
             {
-                return BadRequest("Employee informations missing.");
+                return BadRequest("Employee information's missing.");
             }
 
-            var newEmployee = new AddEmployee
+            var newEmployee = new Employee()
             {
                 Name = employee.Name,
                 Surname = employee.Surname,
                 Email = employee.Email,
                 JobType = employee.JobType,
-                EmployerId = employee.EmployerId
+                EmployerId = employee.EmployerId,
+                RegistrationNumber = employee.RegistrationNumber,
+                IdentityNumber = employee.IdentityNumber
             };
 
-            _context.AddEmployees.Add(newEmployee);
+            _context.Employees.Add(newEmployee);
             await _context.SaveChangesAsync();
     
             return CreatedAtAction(nameof(GetEmployeeById), new { id = newEmployee.Id }, newEmployee);
+        }
+        
+        [HttpGet("getEmployeesByEmployer/{employerId}")]
+        public async Task<IActionResult> GetEmployeesByEmployer(int employerId)
+        {
+            var employees = await _context.Employees
+                .Where(e => e.EmployerId == employerId)
+                .ToListAsync();
+
+            if (employees == null || !employees.Any())
+            {
+                return NotFound("No employees found for the specified employer.");
+            }
+
+            return Ok(employees);
         }
 
 

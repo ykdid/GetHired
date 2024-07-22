@@ -6,7 +6,7 @@ using System.Text;
 
 namespace RecruitmentAPI.Entities
 {
-    public class ApplicationUser
+    public class User
     {
         [Key]
         public int Id { get; set; }
@@ -44,6 +44,8 @@ namespace RecruitmentAPI.Entities
         [ForeignKey("Employer")]
         public int? EmployerId { get; set; } 
         public Employer? Employer { get; set; }
+        
+        public string? JobType { get; set; }
         
         [NotMapped]
         public string? Email
