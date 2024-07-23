@@ -1,25 +1,34 @@
 using Microsoft.AspNetCore.Identity.Data;
+using RecruitmentAPI.Data;
+using RecruitmentAPI.Entities;
 using RecruitmentAPI.Models.Response;
-using RecruitmentAPI.Repositories.Abstractions;
 using RecruitmentAPI.Services.Abstractions;
 
-namespace RecruitmentAPI.Services;
+namespace RecruitmentAPI.Services.AuthService;
 
 public class AuthService : IAuthService
 {
-    private readonly IUserRepository _userRepository;
+    private readonly RecruitmentDbContext _context;
 
-    public AuthService(IUserRepository userRepository)
+    public AuthService(RecruitmentDbContext context)
     {
-        _userRepository = userRepository;
+        _context = context;
     }
 
     public async Task<LoginResponse> LoginAsync(LoginRequest request)
     {
         var result = new LoginResponse();
-        var user = _userRepository.GetUserByEmailAsync(request.Email);
-
         
         return result;
     }
+
+    public async Task<bool> CreateUser(User user)
+    {
+        _context.Users.Add(user);
+
+        var result = await _context.SaveChangesAsync();
+
+        return result > 0;
+    }
+    
 }

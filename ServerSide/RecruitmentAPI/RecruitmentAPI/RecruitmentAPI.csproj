@@ -36,6 +36,7 @@
 
     <ItemGroup>
       <Folder Include="Migrations\" />
+      <Folder Include="Services\BackofficeServices\" />
     </ItemGroup>
 
 </Project>

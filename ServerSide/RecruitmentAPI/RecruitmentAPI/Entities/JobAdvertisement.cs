@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RecruitmentAPI.Entities
 {
-    public class BackOfficeJobListing
+    public class JobAdvertisement
     {
         [Key]
         public int Id { get; set; }
@@ -16,24 +16,20 @@ namespace RecruitmentAPI.Entities
         [MaxLength(200)]
         public string? Description { get; set; }
 
-        public DateTime OpenDate { get; set; }
+        public DateTime InitDate { get; set; }
 
-        public DateTime CloseDate { get; set; }
+        public DateTime ExpireDate { get; set; }
 
         [MaxLength(100)]
         public string? ImagePath { get; set; }
 
         [MaxLength(100)]
         public string? HtmlContent { get; set; }
-
-        [ForeignKey("Employer")]
+        
         public int EmployerId { get; set; }
 
-        public Employer? Employer { get; set; }
-
         [MaxLength(100)]
-        public string? JobType { get; set; }
-
-        public ICollection<JobApplication>? JobApplications { get; set; }
+        public string JobType { get; set; }
+        
     }
 }

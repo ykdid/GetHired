@@ -14,13 +14,10 @@ public class Employee
     [MaxLength(100)]
     public string Email { get; set; }
     [MaxLength(100)]
-    public string JobType { get; set; }
+    public int? EmployerId { get; set; }
     
-    [ForeignKey("Employer")]
-    public int EmployerId { get; set; }
-
-    public Employer Employer { get; set; }
-    
+    public int? UserId { get; set; }
+    public string? JobType { get; set; }
     
     [MaxLength(20)]
     public string RegistrationNumber { get; set; } 

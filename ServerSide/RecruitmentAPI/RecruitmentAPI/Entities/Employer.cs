@@ -16,7 +16,6 @@ namespace RecruitmentAPI.Entities
         public string Surname { get; set; }
 
         [MaxLength(100)]
-        //[EmailAddress]
         public string Email { get; set; }
 
         [MaxLength(100)]
@@ -28,10 +27,5 @@ namespace RecruitmentAPI.Entities
         [MaxLength(100)]
         public string? EmployerImagePath { get; set; }
         
-        public ICollection<BackOfficeJobListing>? Advertisements { get; set; }
-        public ICollection<JobApplication>? JobApplications { get; set; }
-        
-        public ICollection<User>? UserEmployees { get; set; }
-        public ICollection<Employee>? Employees { get; set; }
     }
 }

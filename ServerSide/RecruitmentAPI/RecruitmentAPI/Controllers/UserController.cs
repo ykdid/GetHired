@@ -1,43 +1,43 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RecruitmentAPI.Data;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using RecruitmentAPI.Entities;
+using RecruitmentAPI.Services.Abstractions;
+using RecruitmentAPI.Services.AuthService;
 
 namespace RecruitmentAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ApplicationUserController : ControllerBase
+    public class UserController : ControllerBase
     {
-        private readonly RecruitmentDbContext _context;
+        private readonly IAuthService _authService;
 
-        public ApplicationUserController(RecruitmentDbContext context)
+        public UserController(RecruitmentDbContext context, IAuthService authService)
         {
-            _context = context;
+            _authService = authService;
         }
 
-       
+
         [HttpPost("addUser")]
         public async Task<ActionResult<User>> CreateUser(User user)
         {
-            if (user == null)
+            
+            if (string.IsNullOrEmpty(user.Name))
             {
                 return BadRequest("User information missing.");
             }
 
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
+            var result = await _authService.CreateUser(user);
+            
+            return Ok(result ? "Ekleme Basarili" : "Ekleme Basarisiz!");
         }
 
-       
+/*
         [HttpGet("UserProfile{id}")]
         public async Task<ActionResult<User>> GetUserById(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _authService.FindAsync(id);
             if (user == null)
             {
                 return NotFound();
@@ -46,16 +46,12 @@ namespace RecruitmentAPI.Controllers
             return Ok(user);
         }
 
-       
-        [HttpPatch("UserUpdate{id}")]
-        public async Task<IActionResult> UpdateUser(int id, User updatedUser)
-        {
-            if (id != updatedUser.Id)
-            {
-                return BadRequest();
-            }
 
-            var user = await _context.Users.FindAsync(id);
+        [HttpPatch("UserUpdate{id}")]
+        public async Task<IActionResult> UpdateUser(User updatedUser)
+        {
+
+            var user = await _context.Users.FindAsync(updatedUser.Id);
             if (user == null)
             {
                 return NotFound();
@@ -75,17 +71,41 @@ namespace RecruitmentAPI.Controllers
             return NoContent();
         }
 
-        
+
         [HttpGet("JobListings")]
-        public async Task<ActionResult<IEnumerable<BackOfficeJobListing>>> GetAllJobListings()
+        public async Task<ActionResult<IEnumerable<BackOfficeJobListing>>> GetJobList()
         {
             var jobListing = await _context.BackOfficeJobListings.ToListAsync();
             return Ok(jobListing);
         }
-        
-        [HttpPost("")]
 
-        
+
+        [HttpPost("applyJob")]
+        public async Task<ActionResult<JobApplication>> ApplyJob(JobApplication application)
+        {
+            if (application == null)
+            {
+                return BadRequest("Job did not found");
+            }
+
+            var job = _context.BackOfficeJobListings.FindAsync(application.BackOfficeJobListingId);
+            if (job == null)
+            {
+                return NotFound("Job did not found");
+            }
+
+            var user = _context.Users.FindAsync(application.UserId);
+            if (user == null)
+            {
+                return NotFound("User did not found");
+            }
+
+            _context.JobApplications.Add(application);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetUserApplications), new { id = application.Id }, application);
+        }
+
         [HttpGet("{id}/Applications")]
         public async Task<ActionResult<IEnumerable<JobApplication>>> GetUserApplications(int id)
         {
@@ -121,7 +141,7 @@ namespace RecruitmentAPI.Controllers
         {
             var appToDelete = await _context.JobApplications.FindAsync(id);
 
-            if (appToDelete  == null)
+            if (appToDelete == null)
             {
                 return NotFound();
             }
@@ -130,7 +150,6 @@ namespace RecruitmentAPI.Controllers
             await _context.SaveChangesAsync();
 
             return Ok();
-        }
-        
+        }*/
     }
 }

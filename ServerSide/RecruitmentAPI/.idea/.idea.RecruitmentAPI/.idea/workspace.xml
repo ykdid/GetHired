@@ -7,25 +7,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2360cc7-8cdd-4033-801c-3f5a15dcb952" name="Changes" comment="template services and repositories">
-      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Migrations/20240722065507_NewM.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Migrations/20240722065507_NewM.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/JobApplicationService/IJobApplicationService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/JobApplicationService/JobApplicationService.cs" afterDir="false" />
+    <list default="true" id="d2360cc7-8cdd-4033-801c-3f5a15dcb952" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Migrations/20240723075324_SimpleEntities.Designer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Migrations/20240723075324_SimpleEntities.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/UserServices/IUserService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/UserServices/UserService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RecruitmentAPI/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RecruitmentAPI/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/ApplicationUserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/ApplicationUserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/EmployerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/EmployerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/ApplicationUserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/UserController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/AuthController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/EmployerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/BackofficeController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Data/RecruitmentDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Data/RecruitmentDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Entities/AddEmployee.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Entities/Employee.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Entities/ApplicationUser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Entities/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Entities/BackOfficeJobListing.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Entities/JobAdvertisement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Entities/Employee.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Entities/Employee.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Entities/Employer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Entities/Employer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Entities/JobApplication.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Entities/JobApplication.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Entities/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Entities/User.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Migrations/RecruitmentDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Migrations/RecruitmentDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Repositories/Abstractions/IAuthRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Repositories/AuthRepository/IAuthRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Repositories/Abstractions/IUserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Repositories/UserRepostiory/IUserRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Repositories/UserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Repositories/UserRepostiory/UserRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Services/Abstractions/IAuthService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/AuthService/IAuthService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Services/AuthService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/AuthService/AuthService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Models/UserModel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/RecruitmentAPI.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/RecruitmentAPI.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Repositories/AuthRepository/IAuthRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Repositories/UserRepostiory/IUserRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Repositories/UserRepostiory/UserRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Services/AuthService/AuthService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/AuthService/AuthService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Services/AuthService/IAuthService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/AuthService/IAuthService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Services/JobApplicationService/JobApplicationService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/JobApplicationService/JobApplicationService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.AssemblyInfo.cs" afterDir="false" />
@@ -68,7 +74,7 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///Users/yusufkaya/Desktop/HiringProject/ServerSide/RecruitmentAPI/RecruitmentAPI/Controllers/ApplicationUserController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5de1334596e547688f9972fef4c48845219600/a9/126e232a/ControllerBase.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
@@ -86,28 +92,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.RecruitmentAPI: https.executor": "Run",
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Docker.RecruitmentAPI/Dockerfile.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.RecruitmentAPI: https.executor&quot;: &quot;Run&quot;,
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Docker.RecruitmentAPI/Dockerfile.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "/Users/yusufkaya/Library/Application Support/JetBrains/Rider2024.1/resharper-host/DecompilerCache",
-      "/Users/yusufkaya/Library/Application Support/JetBrains/Rider2024.1/resharper-host/SourcesCache",
-      "/Users/yusufkaya/Library/Application Support/Symbols/src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;/Users/yusufkaya/Library/Application Support/JetBrains/Rider2024.1/resharper-host/DecompilerCache&quot;,
+      &quot;/Users/yusufkaya/Library/Application Support/JetBrains/Rider2024.1/resharper-host/SourcesCache&quot;,
+      &quot;/Users/yusufkaya/Library/Application Support/Symbols/src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Launch Settings Profile.RecruitmentAPI: https">
     <configuration name="RecruitmentAPI: https" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/RecruitmentAPI/RecruitmentAPI.csproj" />
@@ -237,7 +244,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721594169933</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="some problems fixed. and again migrated.">
+      <option name="closed" value="true" />
+      <created>1721635928955</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1721635928955</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -268,7 +283,8 @@
     <MESSAGE value="models are updated" />
     <MESSAGE value="migration" />
     <MESSAGE value="template services and repositories" />
-    <option name="LAST_COMMIT_MESSAGE" value="template services and repositories" />
+    <MESSAGE value="some problems fixed. and again migrated." />
+    <option name="LAST_COMMIT_MESSAGE" value="some problems fixed. and again migrated." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

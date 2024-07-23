@@ -10,14 +10,14 @@ namespace RecruitmentAPI.Entities
     {
         [Key]
         public int Id { get; set; }
-
+ 
         [MaxLength(100)]
         public string Name { get; set; }
 
         [MaxLength(100)]
         public string Surname { get; set; }
 
-        [Range(0, 120)]
+        [Range(0, 100)]
         public int Age { get; set; }
 
         [MaxLength(100)]
@@ -41,9 +41,9 @@ namespace RecruitmentAPI.Entities
         [MaxLength(11)]
         public string IdentityNumber { get; set; } 
         
-        [ForeignKey("Employer")]
-        public int? EmployerId { get; set; } 
-        public Employer? Employer { get; set; }
+        public int? EmployeeId { get; set; }
+        
+        public int? EmployerId { get; set; }
         
         public string? JobType { get; set; }
         
@@ -78,6 +78,5 @@ namespace RecruitmentAPI.Entities
             return Encoding.UTF8.GetString(Convert.FromBase64String(input));
         }
 
-        public ICollection<JobApplication>? JobApplications { get; set; }
     }
 }

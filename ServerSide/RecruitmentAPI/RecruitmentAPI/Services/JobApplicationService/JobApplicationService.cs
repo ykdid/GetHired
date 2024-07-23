@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+/*using Microsoft.EntityFrameworkCore;
 using RecruitmentAPI.Data;
 using RecruitmentAPI.Entities;
 
@@ -46,3 +46,4 @@ public class JobApplicationService : IJobApplicationService
         await _context.SaveChangesAsync();
     }
 }
+*/

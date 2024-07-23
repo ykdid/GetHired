@@ -12,11 +12,11 @@ namespace RecruitmentAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmployerController : ControllerBase
+    public class BackofficeController : ControllerBase
     {
         private readonly RecruitmentDbContext _context;
 
-        public EmployerController(RecruitmentDbContext context)
+        public BackofficeController(RecruitmentDbContext context)
         {
             _context = context;
         }
@@ -78,40 +78,40 @@ namespace RecruitmentAPI.Controllers
 
        
         [HttpPost("PostJob")]
-        public async Task<ActionResult<BackOfficeJobListing>> CreateJobListing(BackOfficeJobListing jobListing)
+        public async Task<ActionResult<JobAdvertisement>> CreateJobListing(JobAdvertisement jobAdvertisement)
         {
-            if (jobListing == null)
+            if (jobAdvertisement == null)
             {
-                return BadRequest("Job Listing bilgileri eksik.");
+                return BadRequest("Job Listing missed.");
             }
 
-            _context.BackOfficeJobListings.Add(jobListing);
+            _context.JobAdvertisements.Add(jobAdvertisement);
             await _context.SaveChangesAsync();
             
-            return CreatedAtAction(nameof(GetJobListingById), new { id = jobListing.Id }, jobListing);
+            return CreatedAtAction(nameof(GetJobListingById), new { id = jobAdvertisement.Id }, jobAdvertisement);
         }
 
         
-        [HttpGet("MyAdvertisements/{employerId}")]
-        public async Task<ActionResult<IEnumerable<BackOfficeJobListing>>> GetAdvertisementsByEmployer(int employerId)
+        [HttpGet("MyJobs/{employerId}")]
+        public async Task<ActionResult<IEnumerable<JobAdvertisement>>> GetAdvertisementsByEmployer(int employerId)
         {
-            var advertisements = await _context.BackOfficeJobListings
+            var myJobs = await _context.JobAdvertisements
                 .Where(bjl => bjl.EmployerId == employerId)
                 .ToListAsync();
 
-            if (advertisements == null)
+            if (myJobs == null)
             {
                 return NotFound();
             }
 
-            return Ok(advertisements);
+            return Ok(myJobs);
         }
 
       
         [HttpGet("Job/{id}")]
-        public async Task<ActionResult<BackOfficeJobListing>> GetJobListingById(int id)
+        public async Task<ActionResult<JobAdvertisement>> GetJobListingById(int id)
         {
-            var jobListing = await _context.BackOfficeJobListings.FindAsync(id);
+            var jobListing = await _context.JobAdvertisements.FindAsync(id);
             if (jobListing == null)
             {
                 return NotFound();
@@ -125,8 +125,8 @@ namespace RecruitmentAPI.Controllers
         public async Task<ActionResult<IEnumerable<JobApplication>>> GetJobApplications(int jobId)
         {
             var applications = await _context.JobApplications
-                .Include(ja => ja.User)
-                .Where(ja => ja.BackOfficeJobListingId == jobId)
+                .Include(ja => ja.UserId)
+                .Where(ja => ja.JobAdvertisementId == jobId)
                 .ToListAsync();
 
             if (applications == null)
@@ -243,7 +243,22 @@ namespace RecruitmentAPI.Controllers
 
             return Ok(employees);
         }
+        
+        [HttpDelete("deleteEmployee{id}")]
+        public async Task<IActionResult> DeleteEmployee(int id)
+        {
+            var employeeToDelete = await _context.Employees.FindAsync(id);
 
+            if (employeeToDelete  == null)
+            {
+                return NotFound();
+            }
+
+            _context.Employees.Remove(employeeToDelete);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
 
     }
 }

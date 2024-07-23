@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using RecruitmentAPI.Data;
 using Microsoft.OpenApi.Models;
+using RecruitmentAPI.Services.Abstractions;
+using RecruitmentAPI.Services.AuthService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,8 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext<RecruitmentDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddTransient<IAuthService, AuthService>();
+
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -31,13 +35,14 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RecruitmentAPI v1"));
 }
+
 
 
 

@@ -13,7 +13,7 @@ namespace RecruitmentAPI.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<Employer> Employers { get; set; }
-        public DbSet<BackOfficeJobListing> BackOfficeJobListings { get; set; }
+        public DbSet<JobAdvertisement> JobAdvertisements { get; set; }
         public DbSet<JobApplication> JobApplications { get; set; }
         public DbSet<Employee> Employees { get; set; }
 
@@ -24,19 +24,19 @@ namespace RecruitmentAPI.Data
             modelBuilder.HasDefaultSchema("operation");
 
             modelBuilder.Entity<Employer>()
-                .ToTable("Employers", schema: "backoffice");
+                .ToTable("Employer", schema: "backoffice");
 
-            modelBuilder.Entity<BackOfficeJobListing>()
-                .ToTable("BackOfficeJobListings", schema: "backoffice");
+            modelBuilder.Entity<JobAdvertisement>()
+                .ToTable("JobAdvertisement", schema: "backoffice");
 
             modelBuilder.Entity<Employee>()
-                .ToTable("Employees", schema: "backoffice");
+                .ToTable("Employee", schema: "backoffice");
 
             modelBuilder.Entity<User>()
-                .ToTable("Users", schema: "userapplication");
+                .ToTable("User", schema: "userapplication");
 
             modelBuilder.Entity<JobApplication>()
-                .ToTable("JobApplications", schema: "operation");
+                .ToTable("JobApplication", schema: "operation");
 
             modelBuilder.Entity<User>()
                 .HasKey(au => au.Id);
@@ -44,35 +44,14 @@ namespace RecruitmentAPI.Data
             modelBuilder.Entity<Employer>()
                 .HasKey(e => e.Id);
 
-            modelBuilder.Entity<BackOfficeJobListing>()
-                .HasKey(bjl => bjl.Id);
+            modelBuilder.Entity<JobAdvertisement>()
+                .HasKey(ja => ja.Id);
 
             modelBuilder.Entity<JobApplication>()
-                .HasKey(ja => ja.Id);
+                .HasKey(jap => jap.Id);
             
             modelBuilder.Entity<Employee>()
                 .HasKey(ae => ae.Id);
-
-            modelBuilder.Entity<JobApplication>()
-                .HasOne(ja => ja.User)
-                .WithMany(u => u.JobApplications) 
-                .HasForeignKey(ja => ja.UserId);
-
-            modelBuilder.Entity<JobApplication>()
-                .HasOne(ja => ja.BackOfficeJobListing)
-                .WithMany(bjl => bjl.JobApplications) 
-                .HasForeignKey(ja => ja.BackOfficeJobListingId);
-
-            modelBuilder.Entity<JobApplication>()
-                .HasOne(ja => ja.Employer)
-                .WithMany(e => e.JobApplications) 
-                .HasForeignKey(ja => ja.EmployerId);
-            
-            modelBuilder.Entity<Employee>()
-                .HasOne(e => e.Employer) 
-                .WithMany(emp => emp.Employees) 
-                .HasForeignKey(e => e.EmployerId);
-            
             
         }
     }

@@ -7,22 +7,10 @@ namespace RecruitmentAPI.Entities
     {
         [Key]
         public int Id { get; set; }
-
-        [ForeignKey("User")]
+        
         public int UserId { get; set; }
-
-        public User? User { get; set; }
-
-        [ForeignKey("BackOfficeJobListing")]
-        public int BackOfficeJobListingId { get; set; }
-
-        public BackOfficeJobListing? BackOfficeJobListing { get; set; }
-
-        [ForeignKey("Employer")]
+        public int JobAdvertisementId { get; set; }
         public int EmployerId { get; set; }
-
-        public Employer? Employer { get; set; }
-
         public JobApplicationStatus Status { get; set; } = JobApplicationStatus.Pending;
     }
 

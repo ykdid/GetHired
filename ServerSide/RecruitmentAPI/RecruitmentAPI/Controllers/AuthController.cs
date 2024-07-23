@@ -16,9 +16,5 @@ public class AuthController : Controller
         _authService = authService;
     }
 
-    [HttpPost("login")]
-    public async Task<LoginResponse> LoginAsync([FromBody] LoginRequest request)
-    {
-        return await _authService.LoginAsync(request);
-    }
+  
 }
