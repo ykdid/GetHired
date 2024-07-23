@@ -7,21 +7,51 @@ using System.Data.Common;
 using System.Threading.Tasks;
 using System.Linq;
 using RecruitmentAPI.Entities;
+using RecruitmentAPI.Services.EmployerServices;
 
 namespace RecruitmentAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BackofficeController : ControllerBase
+   public class EmployerController : ControllerBase
     {
-        private readonly RecruitmentDbContext _context;
+        private readonly IEmployerService _employerService;
 
-        public BackofficeController(RecruitmentDbContext context)
+        public EmployerController(RecruitmentDbContext context , IEmployerService employerService)
         {
-            _context = context;
+            _employerService = employerService;
         }
 
-        
+        [HttpPost("addEmployer")]
+        public async Task<IActionResult> CreateEmployer(Employer employer)
+        {
+            var result = await _employerService.CreateEmployer(employer);
+
+            if (result)
+            {
+                return CreatedAtAction(nameof(GetEmployerById), new { id = employer.Id}, employer );
+            }
+
+            return BadRequest("Employer could not created.");
+        }
+
+        [HttpGet("getEmployerById/{id}")]
+        public async Task<IActionResult> GetEmployerById(int id)
+        {
+            var employer = await _employerService.GetEmployerById(id);
+
+            return Ok(employer);
+        }
+
+        [HttpPatch("updateEmployer/{id}")]
+        public async Task<IActionResult> UpdateEmployer(Employer updatedEmployer)
+        {
+            var employer = await _employerService.UpdateEmployer(updatedEmployer);
+
+            return Ok();
+        }
+
+/*
         [HttpPost("AddEmployer")]
         public async Task<ActionResult<Employer>> CreateEmployer(Employer employer)
         {
@@ -29,14 +59,14 @@ namespace RecruitmentAPI.Controllers
             {
                 return BadRequest("Employer information missing.");
             }
-            
+
             _context.Employers.Add(employer);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetEmployerById), new { id = employer.Id }, employer);
         }
 
-       
+
         [HttpGet("EmployerProfile/{id}")]
         public async Task<ActionResult<Employer>> GetEmployerById(int id)
         {
@@ -49,7 +79,7 @@ namespace RecruitmentAPI.Controllers
             return Ok(employer);
         }
 
-        
+
         [HttpPatch("EmployerUpdate{id}")]
         public async Task<IActionResult> UpdateEmployer(int id, Employer updatedEmployer)
         {
@@ -76,7 +106,7 @@ namespace RecruitmentAPI.Controllers
             return NoContent();
         }
 
-       
+
         [HttpPost("PostJob")]
         public async Task<ActionResult<JobAdvertisement>> CreateJobListing(JobAdvertisement jobAdvertisement)
         {
@@ -87,11 +117,11 @@ namespace RecruitmentAPI.Controllers
 
             _context.JobAdvertisements.Add(jobAdvertisement);
             await _context.SaveChangesAsync();
-            
+
             return CreatedAtAction(nameof(GetJobListingById), new { id = jobAdvertisement.Id }, jobAdvertisement);
         }
 
-        
+
         [HttpGet("MyJobs/{employerId}")]
         public async Task<ActionResult<IEnumerable<JobAdvertisement>>> GetAdvertisementsByEmployer(int employerId)
         {
@@ -107,7 +137,7 @@ namespace RecruitmentAPI.Controllers
             return Ok(myJobs);
         }
 
-      
+
         [HttpGet("Job/{id}")]
         public async Task<ActionResult<JobAdvertisement>> GetJobListingById(int id)
         {
@@ -119,8 +149,8 @@ namespace RecruitmentAPI.Controllers
 
             return Ok(jobListing);
         }
- 
-       
+
+
         [HttpGet("Job/{jobId}/Applications")]
         public async Task<ActionResult<IEnumerable<JobApplication>>> GetJobApplications(int jobId)
         {
@@ -137,7 +167,7 @@ namespace RecruitmentAPI.Controllers
             return Ok(applications);
         }
 
-        
+
         [HttpGet("MyStaff/{employerId}")]
         public async Task<ActionResult<IEnumerable<User>>> GetStaffByEmployer(int employerId)
         {
@@ -190,7 +220,7 @@ namespace RecruitmentAPI.Controllers
             return Ok(result);
 
         }
-        
+
         [HttpGet("GetEmployeeById/{id}")]
         public async Task<ActionResult<Employee>> GetEmployeeById(int id)
         {
@@ -225,10 +255,10 @@ namespace RecruitmentAPI.Controllers
 
             _context.Employees.Add(newEmployee);
             await _context.SaveChangesAsync();
-    
+
             return CreatedAtAction(nameof(GetEmployeeById), new { id = newEmployee.Id }, newEmployee);
         }
-        
+
         [HttpGet("getEmployeesByEmployer/{employerId}")]
         public async Task<IActionResult> GetEmployeesByEmployer(int employerId)
         {
@@ -243,7 +273,7 @@ namespace RecruitmentAPI.Controllers
 
             return Ok(employees);
         }
-        
+
         [HttpDelete("deleteEmployee{id}")]
         public async Task<IActionResult> DeleteEmployee(int id)
         {
@@ -259,6 +289,6 @@ namespace RecruitmentAPI.Controllers
 
             return Ok();
         }
-
+*/
     }
 }

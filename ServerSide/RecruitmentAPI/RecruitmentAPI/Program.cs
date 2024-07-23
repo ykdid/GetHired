@@ -3,6 +3,8 @@ using RecruitmentAPI.Data;
 using Microsoft.OpenApi.Models;
 using RecruitmentAPI.Services.Abstractions;
 using RecruitmentAPI.Services.AuthService;
+using RecruitmentAPI.Services.EmployerServices;
+using RecruitmentAPI.Services.UserServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +28,8 @@ builder.Services.AddDbContext<RecruitmentDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddTransient<IAuthService, AuthService>();
+builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IEmployerService, EmployerService>();
 
 
 builder.Services.AddSwaggerGen(c =>

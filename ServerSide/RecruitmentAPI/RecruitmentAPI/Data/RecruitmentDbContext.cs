@@ -33,7 +33,7 @@ namespace RecruitmentAPI.Data
                 .ToTable("Employee", schema: "backoffice");
 
             modelBuilder.Entity<User>()
-                .ToTable("User", schema: "userapplication");
+                .ToTable("User", schema: "user");
 
             modelBuilder.Entity<JobApplication>()
                 .ToTable("JobApplication", schema: "operation");

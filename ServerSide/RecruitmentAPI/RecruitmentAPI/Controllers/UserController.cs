@@ -4,6 +4,7 @@ using RecruitmentAPI.Data;
 using RecruitmentAPI.Entities;
 using RecruitmentAPI.Services.Abstractions;
 using RecruitmentAPI.Services.AuthService;
+using RecruitmentAPI.Services.UserServices;
 
 namespace RecruitmentAPI.Controllers
 {
@@ -11,29 +12,59 @@ namespace RecruitmentAPI.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IAuthService _authService;
+        private readonly IUserService _userService;
 
-        public UserController(RecruitmentDbContext context, IAuthService authService)
+        public UserController(RecruitmentDbContext context, IUserService userService)
         {
-            _authService = authService;
+            _userService = userService;
         }
 
+        [HttpPost("addUser")]
+        public async Task<IActionResult> CreateUser(User user)
+        {
+            var result = await _userService.CreateUser(user);
 
+            if (result)
+            {
+                return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
+            }
+            
+            return BadRequest("User could not created.");
+        }
+
+        [HttpGet("getUserById/{id}")]
+        public async Task<IActionResult> GetUserById(int id)
+        {
+            var user = await _userService.GetUserById(id);
+            
+            return Ok(user);
+            
+        }
+
+        [HttpPatch("updateUser/{id}")]
+        public async Task<IActionResult> UpdateUser(User updatedUser)
+        {
+          
+           var user = await _userService.UpdateUser(updatedUser);
+
+           return Ok();
+        }
+/*
         [HttpPost("addUser")]
         public async Task<ActionResult<User>> CreateUser(User user)
         {
-            
+
             if (string.IsNullOrEmpty(user.Name))
             {
                 return BadRequest("User information missing.");
             }
 
             var result = await _authService.CreateUser(user);
-            
+
             return Ok(result ? "Ekleme Basarili" : "Ekleme Basarisiz!");
         }
 
-/*
+
         [HttpGet("UserProfile{id}")]
         public async Task<ActionResult<User>> GetUserById(int id)
         {

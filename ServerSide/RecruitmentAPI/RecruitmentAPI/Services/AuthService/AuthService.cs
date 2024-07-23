@@ -22,13 +22,6 @@ public class AuthService : IAuthService
         return result;
     }
 
-    public async Task<bool> CreateUser(User user)
-    {
-        _context.Users.Add(user);
-
-        var result = await _context.SaveChangesAsync();
-
-        return result > 0;
-    }
+    
     
 }

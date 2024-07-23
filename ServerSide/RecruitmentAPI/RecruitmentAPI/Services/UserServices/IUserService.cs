@@ -4,5 +4,7 @@ namespace RecruitmentAPI.Services.UserServices;
 
 public interface IUserService
 {
-    Task<User> CreateUser(User user);
+    Task<bool> CreateUser(User user);
+    Task<User> GetUserById(int id);
+    Task<User> UpdateUser(User updatedUser);
 }
