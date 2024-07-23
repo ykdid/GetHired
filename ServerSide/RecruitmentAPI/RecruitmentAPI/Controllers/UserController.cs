@@ -4,7 +4,7 @@ using RecruitmentAPI.Data;
 using RecruitmentAPI.Entities;
 using RecruitmentAPI.Services.Abstractions;
 using RecruitmentAPI.Services.AuthService;
-using RecruitmentAPI.Services.UserServices;
+using RecruitmentAPI.Services.UserService;
 
 namespace RecruitmentAPI.Controllers
 {

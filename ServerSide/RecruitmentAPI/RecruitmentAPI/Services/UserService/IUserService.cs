@@ -1,6 +1,6 @@
 using RecruitmentAPI.Entities;
 
-namespace RecruitmentAPI.Services.UserServices;
+namespace RecruitmentAPI.Services.UserService;
 
 public interface IUserService
 {

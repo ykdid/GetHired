@@ -1,6 +1,6 @@
 using RecruitmentAPI.Entities;
 
-namespace RecruitmentAPI.Services.EmployerServices;
+namespace RecruitmentAPI.Services.EmployerService;
 
 public interface IEmployerService
 {

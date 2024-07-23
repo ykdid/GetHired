@@ -3,8 +3,9 @@ using RecruitmentAPI.Data;
 using Microsoft.OpenApi.Models;
 using RecruitmentAPI.Services.Abstractions;
 using RecruitmentAPI.Services.AuthService;
-using RecruitmentAPI.Services.EmployerServices;
-using RecruitmentAPI.Services.UserServices;
+using RecruitmentAPI.Services.EmployerService;
+using RecruitmentAPI.Services.UserService;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

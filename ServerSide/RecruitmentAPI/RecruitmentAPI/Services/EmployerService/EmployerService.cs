@@ -1,7 +1,7 @@
 using RecruitmentAPI.Data;
 using RecruitmentAPI.Entities;
 
-namespace RecruitmentAPI.Services.EmployerServices;
+namespace RecruitmentAPI.Services.EmployerService;
 
 public class EmployerService:IEmployerService
 {

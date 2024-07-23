@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using RecruitmentAPI.Data;
 using RecruitmentAPI.Entities;
 
-namespace RecruitmentAPI.Services.UserServices;
+namespace RecruitmentAPI.Services.UserService;
 
 public class UserService : IUserService
 {

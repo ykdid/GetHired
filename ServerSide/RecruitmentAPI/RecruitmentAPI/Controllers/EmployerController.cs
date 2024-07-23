@@ -7,7 +7,7 @@ using System.Data.Common;
 using System.Threading.Tasks;
 using System.Linq;
 using RecruitmentAPI.Entities;
-using RecruitmentAPI.Services.EmployerServices;
+using RecruitmentAPI.Services.EmployerService;
 
 namespace RecruitmentAPI.Controllers
 {

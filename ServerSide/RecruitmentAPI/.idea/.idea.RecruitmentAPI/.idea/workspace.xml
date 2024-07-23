@@ -7,31 +7,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2360cc7-8cdd-4033-801c-3f5a15dcb952" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Migrations/20240723075324_SimpleEntities.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Migrations/20240723075324_SimpleEntities.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/UserServices/IUserService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/UserServices/UserService.cs" afterDir="false" />
+    <list default="true" id="d2360cc7-8cdd-4033-801c-3f5a15dcb952" name="Changes" comment="EmployerService and UserService done">
+      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/JobAdvertisementService/IJobAdvertisementService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/JobAdvertisementService/JobAdvertisementService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RecruitmentAPI/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RecruitmentAPI/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/ApplicationUserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/AuthController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/EmployerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/BackofficeController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Data/RecruitmentDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Data/RecruitmentDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Entities/BackOfficeJobListing.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Entities/JobAdvertisement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Entities/Employee.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Entities/Employee.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Entities/Employer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Entities/Employer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Entities/JobApplication.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Entities/JobApplication.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Entities/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Entities/User.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Migrations/RecruitmentDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Migrations/RecruitmentDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Models/UserModel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/EmployerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/EmployerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/UserController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/RecruitmentAPI.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/RecruitmentAPI.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Repositories/AuthRepository/IAuthRepository.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Repositories/UserRepostiory/IUserRepository.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Repositories/UserRepostiory/UserRepository.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Services/AuthService/AuthService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/AuthService/AuthService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Services/AuthService/IAuthService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/AuthService/IAuthService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Services/JobApplicationService/JobApplicationService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/JobApplicationService/JobApplicationService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Services/EmployerServices/EmployerService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/EmployerService/EmployerService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Services/EmployerServices/IEmployerService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/EmployerService/IEmployerService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Services/UserServices/IUserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/UserService/IUserService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Services/UserServices/UserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/UserService/UserService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.AssemblyInfo.cs" afterDir="false" />
@@ -42,8 +28,11 @@
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.sourcelink.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/ref/RecruitmentAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/ref/RecruitmentAPI.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/refint/RecruitmentAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/refint/RecruitmentAPI.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/RecruitmentAPI.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/RecruitmentAPI.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/RecruitmentAPI.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/RecruitmentAPI.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/project.nuget.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,6 +160,7 @@
       <workItem from="1720778431280" duration="37997000" />
       <workItem from="1721204494219" duration="25000" />
       <workItem from="1721204540487" duration="11191000" />
+      <workItem from="1721723055753" duration="13654000" />
     </task>
     <task id="LOCAL-00001" summary="added filter endpoint for employer controller">
       <option name="closed" value="true" />
@@ -252,7 +242,23 @@
       <option name="project" value="LOCAL" />
       <updated>1721635928955</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="entities fixed">
+      <option name="closed" value="true" />
+      <created>1721723139631</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1721723139631</updated>
+    </task>
+    <task id="LOCAL-00012" summary="EmployerService and UserService done">
+      <option name="closed" value="true" />
+      <created>1721740628441</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1721740628441</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -284,7 +290,9 @@
     <MESSAGE value="migration" />
     <MESSAGE value="template services and repositories" />
     <MESSAGE value="some problems fixed. and again migrated." />
-    <option name="LAST_COMMIT_MESSAGE" value="some problems fixed. and again migrated." />
+    <MESSAGE value="entities fixed" />
+    <MESSAGE value="EmployerService and UserService done" />
+    <option name="LAST_COMMIT_MESSAGE" value="EmployerService and UserService done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
