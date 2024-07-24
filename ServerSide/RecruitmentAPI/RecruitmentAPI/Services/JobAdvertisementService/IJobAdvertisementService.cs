@@ -1,10 +1,13 @@
+using RecruitmentAPI.Entities;
+
 namespace RecruitmentAPI.Services.JobAdvertisementService;
 
 public interface IJobAdvertisementService
 {
-    //create
-    //get advs by employer id
-    //get all advs for user
-    //delete adv from employer
-    //
+    Task<bool> CreateAdvertisement(JobAdvertisement advertisement);
+    Task<JobAdvertisement> GetAdvertisementByEmployerId(int employerId);
+    Task<List<JobAdvertisement>> GetAllAdvertisements();
+    Task<bool> DeleteAdvertisement(int advertisementId);
+    Task<JobAdvertisement> UpdateAdvertisement(JobAdvertisement updatedAdv);
+
 }

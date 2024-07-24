@@ -47,7 +47,12 @@ namespace RecruitmentAPI.Controllers
         public async Task<IActionResult> UpdateEmployer(Employer updatedEmployer)
         {
             var employer = await _employerService.UpdateEmployer(updatedEmployer);
-
+            
+            if (employer == null)
+            {
+                return NotFound();
+            }
+            
             return Ok();
         }
 

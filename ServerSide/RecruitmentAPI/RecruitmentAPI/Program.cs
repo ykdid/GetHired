@@ -4,6 +4,7 @@ using Microsoft.OpenApi.Models;
 using RecruitmentAPI.Services.Abstractions;
 using RecruitmentAPI.Services.AuthService;
 using RecruitmentAPI.Services.EmployerService;
+using RecruitmentAPI.Services.JobAdvertisementService;
 using RecruitmentAPI.Services.UserService;
 
 
@@ -31,6 +32,7 @@ builder.Services.AddDbContext<RecruitmentDbContext>(options =>
 builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IEmployerService, EmployerService>();
+builder.Services.AddTransient<IJobAdvertisementService, JobAdvertisementService>();
 
 
 builder.Services.AddSwaggerGen(c =>

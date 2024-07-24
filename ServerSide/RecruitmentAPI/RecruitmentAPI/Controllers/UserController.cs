@@ -47,6 +47,11 @@ namespace RecruitmentAPI.Controllers
           
            var user = await _userService.UpdateUser(updatedUser);
 
+           if (user == null)
+           {
+               return NotFound();
+           }
+
            return Ok();
         }
 /*
