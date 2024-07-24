@@ -7,7 +7,6 @@ namespace RecruitmentAPI.Entities
     {
         [Key]
         public int Id { get; set; }
-        
         public int UserId { get; set; }
         public int JobAdvertisementId { get; set; }
         public int EmployerId { get; set; }

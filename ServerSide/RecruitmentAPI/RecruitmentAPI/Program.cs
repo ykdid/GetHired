@@ -6,6 +6,7 @@ using RecruitmentAPI.Services.AuthService;
 using RecruitmentAPI.Services.EmployeeService;
 using RecruitmentAPI.Services.EmployerService;
 using RecruitmentAPI.Services.JobAdvertisementService;
+using RecruitmentAPI.Services.JobApplicationService;
 using RecruitmentAPI.Services.UserService;
 
 
@@ -35,6 +36,7 @@ builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IEmployerService, EmployerService>();
 builder.Services.AddTransient<IJobAdvertisementService, JobAdvertisementService>();
 builder.Services.AddTransient<IEmployeeService, EmployeeService>();
+builder.Services.AddTransient<IJobApplicationService, JobApplicationService>();
 
 
 builder.Services.AddSwaggerGen(c =>
