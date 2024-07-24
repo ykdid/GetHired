@@ -42,17 +42,24 @@ namespace RecruitmentAPI.Controllers
         }
 
         [HttpPatch("updateUser/{id}")]
-        public async Task<IActionResult> UpdateUser(User updatedUser)
+        public async Task<IActionResult> UpdateUser(int id, User updatedUser)
         {
           
-           var user = await _userService.UpdateUser(updatedUser);
+            try
+            {
+                var user = await _userService.UpdateUser(id, updatedUser);
+                if (user == null)
+                {
+                    return NotFound($"Employer with id {id} was not found.");
+                }
 
-           if (user == null)
-           {
-               return NotFound();
-           }
-
-           return Ok();
+                return Ok(user);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            
         }
 /*
         [HttpPost("addUser")]

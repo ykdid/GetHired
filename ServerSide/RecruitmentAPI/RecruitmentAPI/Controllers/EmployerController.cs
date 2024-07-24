@@ -44,16 +44,22 @@ namespace RecruitmentAPI.Controllers
         }
 
         [HttpPatch("updateEmployer/{id}")]
-        public async Task<IActionResult> UpdateEmployer(Employer updatedEmployer)
+        public async Task<IActionResult> UpdateEmployer(int id, Employer updatedEmployer)
         {
-            var employer = await _employerService.UpdateEmployer(updatedEmployer);
-            
-            if (employer == null)
+            try
             {
-                return NotFound();
+                var employer = await _employerService.UpdateEmployer(id, updatedEmployer);
+                if (employer == null)
+                {
+                    return NotFound($"Employer with id {id} was not found.");
+                }
+
+                return Ok(employer);
             }
-            
-            return Ok();
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
 /*

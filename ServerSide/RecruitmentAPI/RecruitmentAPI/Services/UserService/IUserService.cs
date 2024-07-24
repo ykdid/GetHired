@@ -6,5 +6,5 @@ public interface IUserService
 {
     Task<bool> CreateUser(User user);
     Task<User> GetUserById(int id);
-    Task<User> UpdateUser(User updatedUser);
+    Task<User> UpdateUser(int id,User updatedUser);
 }

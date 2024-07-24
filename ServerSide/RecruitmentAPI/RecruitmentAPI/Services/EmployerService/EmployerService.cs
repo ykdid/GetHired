@@ -33,9 +33,9 @@ public class EmployerService:IEmployerService
         return employer;
 
     }
-    public async Task<Employer> UpdateEmployer(Employer updatedEmployer)
+    public async Task<Employer> UpdateEmployer(int id,Employer updatedEmployer)
     {
-        var employer = await _context.Employers.FindAsync(updatedEmployer.Id);
+        var employer = await _context.Employers.FindAsync(id);
 
         if (employer == null)
         {

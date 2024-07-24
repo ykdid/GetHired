@@ -6,5 +6,5 @@ public interface IEmployerService
 {
     Task<bool> CreateEmployer(Employer employer);
     Task<Employer> GetEmployerById(int id);
-    Task<Employer> UpdateEmployer(Employer updateEmployer);
+    Task<Employer> UpdateEmployer(int id,Employer updateEmployer);
 }

@@ -34,9 +34,9 @@ public class UserService : IUserService
         return user;
 
     }
-    public async Task<User> UpdateUser(User updatedUser)
+    public async Task<User> UpdateUser(int id,User updatedUser)
     {
-        var user = await _context.Users.FindAsync(updatedUser.Id);
+        var user = await _context.Users.FindAsync(id);
 
         if (user == null)
         {
