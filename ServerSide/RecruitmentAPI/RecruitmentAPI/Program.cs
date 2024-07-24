@@ -3,6 +3,7 @@ using RecruitmentAPI.Data;
 using Microsoft.OpenApi.Models;
 using RecruitmentAPI.Services.Abstractions;
 using RecruitmentAPI.Services.AuthService;
+using RecruitmentAPI.Services.EmployeeService;
 using RecruitmentAPI.Services.EmployerService;
 using RecruitmentAPI.Services.JobAdvertisementService;
 using RecruitmentAPI.Services.UserService;
@@ -33,6 +34,7 @@ builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IEmployerService, EmployerService>();
 builder.Services.AddTransient<IJobAdvertisementService, JobAdvertisementService>();
+builder.Services.AddTransient<IEmployeeService, EmployeeService>();
 
 
 builder.Services.AddSwaggerGen(c =>

@@ -7,17 +7,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2360cc7-8cdd-4033-801c-3f5a15dcb952" name="Changes" comment="EmployerService and UserService done">
-      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/JobAdvertisementService/IJobAdvertisementService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/JobAdvertisementService/JobAdvertisementService.cs" afterDir="false" />
+    <list default="true" id="d2360cc7-8cdd-4033-801c-3f5a15dcb952" name="Changes" comment="JobAdvertisement service and controller done">
+      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/EmployeeController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/EmployeeService/EmployeeService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/EmployeeService/IEmployeeService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RecruitmentAPI/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RecruitmentAPI/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/EmployerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/EmployerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/UserController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Services/EmployerServices/EmployerService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/EmployerService/EmployerService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Services/EmployerServices/IEmployerService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/EmployerService/IEmployerService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Services/UserServices/IUserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/UserService/IUserService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Services/UserServices/UserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/UserService/UserService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/RecruitmentAPI.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/RecruitmentAPI.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.AssemblyInfo.cs" afterDir="false" />
@@ -28,11 +24,8 @@
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.sourcelink.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/ref/RecruitmentAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/ref/RecruitmentAPI.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/refint/RecruitmentAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/refint/RecruitmentAPI.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/RecruitmentAPI.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/RecruitmentAPI.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/RecruitmentAPI.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/RecruitmentAPI.csproj.nuget.g.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/project.nuget.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +56,8 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Users/yusufkaya/Desktop/HiringProject/ServerSide/RecruitmentAPI/RecruitmentAPI/Controllers/EmployerController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/yusufkaya/Desktop/HiringProject/ServerSide/RecruitmentAPI/RecruitmentAPI/Controllers/EmployerController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5de1334596e547688f9972fef4c48845219600/a9/126e232a/ControllerBase.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="KubernetesApiPersistence">{}</component>
@@ -160,7 +155,7 @@
       <workItem from="1720778431280" duration="37997000" />
       <workItem from="1721204494219" duration="25000" />
       <workItem from="1721204540487" duration="11191000" />
-      <workItem from="1721723055753" duration="13654000" />
+      <workItem from="1721723055753" duration="28015000" />
     </task>
     <task id="LOCAL-00001" summary="added filter endpoint for employer controller">
       <option name="closed" value="true" />
@@ -258,7 +253,23 @@
       <option name="project" value="LOCAL" />
       <updated>1721740628441</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="service names changed">
+      <option name="closed" value="true" />
+      <created>1721753368637</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1721753368637</updated>
+    </task>
+    <task id="LOCAL-00014" summary="JobAdvertisement service and controller done">
+      <option name="closed" value="true" />
+      <created>1721802593878</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1721802593878</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -292,7 +303,9 @@
     <MESSAGE value="some problems fixed. and again migrated." />
     <MESSAGE value="entities fixed" />
     <MESSAGE value="EmployerService and UserService done" />
-    <option name="LAST_COMMIT_MESSAGE" value="EmployerService and UserService done" />
+    <MESSAGE value="service names changed" />
+    <MESSAGE value="JobAdvertisement service and controller done" />
+    <option name="LAST_COMMIT_MESSAGE" value="JobAdvertisement service and controller done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
