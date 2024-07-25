@@ -58,7 +58,7 @@ namespace RecruitmentAPI.Controllers
         }
 
 
-        [HttpDelete("getJobApplicationByUser/{id}")]
+        [HttpDelete("getJobApplicationByUser/{jobApplicationId}")]
         public async Task<IActionResult> DeleteJobApplication(int jobApplicationId)
         {
             var result = await _jobApplicationService.DeleteJobApplication(jobApplicationId);
@@ -68,10 +68,10 @@ namespace RecruitmentAPI.Controllers
                 NoContent();
             }
 
-            return NotFound();
+            return Ok();
         }
 
-        [HttpPatch("{id}/status")]
+        [HttpPatch("{jobApplicationId}/status")]
         public async Task<IActionResult> UpdateJobApplicationStatus(int jobApplicationId, [FromBody]JobApplicationStatus status)
         {
             try
