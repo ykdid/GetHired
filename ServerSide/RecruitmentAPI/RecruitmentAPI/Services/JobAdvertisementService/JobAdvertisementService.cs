@@ -22,9 +22,11 @@ public class JobAdvertisementService:IJobAdvertisementService
         return result > 0;
     }
 
-    public async Task<JobAdvertisement> GetAdvertisementByEmployerId(int employerId)
+    public async Task<List<JobAdvertisement>> GetAdvertisementsByEmployerId(int employerId)
     {
-        return await _context.JobAdvertisements.FirstOrDefaultAsync(ja => ja.EmployerId == employerId);
+        return await _context.JobAdvertisements
+            .Where(ja => ja.EmployerId == employerId)
+            .ToListAsync();
     }
 
     public async Task<List<JobAdvertisement>> GetAllAdvertisements()

@@ -25,20 +25,20 @@ namespace RecruitmentAPI.Controllers
 
             if (result)
             {
-                return CreatedAtAction(nameof(GetJobAdvertisementByEmployerId), new { employerId = jobAdvertisement.EmployerId }, jobAdvertisement);
+                return CreatedAtAction(nameof(GetAdvertisementsByEmployerId), new { employerId = jobAdvertisement.EmployerId }, jobAdvertisement);
             }
             
             return BadRequest("Advertisement could not created.");
         }
 
-        [HttpGet("getJobAdvertisementByEmployer/{id}")]
-        public async Task<IActionResult> GetJobAdvertisementByEmployerId(int employerId)
+        [HttpGet("getJobAdvertisementsByEmployer/{employerId}")]
+        public async Task<IActionResult> GetAdvertisementsByEmployerId(int employerId)
         {
-            var advertisement = await _jobAdvertisementService.GetAdvertisementByEmployerId(employerId);
+            var advertisement = await _jobAdvertisementService.GetAdvertisementsByEmployerId(employerId);
 
-            if (advertisement == null)
+            if (advertisement == null || advertisement.Count == 0)
             {
-                return NotFound($"Advertisement for employerId {employerId} was not found.");
+                return NotFound($"Advertisements for employerId {employerId} were not found.");
             }
 
             return Ok(advertisement);
