@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RecruitmentAPI.Data;
 using RecruitmentAPI.Entities;
-using RecruitmentAPI.Services.Abstractions;
-using RecruitmentAPI.Services.AuthService;
+//using RecruitmentAPI.Services.Abstractions;
+//using RecruitmentAPI.Services.AuthService;
 using RecruitmentAPI.Services.UserService;
 
 namespace RecruitmentAPI.Controllers

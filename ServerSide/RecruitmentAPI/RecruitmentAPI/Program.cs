@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using RecruitmentAPI.Data;
 using Microsoft.OpenApi.Models;
-using RecruitmentAPI.Services.Abstractions;
-using RecruitmentAPI.Services.AuthService;
+
+//using RecruitmentAPI.Services.AuthService;
 using RecruitmentAPI.Services.EmployeeService;
 using RecruitmentAPI.Services.EmployerService;
 using RecruitmentAPI.Services.JobAdvertisementService;
@@ -31,7 +31,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext<RecruitmentDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddTransient<IAuthService, AuthService>();
+//builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IEmployerService, EmployerService>();
 builder.Services.AddTransient<IJobAdvertisementService, JobAdvertisementService>();
@@ -54,13 +54,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RecruitmentAPI v1"));
 }
 
-
-
-
 app.UseHttpsRedirection();
 
 app.UseRouting();
-
 
 app.UseCors("AllowAllOrigins");
 

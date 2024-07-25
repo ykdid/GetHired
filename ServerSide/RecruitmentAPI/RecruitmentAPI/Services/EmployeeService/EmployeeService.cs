@@ -17,6 +17,7 @@ public class EmployeeService : IEmployeeService
     public async Task<bool> CreateEmployee(Employee employee)
     {
         _context.Employees.Add(employee);
+        
         var result = await _context.SaveChangesAsync();
 
         return result > 0;

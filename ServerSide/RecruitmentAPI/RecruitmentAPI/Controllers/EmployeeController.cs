@@ -22,29 +22,24 @@ namespace RecruitmentAPI.Controllers
         [HttpPost("addEmployee")]
         public async Task<IActionResult> CreateEmployee(Employee employee)
         {
-            var emp = await _employeeService.CreateEmployee(employee);
+            var result = await _employeeService.CreateEmployee(employee);
 
-            if (emp == null)
+            if (result)
             {
-                return BadRequest();
+                return CreatedAtAction(nameof(GetEmployeeById), new { id = employee.Id }, employee);
             }
 
-            return Ok(emp);
+            return BadRequest("Employee could not created.");
         }
 
         [HttpGet("getEmployeeBy{id}")]
         public async Task<IActionResult> GetEmployeeById(int id)
         {
-            try
-            {
-                var emp = await _employeeService.GetEmployeeById(id);
-                return Ok(emp);
-            }
-            catch (KeyNotFoundException e)
-            {
-                return NotFound(e.Message);
-            }
+            var employee = await _employeeService.GetEmployeeById(id);
             
+            return Ok(employee);
+            
+
         }
 
         [HttpDelete("deleteEmployee")]
@@ -57,7 +52,7 @@ namespace RecruitmentAPI.Controllers
                 NoContent();
             }
 
-            return NotFound();
+            return Ok();
         }
 
         [HttpGet("getEmployeeByEmployer/{id}")]

@@ -1,8 +1,7 @@
-using Microsoft.AspNetCore.Identity.Data;
+/*using Microsoft.AspNetCore.Identity.Data;
 using RecruitmentAPI.Data;
 using RecruitmentAPI.Entities;
 using RecruitmentAPI.Models.Response;
-using RecruitmentAPI.Services.Abstractions;
 
 namespace RecruitmentAPI.Services.AuthService;
 
@@ -24,4 +23,4 @@ public class AuthService : IAuthService
 
     
     
-}
+}*/

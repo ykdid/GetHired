@@ -12,6 +12,7 @@ public class JobApplicationService : IJobApplicationService
     {
         _context = context;
     }
+    
 
     public async Task<bool> CreateJobApply(JobApplication jobApplication)
     {

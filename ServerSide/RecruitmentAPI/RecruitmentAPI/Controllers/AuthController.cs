@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Identity.Data;
+/*using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using RecruitmentAPI.Models.Response;
 using RecruitmentAPI.Services.Abstractions;
@@ -17,4 +17,4 @@ public class AuthController : Controller
     }
 
   
-}
+}*/
