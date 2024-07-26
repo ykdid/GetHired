@@ -84,7 +84,7 @@ public class JobApplicationService : IJobApplicationService
                 IdentityNumber = user.IdentityNumber,
                 RegistrationNumber = user.RegistrationNumber,
                 EmployerId = employerId,
-                Email = user.EncryptedEmail
+                Email = user.Email
             };
 
             _context.Employees.Add(employee);

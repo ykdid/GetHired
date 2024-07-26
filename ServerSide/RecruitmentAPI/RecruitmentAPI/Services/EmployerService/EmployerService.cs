@@ -46,7 +46,7 @@ public class EmployerService:IEmployerService
         employer.Surname = updatedEmployer.Surname ?? employer.Surname;
         employer.EmployerImagePath = updatedEmployer.EmployerImagePath ?? employer.EmployerImagePath;
         employer.Email = updatedEmployer.Email ?? employer.Email;
-        employer.Password = updatedEmployer.Password ?? employer.Password;
+        employer.HashPassword = updatedEmployer.HashPassword ?? employer.HashPassword;
        
 
         await _context.SaveChangesAsync();

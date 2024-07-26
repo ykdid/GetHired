@@ -24,16 +24,16 @@ namespace RecruitmentAPI.Entities
         public string? UserProfileImagePath { get; set; }
 
         [MaxLength(100)]
-        public string EncryptedEmail { get; set; }
+        public string Email { get; set; }
 
         [MaxLength(100)]
-        public string EncryptedPhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
         [MaxLength(100)]
         public string? CvFilePath { get; set; }
 
         [MaxLength(100)]
-        public string EncryptedPassword { get; set; }
+        public string HashPassword { get; set; }
 
         [MaxLength(20)]
         public string RegistrationNumber { get; set; } 
@@ -47,36 +47,9 @@ namespace RecruitmentAPI.Entities
         
         public string? JobType { get; set; }
         
-        [NotMapped]
-        public string? Email
-        {
-            get => Decrypt(EncryptedEmail);
-            set => EncryptedEmail = Encrypt(value);
-        }
+    
 
-        [NotMapped]
-        public string? PhoneNumber
-        {
-            get => Decrypt(EncryptedPhoneNumber);
-            set => EncryptedPhoneNumber = Encrypt(value);
-        }
-
-        [NotMapped]
-        public string? Password
-        {
-            get => Decrypt(EncryptedPassword);
-            set => EncryptedPassword = Encrypt(value);
-        }
-
-        private string? Encrypt(string input)
-        {
-            return Convert.ToBase64String(Encoding.UTF8.GetBytes(input));
-        }
-
-        private string? Decrypt(string input)
-        {
-            return Encoding.UTF8.GetString(Convert.FromBase64String(input));
-        }
+      
 
     }
 }

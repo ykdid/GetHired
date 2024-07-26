@@ -9,6 +9,5 @@ public interface IJobAdvertisementService
     Task<List<JobAdvertisement>> GetAllAdvertisements();
     Task<bool> DeleteAdvertisement(int advertisementId);
     Task<JobAdvertisement> UpdateAdvertisement(JobAdvertisement updatedAdv);
-    //filtered ads
-    //employerin tüm ilanlarını getir
-}
+    
+}   

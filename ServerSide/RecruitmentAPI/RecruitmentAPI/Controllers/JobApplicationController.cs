@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RecruitmentAPI.Data;
 using RecruitmentAPI.Entities;
@@ -71,6 +72,7 @@ namespace RecruitmentAPI.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpPatch("{jobApplicationId}/status")]
         public async Task<IActionResult> UpdateJobApplicationStatus(int jobApplicationId, [FromBody]JobApplicationStatus status)
         {

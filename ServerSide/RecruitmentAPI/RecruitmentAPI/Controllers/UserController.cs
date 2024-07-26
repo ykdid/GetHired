@@ -57,6 +57,7 @@ namespace RecruitmentAPI.Controllers
             }
             catch (KeyNotFoundException ex)
             {
+                Console.WriteLine(ex);
                 return NotFound(ex.Message);
             }
             

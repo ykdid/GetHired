@@ -70,7 +70,7 @@ namespace RecruitmentAPI.Controllers
             return NoContent();
         }
 
-        [HttpPatch("deleteAdvertisement")]
+        [HttpPatch("updateAdvertisement")]
         public async Task<IActionResult> UpdateAdvertisement(JobAdvertisement updatedAdv)
         {
             var adv = await _jobAdvertisementService.UpdateAdvertisement(updatedAdv);

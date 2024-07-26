@@ -49,7 +49,7 @@ public class UserService : IUserService
         user.UserProfileImagePath = updatedUser.UserProfileImagePath ?? user.UserProfileImagePath;
         user.Email = updatedUser.Email ?? user.Email;
         user.PhoneNumber = updatedUser.PhoneNumber ?? user.PhoneNumber;
-        user.Password = updatedUser.Password ?? user.Password;
+        user.HashPassword = updatedUser.HashPassword ?? user.HashPassword;
         user.CvFilePath = updatedUser.CvFilePath ?? user.CvFilePath;
 
         await _context.SaveChangesAsync();

@@ -55,8 +55,8 @@ namespace RecruitmentAPI.Controllers
             return Ok();
         }
 
-        [HttpGet("getEmployeeByEmployer/{id}")]
-        public async Task<IActionResult> GetEmployeeByEmployer(int employerId)
+        [HttpGet("getEmployeesByEmployer/{employerId}")]
+        public async Task<IActionResult> GetEmployeesByEmployer(int employerId)
         {
             var employees = await _employeeService.GetEmployeesByEmployer(employerId);
 
