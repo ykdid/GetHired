@@ -19,7 +19,9 @@ namespace RecruitmentAPI.Controllers
             _jobApplicationService = jobApplicationService;
         }
 
+        
         [HttpPost("applyJob")]
+        [Authorize]
         public async Task<IActionResult> CreateJobApply(JobApplication jobApplication)
         {
             var result = await _jobApplicationService.CreateJobApply(jobApplication);
@@ -32,7 +34,9 @@ namespace RecruitmentAPI.Controllers
             return BadRequest("Job application could not be created.");
         }
 
+        
         [HttpGet("getJobApplicationsByUser/{id}")]
+        [Authorize]
         public async Task<IActionResult> GetJobApplicationsByUserId(int id)
         {
             var jobApplications = await _jobApplicationService.GetJobApplicationsByUserId(id);
@@ -44,8 +48,10 @@ namespace RecruitmentAPI.Controllers
 
             return Ok(jobApplications);
         }
-
+        
+        
         [HttpGet("getJobApplicationsByAdvertisement/{id}")]
+        [Authorize]
         public async Task<IActionResult> GetJobApplicationsByAdvertisementId(int id)
         {
             var jobApplications = await _jobApplicationService.GetJobApplicationsByAdvertisementId(id);
@@ -58,8 +64,9 @@ namespace RecruitmentAPI.Controllers
             return Ok(jobApplications);
         }
 
-
+        
         [HttpDelete("getJobApplicationByUser/{jobApplicationId}")]
+        [Authorize]
         public async Task<IActionResult> DeleteJobApplication(int jobApplicationId)
         {
             var result = await _jobApplicationService.DeleteJobApplication(jobApplicationId);
@@ -72,8 +79,9 @@ namespace RecruitmentAPI.Controllers
             return Ok();
         }
 
-        [Authorize]
+       
         [HttpPatch("{jobApplicationId}/status")]
+        [Authorize]
         public async Task<IActionResult> UpdateJobApplicationStatus(int jobApplicationId, [FromBody]JobApplicationStatus status)
         {
             try

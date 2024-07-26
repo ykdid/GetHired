@@ -7,48 +7,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2360cc7-8cdd-4033-801c-3f5a15dcb952" name="Changes" comment="jobapplication controller and service fixed">
-      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Migrations/20240726111703_NewUpdatedUserModel.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Migrations/20240726111703_NewUpdatedUserModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/AuthService/DTOs/Models/AuthResponse.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/AuthService/DTOs/Models/EmployerLoginRequest.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/AuthService/DTOs/Models/EmployerRegisterRequest.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/AuthService/DTOs/Models/UserLoginRequest.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/AuthService/DTOs/Models/UserRegisterRequest.cs" afterDir="false" />
+    <list default="true" id="d2360cc7-8cdd-4033-801c-3f5a15dcb952" name="Changes" comment="AuthService , AuthController , DTO's for Auth, JWT done">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RecruitmentAPI/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RecruitmentAPI/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/AuthController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/EmployeeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/EmployeeController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/EmployerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/EmployerController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/JobAdvertisementController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/JobAdvertisementController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/JobApplicationController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/JobApplicationController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Entities/Employer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Entities/Employer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Entities/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Entities/User.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Migrations/RecruitmentDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Migrations/RecruitmentDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Models/Request/LoginRequest.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Models/Response/BaseResponse.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Models/Response/LoginResponse.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Services/AuthService/AuthService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/AuthService/AuthService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Services/AuthService/IAuthService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/AuthService/IAuthService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Services/EmployerService/EmployerService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/EmployerService/EmployerService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Services/JobAdvertisementService/IJobAdvertisementService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/JobAdvertisementService/IJobAdvertisementService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Services/JobApplicationService/JobApplicationService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/JobApplicationService/JobApplicationService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Services/UserService/UserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/UserService/UserService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/appsettings.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/appsettings.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.sourcelink.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/ref/RecruitmentAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/ref/RecruitmentAPI.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/refint/RecruitmentAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/refint/RecruitmentAPI.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,7 +157,7 @@
       <workItem from="1720778431280" duration="37997000" />
       <workItem from="1721204494219" duration="25000" />
       <workItem from="1721204540487" duration="11191000" />
-      <workItem from="1721723055753" duration="78790000" />
+      <workItem from="1721723055753" duration="84124000" />
     </task>
     <task id="LOCAL-00001" summary="added filter endpoint for employer controller">
       <option name="closed" value="true" />
@@ -352,7 +327,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721890875155</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="AuthService , AuthController , DTO's for Auth, JWT done">
+      <option name="closed" value="true" />
+      <created>1721993991211</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1721993991211</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -395,7 +378,8 @@
     <MESSAGE value="Employee entity fixed and its controller fixed" />
     <MESSAGE value="JobAdvertisement service and controller fixed" />
     <MESSAGE value="jobapplication controller and service fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="jobapplication controller and service fixed" />
+    <MESSAGE value="AuthService , AuthController , DTO's for Auth, JWT done" />
+    <option name="LAST_COMMIT_MESSAGE" value="AuthService , AuthController , DTO's for Auth, JWT done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -421,42 +405,29 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/RecruitmentAPI/Controllers/EmployeeController.cs</url>
-          <line>36</line>
+          <line>39</line>
           <properties documentPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/EmployeeController.cs" containingFunctionPresentation="Method 'GetEmployeeById'">
             <startOffsets>
-              <option value="1098" />
+              <option value="1196" />
             </startOffsets>
             <endOffsets>
-              <option value="1099" />
+              <option value="1197" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/RecruitmentAPI/Controllers/UserController.cs</url>
-          <line>45</line>
-          <properties documentPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/UserController.cs" containingFunctionPresentation="Method 'UpdateUser'">
+          <url>file://$PROJECT_DIR$/RecruitmentAPI/Services/AuthService/AuthService.cs</url>
+          <line>27</line>
+          <properties documentPath="$PROJECT_DIR$/RecruitmentAPI/Services/AuthService/AuthService.cs" containingFunctionPresentation="Lambda expression inside Method 'LoginUser'">
             <startOffsets>
-              <option value="1356" />
+              <option value="945" />
             </startOffsets>
             <endOffsets>
-              <option value="1357" />
+              <option value="1005" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/RecruitmentAPI/Controllers/UserController.cs</url>
-          <line>58</line>
-          <properties documentPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/UserController.cs" containingFunctionPresentation="Method 'UpdateUser'">
-            <startOffsets>
-              <option value="1726" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1727" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="5" />
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

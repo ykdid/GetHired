@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RecruitmentAPI.Data;
 using RecruitmentAPI.Entities;
@@ -17,8 +18,9 @@ namespace RecruitmentAPI.Controllers
             _jobAdvertisementService = jobAdvertisementService;
         }
        
-
+        
         [HttpPost("addJobAdvertisement")]
+        [Authorize]
         public async Task<IActionResult> CreateJobAdvertisement(JobAdvertisement jobAdvertisement)
         {
             var result = await _jobAdvertisementService.CreateAdvertisement(jobAdvertisement);
@@ -30,8 +32,10 @@ namespace RecruitmentAPI.Controllers
             
             return BadRequest("Advertisement could not created.");
         }
-
+        
+        
         [HttpGet("getJobAdvertisementsByEmployer/{employerId}")]
+        [Authorize]
         public async Task<IActionResult> GetAdvertisementsByEmployerId(int employerId)
         {
             var advertisement = await _jobAdvertisementService.GetAdvertisementsByEmployerId(employerId);
@@ -56,8 +60,9 @@ namespace RecruitmentAPI.Controllers
 
             return Ok(advertisement);
         }
-
+        
         [HttpDelete("deleteAdvertisement")]
+        [Authorize]
         public async Task<IActionResult> DeleteAdvertisement(int advertisementId)
         {
             var result = await _jobAdvertisementService.DeleteAdvertisement(advertisementId);
@@ -69,8 +74,9 @@ namespace RecruitmentAPI.Controllers
 
             return NoContent();
         }
-
+        
         [HttpPatch("updateAdvertisement")]
+        [Authorize]
         public async Task<IActionResult> UpdateAdvertisement(JobAdvertisement updatedAdv)
         {
             var adv = await _jobAdvertisementService.UpdateAdvertisement(updatedAdv);
@@ -82,7 +88,5 @@ namespace RecruitmentAPI.Controllers
 
             return Ok();
         }
-        
-        
     }
 }

@@ -23,8 +23,9 @@ namespace RecruitmentAPI.Services.AuthService
 
         public async Task<AuthResponse> LoginUser(UserLoginRequest request)
         {
+            var hashedPassword = HashPassword(request.Password);
             var user = await _context.Users
-                .FirstOrDefaultAsync(u => u.Email == request.Email && u.HashPassword == HashPassword(request.Password));
+                .FirstOrDefaultAsync(u => u.Email == request.Email && u.HashPassword == hashedPassword);
 
             if (user == null)
                 return new AuthResponse { IsSuccess = false, ErrorMessage = "Invalid email or password" };
@@ -42,8 +43,8 @@ namespace RecruitmentAPI.Services.AuthService
             {
                 Name = request.Name,
                 Surname = request.Surname,
-                Email = Encrypt(request.Email), // E-posta şifreleniyor
-                PhoneNumber = Encrypt(request.PhoneNumber), // Telefon numarası şifreleniyor
+                Email = Encrypt(request.Email),
+                PhoneNumber = Encrypt(request.PhoneNumber),
                 HashPassword = HashPassword(request.Password),
                 Age = request.Age,
                 RegistrationNumber = request.RegistrationNumber,
@@ -59,8 +60,9 @@ namespace RecruitmentAPI.Services.AuthService
 
         public async Task<AuthResponse> LoginEmployer(EmployerLoginRequest request)
         {
+            var hashedPassword = HashPassword(request.Password);
             var employer = await _context.Employers
-                .FirstOrDefaultAsync(e => e.Email == request.Email && e.HashPassword == request.Password);
+                .FirstOrDefaultAsync(e => e.Email == request.Email && e.HashPassword == hashedPassword);
 
             if (employer == null)
                 return new AuthResponse { IsSuccess = false, ErrorMessage = "Invalid email or password" };

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RecruitmentAPI.Data;
 using RecruitmentAPI.Entities;
@@ -18,8 +19,9 @@ namespace RecruitmentAPI.Controllers
         {
             _employeeService = employeeService;
         }
-
+        
         [HttpPost("addEmployee")]
+        [Authorize]
         public async Task<IActionResult> CreateEmployee(Employee employee)
         {
             var result = await _employeeService.CreateEmployee(employee);
@@ -31,8 +33,9 @@ namespace RecruitmentAPI.Controllers
 
             return BadRequest("Employee could not created.");
         }
-
+        
         [HttpGet("getEmployeeBy{id}")]
+        [Authorize]
         public async Task<IActionResult> GetEmployeeById(int id)
         {
             var employee = await _employeeService.GetEmployeeById(id);
@@ -41,8 +44,9 @@ namespace RecruitmentAPI.Controllers
             
 
         }
-
+        
         [HttpDelete("deleteEmployee")]
+        [Authorize]
         public async Task<IActionResult> DeleteEmployee(int id)
         {
             var result = await _employeeService.DeleteEmployee(id);
@@ -54,8 +58,9 @@ namespace RecruitmentAPI.Controllers
 
             return Ok();
         }
-
+        
         [HttpGet("getEmployeesByEmployer/{employerId}")]
+        [Authorize]
         public async Task<IActionResult> GetEmployeesByEmployer(int employerId)
         {
             var employees = await _employeeService.GetEmployeesByEmployer(employerId);
@@ -67,8 +72,9 @@ namespace RecruitmentAPI.Controllers
 
             return Ok(employees);
         }
-
+        
         [HttpGet("getFilteredEmployees")]
+        [Authorize]
         public async Task<IActionResult> GetFilteredEmployees(
             [FromQuery] string? name = null,
             [FromQuery] string? surname = null,
@@ -84,8 +90,9 @@ namespace RecruitmentAPI.Controllers
 
             return Ok(employees);
         }
-
+        
         [HttpPatch("updateEmployee")]
+        [Authorize]
         public async Task<IActionResult> UpdateEmplyoee(Employee updatedEmployee)
         {
             if (updatedEmployee == null)
