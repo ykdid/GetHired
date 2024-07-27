@@ -7,13 +7,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2360cc7-8cdd-4033-801c-3f5a15dcb952" name="Changes" comment="AuthService , AuthController , DTO's for Auth, JWT done">
+    <list default="true" id="d2360cc7-8cdd-4033-801c-3f5a15dcb952" name="Changes" comment="some endpoints are authorized">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RecruitmentAPI/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RecruitmentAPI/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/AuthController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/EmployeeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/EmployeeController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/EmployerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/EmployerController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/JobAdvertisementController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/JobAdvertisementController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/JobApplicationController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/JobApplicationController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/UserController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/Services/AuthService/AuthService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/Services/AuthService/AuthService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/bin/Debug/net8.0/RecruitmentAPI.pdb" afterDir="false" />
@@ -24,6 +23,11 @@
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/RecruitmentAPI.sourcelink.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/ref/RecruitmentAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/ref/RecruitmentAPI.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/refint/RecruitmentAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/Debug/net8.0/refint/RecruitmentAPI.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/RecruitmentAPI.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/RecruitmentAPI.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/RecruitmentAPI.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/RecruitmentAPI.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecruitmentAPI/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/RecruitmentAPI/obj/rider.project.model.nuget.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +63,7 @@
     <setting file="mock:///Users/yusufkaya/Desktop/HiringProject/ServerSide/RecruitmentAPI/RecruitmentAPI/Controllers/EmployerController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Users/yusufkaya/Desktop/HiringProject/ServerSide/RecruitmentAPI/RecruitmentAPI/Controllers/JobApplicationController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Users/yusufkaya/Desktop/HiringProject/ServerSide/RecruitmentAPI/RecruitmentAPI/Entities/Employee.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/yusufkaya/Desktop/HiringProject/ServerSide/RecruitmentAPI/RecruitmentAPI/Services/AuthService/AuthService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Users/yusufkaya/Desktop/HiringProject/ServerSide/RecruitmentAPI/RecruitmentAPI/Services/JobAdvertisementService/IJobAdvertisementService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5de1334596e547688f9972fef4c48845219600/a9/126e232a/ControllerBase.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -80,7 +85,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    ".NET Launch Settings Profile.RecruitmentAPI: https.executor": "Run",
+    ".NET Launch Settings Profile.RecruitmentAPI: https.executor": "Debug",
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "Docker.RecruitmentAPI/Dockerfile.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -157,7 +162,7 @@
       <workItem from="1720778431280" duration="37997000" />
       <workItem from="1721204494219" duration="25000" />
       <workItem from="1721204540487" duration="11191000" />
-      <workItem from="1721723055753" duration="84124000" />
+      <workItem from="1721723055753" duration="91073000" />
     </task>
     <task id="LOCAL-00001" summary="added filter endpoint for employer controller">
       <option name="closed" value="true" />
@@ -335,7 +340,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721993991211</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="some endpoints are authorized">
+      <option name="closed" value="true" />
+      <created>1722003049342</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1722003049342</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -379,7 +392,8 @@
     <MESSAGE value="JobAdvertisement service and controller fixed" />
     <MESSAGE value="jobapplication controller and service fixed" />
     <MESSAGE value="AuthService , AuthController , DTO's for Auth, JWT done" />
-    <option name="LAST_COMMIT_MESSAGE" value="AuthService , AuthController , DTO's for Auth, JWT done" />
+    <MESSAGE value="some endpoints are authorized" />
+    <option name="LAST_COMMIT_MESSAGE" value="some endpoints are authorized" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -404,30 +418,43 @@
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/RecruitmentAPI/Controllers/EmployeeController.cs</url>
-          <line>39</line>
-          <properties documentPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/EmployeeController.cs" containingFunctionPresentation="Method 'GetEmployeeById'">
-            <startOffsets>
-              <option value="1196" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1197" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/RecruitmentAPI/Services/AuthService/AuthService.cs</url>
-          <line>27</line>
+          <line>28</line>
           <properties documentPath="$PROJECT_DIR$/RecruitmentAPI/Services/AuthService/AuthService.cs" containingFunctionPresentation="Lambda expression inside Method 'LoginUser'">
             <startOffsets>
-              <option value="945" />
+              <option value="992" />
             </startOffsets>
             <endOffsets>
-              <option value="1005" />
+              <option value="1043" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/RecruitmentAPI/Services/AuthService/AuthService.cs</url>
+          <line>62</line>
+          <properties documentPath="$PROJECT_DIR$/RecruitmentAPI/Services/AuthService/AuthService.cs" containingFunctionPresentation="Method 'LoginEmployer'">
+            <startOffsets>
+              <option value="2386" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2387" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/RecruitmentAPI/Controllers/JobApplicationController.cs</url>
+          <line>25</line>
+          <properties documentPath="$PROJECT_DIR$/RecruitmentAPI/Controllers/JobApplicationController.cs" containingFunctionPresentation="Method 'CreateJobApply'">
+            <startOffsets>
+              <option value="766" />
+            </startOffsets>
+            <endOffsets>
+              <option value="767" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

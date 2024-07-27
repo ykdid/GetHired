@@ -10,6 +10,7 @@ namespace RecruitmentAPI.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
+        
 
         public AuthController(IAuthService authService)
         {

@@ -24,11 +24,12 @@ namespace RecruitmentAPI.Services.AuthService
         public async Task<AuthResponse> LoginUser(UserLoginRequest request)
         {
             var hashedPassword = HashPassword(request.Password);
+            var test = Encrypt(request.Email);
             var user = await _context.Users
-                .FirstOrDefaultAsync(u => u.Email == request.Email && u.HashPassword == hashedPassword);
+                .FirstOrDefaultAsync(u => u.Email == test && u.HashPassword == hashedPassword);
 
             if (user == null)
-                return new AuthResponse { IsSuccess = false, ErrorMessage = "Invalid email or password" };
+                return new AuthResponse { IsSuccess = false, ErrorMessage = "Invalid email or   password" };
 
             var token = GenerateJwtToken(user.Email);
             return new AuthResponse { IsSuccess = true, Token = token };
@@ -62,7 +63,7 @@ namespace RecruitmentAPI.Services.AuthService
         {
             var hashedPassword = HashPassword(request.Password);
             var employer = await _context.Employers
-                .FirstOrDefaultAsync(e => e.Email == request.Email && e.HashPassword == hashedPassword);
+                .FirstOrDefaultAsync(e => e.Email.Equals(request.Email) && e.HashPassword.Equals(hashedPassword));
 
             if (employer == null)
                 return new AuthResponse { IsSuccess = false, ErrorMessage = "Invalid email or password" };

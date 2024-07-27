@@ -8,7 +8,7 @@ namespace RecruitmentAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-
+[Authorize]
     public class JobAdvertisementController : Controller
     {
         private readonly IJobAdvertisementService _jobAdvertisementService;
@@ -20,7 +20,7 @@ namespace RecruitmentAPI.Controllers
        
         
         [HttpPost("addJobAdvertisement")]
-        [Authorize]
+        
         public async Task<IActionResult> CreateJobAdvertisement(JobAdvertisement jobAdvertisement)
         {
             var result = await _jobAdvertisementService.CreateAdvertisement(jobAdvertisement);
@@ -35,7 +35,6 @@ namespace RecruitmentAPI.Controllers
         
         
         [HttpGet("getJobAdvertisementsByEmployer/{employerId}")]
-        [Authorize]
         public async Task<IActionResult> GetAdvertisementsByEmployerId(int employerId)
         {
             var advertisement = await _jobAdvertisementService.GetAdvertisementsByEmployerId(employerId);
@@ -49,6 +48,7 @@ namespace RecruitmentAPI.Controllers
         }
 
         [HttpGet("getAllJobAdvertisements")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAllJobAdvertisements()
         {
             var advertisement = await _jobAdvertisementService.GetAllAdvertisements();
@@ -62,7 +62,7 @@ namespace RecruitmentAPI.Controllers
         }
         
         [HttpDelete("deleteAdvertisement")]
-        [Authorize]
+        
         public async Task<IActionResult> DeleteAdvertisement(int advertisementId)
         {
             var result = await _jobAdvertisementService.DeleteAdvertisement(advertisementId);
@@ -76,7 +76,7 @@ namespace RecruitmentAPI.Controllers
         }
         
         [HttpPatch("updateAdvertisement")]
-        [Authorize]
+        
         public async Task<IActionResult> UpdateAdvertisement(JobAdvertisement updatedAdv)
         {
             var adv = await _jobAdvertisementService.UpdateAdvertisement(updatedAdv);
