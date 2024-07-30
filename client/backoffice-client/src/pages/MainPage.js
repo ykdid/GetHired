@@ -4,6 +4,7 @@ import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
 import Modal from '../components/ModalAd';
 import AdvertisementCard from '../components/AdvertisementCard';
+import { FaTimes, FaBars } from 'react-icons/fa';  
 
 const MainPage = () => {
     const [ads, setAds] = useState([]);
@@ -21,7 +22,6 @@ const MainPage = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     useEffect(() => {
-        // İlanları API'den al
         const fetchAds = async () => {
             try {
                 const response = await axios.get('https://api.example.com/advertisements');
@@ -35,18 +35,30 @@ const MainPage = () => {
     }, []);
 
     const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setFormData({ ...formData, [name]: value });
+        const { name, value, files } = event.target;
+        if (name === 'imagePath') {
+            setFormData({ ...formData, [name]: files[0] });
+        } else {
+            setFormData({ ...formData, [name]: value });
+        }
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        const formDataToSend = new FormData();
+        Object.keys(formData).forEach(key => {
+            formDataToSend.append(key, formData[key]);
+        });
+
         try {
-            await axios.post('https://api.example.com/advertisements', formData);
+            await axios.post('https://api.example.com/advertisements', formDataToSend, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
             alert('İlan başarıyla oluşturuldu!');
             setShowModal(false);
-            // İlanları yeniden yükle
             const response = await axios.get('https://api.example.com/advertisements');
             setAds(response.data);
         } catch (error) {
@@ -72,7 +84,7 @@ const MainPage = () => {
 
             {/* Main Content */}
             <div
-                className={`flex-1 flex flex-col transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-64' : 'translate-x-0'}`}
+                className={`flex-1 flex flex-col bg-gray-100 transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-64' : 'translate-x-0'}`}
                 onClick={handleContentClick}
             >
                 {/* Navbar */}

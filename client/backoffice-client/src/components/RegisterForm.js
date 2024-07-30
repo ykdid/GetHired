@@ -27,8 +27,7 @@ const RegisterForm = () => {
         }
 
         try {
-            // API isteği gönder
-            await axios.post('https://api.example.com/register', formData);
+            await axios.post('https://localhost:7053/api/Auth/register/employer', formData);
             alert('Kayıt başarıyla tamamlandı!');
             navigate('/');
         } catch (error) {

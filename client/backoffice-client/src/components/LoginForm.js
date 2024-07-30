@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Link bileşenini buradan import edin
+import { Link, useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
 
 const LoginForm = () => {
@@ -10,14 +10,12 @@ const LoginForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            // API isteği gönder
-            const response = await axios.post('https://api.example.com/login', { email, password });
-            if (response.status === 200) {
-                // Başarılı girişte yönlendir
+            const response = await axios.post('https://localhost:7053/api/Auth/login/employer', { email, password });
+            if (response.status === 200 ) {      
                 navigate('/main');
             }
         } catch (error) {
-            navigate('/main');
+            navigate('/main'); //deneme
             console.error('Giriş başarısız:', error);
             alert('Giriş yaparken bir hata oluştu.');
         }

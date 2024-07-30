@@ -1,12 +1,12 @@
 import React from 'react';
 
-const ModalAd = ({ showModal, setShowModal, formData, handleInputChange, handleSubmit }) => {
+const ModalAd = ({ showModal, setShowModal, handleSubmit, formData, handleInputChange }) => {
     if (!showModal) return null;
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="bg-white p-6 rounded shadow-lg w-full max-w-lg">
-                <h3 className="text-xl mb-4 font-bold">Create Advertisement</h3>
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
+            <div className="bg-white p-6 rounded shadow-lg w-1/2">
+                <h2 className="text-2xl mb-4 font-bold text-gray-800">Create New Advertisement</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label className="block text-gray-700">Title</label>
@@ -16,6 +16,7 @@ const ModalAd = ({ showModal, setShowModal, formData, handleInputChange, handleS
                             value={formData.title}
                             onChange={handleInputChange}
                             className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            required
                         />
                     </div>
                     <div className="mb-4">
@@ -25,6 +26,7 @@ const ModalAd = ({ showModal, setShowModal, formData, handleInputChange, handleS
                             value={formData.description}
                             onChange={handleInputChange}
                             className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            required
                         />
                     </div>
                     <div className="mb-4">
@@ -35,6 +37,7 @@ const ModalAd = ({ showModal, setShowModal, formData, handleInputChange, handleS
                             value={formData.initDate}
                             onChange={handleInputChange}
                             className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            required
                         />
                     </div>
                     <div className="mb-4">
@@ -45,14 +48,14 @@ const ModalAd = ({ showModal, setShowModal, formData, handleInputChange, handleS
                             value={formData.expireDate}
                             onChange={handleInputChange}
                             className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            required
                         />
                     </div>
                     <div className="mb-4">
                         <label className="block text-gray-700">Image Path</label>
                         <input
-                            type="text"
+                            type="file"
                             name="imagePath"
-                            value={formData.imagePath}
                             onChange={handleInputChange}
                             className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
@@ -65,13 +68,14 @@ const ModalAd = ({ showModal, setShowModal, formData, handleInputChange, handleS
                             value={formData.jobType}
                             onChange={handleInputChange}
                             className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            required
                         />
                     </div>
                     <div className="flex justify-end">
                         <button
                             type="button"
                             onClick={() => setShowModal(false)}
-                            className="bg-gray-500 text-white p-2 rounded mr-2 hover:bg-gray-600 transition"
+                            className="mr-4 bg-gray-500 text-white p-2 rounded hover:bg-gray-600 transition"
                         >
                             Cancel
                         </button>
@@ -79,7 +83,7 @@ const ModalAd = ({ showModal, setShowModal, formData, handleInputChange, handleS
                             type="submit"
                             className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition"
                         >
-                            Submit
+                            Create
                         </button>
                     </div>
                 </form>
