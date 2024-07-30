@@ -15,9 +15,8 @@ const LoginForm = () => {
                 navigate('/main');
             }
         } catch (error) {
-            navigate('/main'); //deneme
-            console.error('Giriş başarısız:', error);
-            alert('Giriş yaparken bir hata oluştu.');
+            console.error('Login failed:', error);
+            alert('An error occurred while logging in.');
         }
     };
 

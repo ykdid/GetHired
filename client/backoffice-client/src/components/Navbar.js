@@ -14,7 +14,7 @@ const Navbar = ({ isSidebarOpen, handleSidebarToggle }) => {
                     <FaBars size={24} />
                 )}
             </button>
-            <h1 className="text-xl font-bold">GetHired</h1>
+            <h1 className="text-xl font-bold">GetHired-Employer</h1>
         </div>
     );
 };

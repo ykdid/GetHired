@@ -28,11 +28,11 @@ const RegisterForm = () => {
 
         try {
             await axios.post('https://localhost:7053/api/Auth/register/employer', formData);
-            alert('Kayıt başarıyla tamamlandı!');
-            navigate('/');
+            alert('Registration completed successfully!');
+            navigate('/login');
         } catch (error) {
-            console.error('Kayıt işlemi sırasında bir hata oluştu:', error);
-            alert('Kayıt yapılırken bir hata oluştu.');
+            console.error('An error occur while registration:', error);
+            alert('An error occur while registration.');
         }
     };
 
@@ -106,7 +106,7 @@ const RegisterForm = () => {
             </form>
             <div className="mt-4 text-center">
                 <p className="text-gray-700">
-                    Already have an account? <Link to="/" className="text-blue-500 hover:underline">Login</Link>
+                    Already have an account? <Link to="/login" className="text-blue-500 hover:underline">Login</Link>
                 </p>
             </div>
         </div>

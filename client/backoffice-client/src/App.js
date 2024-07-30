@@ -4,15 +4,19 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import MainPage from './pages/MainPage';
 import './index.css'; 
+import ProfilePage from './pages/ProfilePage';
+import MyStaffPage from './pages/MyStaffPage';
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
+        <Routes>  
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/main" element={<MainPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/mystaff" element={<MyStaffPage />} />   
         </Routes>
       </div>
     </Router>

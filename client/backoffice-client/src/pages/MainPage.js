@@ -24,13 +24,12 @@ const MainPage = () => {
     useEffect(() => {
         const fetchAds = async () => {
             try {
-                const response = await axios.get('https://api.example.com/advertisements');
+                const response = await axios.get('https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/19');
                 setAds(response.data);
             } catch (error) {
-                console.error('İlanlar alınırken bir hata oluştu:', error);
+                console.error('an error occured while getting advertisements:', error);
             }
         };
-
         fetchAds();
     }, []);
 
@@ -52,18 +51,18 @@ const MainPage = () => {
         });
 
         try {
-            await axios.post('https://api.example.com/advertisements', formDataToSend, {
+            await axios.post('https://localhost:7053/api/JobAdvertisement/addJobAdvertisement', formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            alert('İlan başarıyla oluşturuldu!');
+            alert('Advertisement created succsesfully!');
             setShowModal(false);
             const response = await axios.get('https://api.example.com/advertisements');
             setAds(response.data);
         } catch (error) {
-            console.error('Bir hata oluştu:', error);
-            alert('İlan oluşturulurken bir hata oluştu.');
+            console.error('An error occur:', error);
+            alert('An error occur while creating advertisement.');
         }
     };
 
@@ -79,15 +78,14 @@ const MainPage = () => {
 
     return (
         <div className="min-h-screen bg-gray-100 flex">
-            {/* Sidebar */}
+        
             <Sidebar isSidebarOpen={isSidebarOpen} />
-
-            {/* Main Content */}
+            
             <div
                 className={`flex-1 flex flex-col bg-gray-100 transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-64' : 'translate-x-0'}`}
                 onClick={handleContentClick}
             >
-                {/* Navbar */}
+                
                 <Navbar isSidebarOpen={isSidebarOpen} handleSidebarToggle={handleSidebarToggle} />
 
                 <div className="p-6 flex-1" onClick={(e) => e.stopPropagation()}>
@@ -99,8 +97,7 @@ const MainPage = () => {
                             Create New Advertisement
                         </button>
                     </div>
-
-                    {/* Popup Modal */}
+              
                     <Modal
                         showModal={showModal}
                         setShowModal={setShowModal}
@@ -108,9 +105,8 @@ const MainPage = () => {
                         formData={formData}
                         handleInputChange={handleInputChange}
                     />
-
-                    {/* Advertisement Cards */}
-                    <div className="flex overflow-x-auto space-x-4 py-4">
+                  
+                    <div className="flex flex-col items-center space-y-4 py-4 w-full">
                         {ads.map((ad) => (
                             <AdvertisementCard key={ad.id} ad={ad} />
                         ))}
