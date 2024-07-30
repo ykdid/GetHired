@@ -58,7 +58,7 @@ const MainPage = () => {
             });
             alert('Advertisement created succsesfully!');
             setShowModal(false);
-            const response = await axios.get('https://api.example.com/advertisements');
+            const response = await axios.get('https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/19');
             setAds(response.data);
         } catch (error) {
             console.error('An error occur:', error);

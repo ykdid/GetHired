@@ -1,5 +1,6 @@
 import React from 'react';
-import { FaTimes, FaBars } from 'react-icons/fa'; // İkonları import ediyoruz
+import { FaTimes, FaBars } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const Navbar = ({ isSidebarOpen, handleSidebarToggle }) => {
     return (
@@ -14,7 +15,7 @@ const Navbar = ({ isSidebarOpen, handleSidebarToggle }) => {
                     <FaBars size={24} />
                 )}
             </button>
-            <h1 className="text-xl font-bold">GetHired-Employer</h1>
+            <h1 className="text-xl font-bold"> <Link to="/main">GetHired-Employer</Link></h1>
         </div>
     );
 };

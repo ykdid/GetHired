@@ -88,19 +88,25 @@ const MyStaffPage = () => {
             >
                 <Navbar isSidebarOpen={isSidebarOpen} handleSidebarToggle={handleSidebarToggle} />
                 <div className="p-6">
-                    <div className="flex justify-end mb-4">
-                        <button
-                            className="bg-blue-500 text-white py-2 px-4 rounded mr-2"
-                            onClick={() => setShowFilterModal(true)}
-                        >
-                            Filter Employees
-                        </button>
-                        <button
-                            className="bg-green-500 text-white py-2 px-4 rounded"
-                            onClick={() => setShowAddModal(true)}
-                        >
-                            Add Employee
-                        </button>
+                    <div className="flex justify-between mb-4 items-center">
+                        <div className='flex-1 text-center'>
+                            <h1><strong>My Staff</strong></h1>
+                        </div>
+                        <div className='flex space-x-2'>
+                            <button
+                                className="bg-blue-500 text-white py-2 px-4 rounded mr-2"
+                                onClick={() => setShowFilterModal(true)}
+                            >
+                                Filter Employees
+                            </button>
+                            <button
+                                className="bg-green-500 text-white py-2 px-4 rounded"
+                                onClick={() => setShowAddModal(true)}
+                            >
+                                Add Employee
+                            </button>
+                        </div>
+                       
                     </div>
                     <div className="grid grid-cols-1 gap-4">
                         {employees.map(employee => (
