@@ -7,7 +7,7 @@ const AdvertisementCard = ({ ad }) => {
     const handleShowApplications = () => {
         navigate(`/applications/${ad.id}`);
     };
-
+    
     return (
         <div key={ad.id} className="bg-white shadow-md p-4 rounded-lg w-[700px]">
             <h3 className="text-lg font-bold mb-2">{ad.title}</h3>

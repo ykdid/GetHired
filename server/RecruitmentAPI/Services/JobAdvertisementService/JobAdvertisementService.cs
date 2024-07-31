@@ -49,9 +49,9 @@ public class JobAdvertisementService:IJobAdvertisementService
         return result > 0;
     }
 
-    public async Task<JobAdvertisement> UpdateAdvertisement(JobAdvertisement updatedAdv)
+    public async Task<JobAdvertisement> UpdateAdvertisement(int  id,JobAdvertisement updatedAdv)
     {
-        var adv = await _context.JobAdvertisements.FindAsync(updatedAdv.Id);
+        var adv = await _context.JobAdvertisements.FindAsync(id);
 
         if (adv == null)
         {

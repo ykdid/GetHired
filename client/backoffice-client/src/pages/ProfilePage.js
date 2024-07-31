@@ -49,7 +49,7 @@ const ProfilePage = () => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            alert('User information updated successfully!');
+            alert('Employer information updated successfully!');
         } catch (error) {
             console.error('An error occurred while updating user information:', error);
             alert('An error occurred while updating user information.');

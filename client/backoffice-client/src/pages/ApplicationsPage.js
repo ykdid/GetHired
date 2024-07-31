@@ -68,7 +68,7 @@ const ApplicationsPage = () => {
                     <div className="flex justify-center mb-4">
                         <h1 className="text-2xl font-bold text-center">Applications</h1>
                     </div>
-                    <div className="flex flex-wrap justify-center gap-4">
+                    <div className="flex flex-col items-center space-y-4 flex-wrap justify-center gap-4">
                         {applications.map((application, index) => (
                             <div key={application.id} className="bg-white shadow-md p-4 rounded-lg w-[600px]">
                                 <img src={users[index]?.profilePhoto} alt={`${users[index]?.name} ${users[index]?.surname}`} className="w-full h-32 object-cover rounded-lg mb-2" />

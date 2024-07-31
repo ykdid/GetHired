@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Navbar = ({ isSidebarOpen, handleSidebarToggle }) => {
     return (
-        <div className="bg-blue-500 text-white p-4 flex items-center">
+        <div className="bg-blue-500 text-white p-4 flex items-center ">
             <button
                 onClick={handleSidebarToggle}
                 className="mr-4 focus:outline-none"

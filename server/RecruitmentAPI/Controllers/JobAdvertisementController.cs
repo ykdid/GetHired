@@ -77,16 +77,23 @@ namespace RecruitmentAPI.Controllers
         
         [HttpPatch("updateAdvertisement")]
         
-        public async Task<IActionResult> UpdateAdvertisement(JobAdvertisement updatedAdv)
+        public async Task<IActionResult> UpdateAdvertisement(int id, JobAdvertisement updatedAdv)
         {
-            var adv = await _jobAdvertisementService.UpdateAdvertisement(updatedAdv);
+            try
+            { 
+                var adv = await _jobAdvertisementService.UpdateAdvertisement(id ,updatedAdv);
+                if (adv == null)
+                {
+                  return  NotFound($"Advertisement with id {id} was not found");
+                }
 
-            if (adv == null)
-            {
-                return NotFound();
+                return Ok(adv);
             }
+            catch (KeyNotFoundException ex)
+            {
 
-            return Ok();
+                return NotFound(ex.Message);
+            }
         }
     }
 }
