@@ -16,7 +16,7 @@ const LoginForm = () => {
             }
         } catch (error) {
             console.error('Login failed:', error);
-            alert('An error occurred while logging in.');
+            alert('Invalid email or password.');
         }
     };
 

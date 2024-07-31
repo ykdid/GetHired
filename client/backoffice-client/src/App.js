@@ -6,6 +6,7 @@ import MainPage from './pages/MainPage';
 import './index.css'; 
 import ProfilePage from './pages/ProfilePage';
 import MyStaffPage from './pages/MyStaffPage';
+import ApplicationsPage from './pages/ApplicationsPage';
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/main" element={<MainPage />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/mystaff" element={<MyStaffPage />} />   
+          <Route path="/mystaff" element={<MyStaffPage />} />
+          <Route path="/applications/:advertisementId" element={<ApplicationsPage />} /> 
         </Routes>
       </div>
     </Router>
