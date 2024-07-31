@@ -13,5 +13,5 @@ public interface IEmployeeService
         string? regNo = null,
         string? identityNo = null
     );
-    Task<Employee> UpdateEmployee(Employee updatedEmployee); // duzenle
+    Task<Employee> UpdateEmployee(int id, Employee updatedEmployee); // duzenle
 }

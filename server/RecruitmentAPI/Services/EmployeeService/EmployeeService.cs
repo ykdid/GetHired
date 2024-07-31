@@ -88,9 +88,9 @@ public class EmployeeService : IEmployeeService
         return await query.ToListAsync();
     }
 
-    public async Task<Employee> UpdateEmployee(Employee updatedEmployee)
+    public async Task<Employee> UpdateEmployee(int id,Employee updatedEmployee)
     {
-        var employee = await _context.Employees.FindAsync(updatedEmployee.Id);
+        var employee = await _context.Employees.FindAsync(id);
         
         if (employee == null)
         {

@@ -94,16 +94,11 @@ namespace RecruitmentAPI.Controllers
         
         [HttpPatch("updateEmployee")]
         
-        public async Task<IActionResult> UpdateEmplyoee(Employee updatedEmployee)
+        public async Task<IActionResult> UpdateEmployee(int id,Employee updatedEmployee)
         {
-            if (updatedEmployee == null)
-            {
-                return BadRequest("Employee data must be provided.");
-            }
-
             try
             {
-                var employee = await _employeeService.UpdateEmployee(updatedEmployee);
+                var employee = await _employeeService.UpdateEmployee(id,updatedEmployee);
                 return Ok(employee);
             }
             catch (KeyNotFoundException ex)
