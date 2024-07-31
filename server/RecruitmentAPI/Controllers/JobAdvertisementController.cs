@@ -75,7 +75,7 @@ namespace RecruitmentAPI.Controllers
             return NoContent();
         }
         
-        [HttpPatch("updateAdvertisement")]
+        [HttpPatch("updateAdvertisement/{id}")]
         
         public async Task<IActionResult> UpdateAdvertisement(int id, JobAdvertisement updatedAdv)
         {
@@ -91,7 +91,6 @@ namespace RecruitmentAPI.Controllers
             }
             catch (KeyNotFoundException ex)
             {
-
                 return NotFound(ex.Message);
             }
         }

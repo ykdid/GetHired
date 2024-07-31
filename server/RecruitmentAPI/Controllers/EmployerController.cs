@@ -12,6 +12,7 @@ using RecruitmentAPI.Services.EmployerService;
 namespace RecruitmentAPI.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     
    public class EmployerController : ControllerBase
     {

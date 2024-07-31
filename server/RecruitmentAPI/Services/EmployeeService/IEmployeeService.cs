@@ -7,11 +7,11 @@ public interface IEmployeeService
     Task<Employee> GetEmployeeById(int id);
     Task<bool> DeleteEmployee(int id);
     Task<List<Employee>> GetEmployeesByEmployer(int employerId);
-    Task<List<Employee>> GetFilteredEmployees( //liste dön aynı isimden olabilir.
+    Task<List<Employee>> GetFilteredEmployees( 
         string? name = null,
         string? surname = null,
         string? regNo = null,
         string? identityNo = null
     );
-    Task<Employee> UpdateEmployee(int id, Employee updatedEmployee); // duzenle
+    Task<Employee> UpdateEmployee(int id, Employee updatedEmployee); 
 }

@@ -24,9 +24,9 @@ namespace RecruitmentAPI.Services.AuthService
         public async Task<AuthResponse> LoginUser(UserLoginRequest request)
         {
             var hashedPassword = HashPassword(request.Password);
-            var test = Encrypt(request.Email);
+            var email = Encrypt(request.Email);
             var user = await _context.Users
-                .FirstOrDefaultAsync(u => u.Email == test && u.HashPassword == hashedPassword);
+                .FirstOrDefaultAsync(u => u.Email == email && u.HashPassword == hashedPassword);
 
             if (user == null)
                 return new AuthResponse { IsSuccess = false, ErrorMessage = "Invalid email or   password" };

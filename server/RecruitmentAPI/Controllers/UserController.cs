@@ -47,7 +47,6 @@ namespace RecruitmentAPI.Controllers
         
         public async Task<IActionResult> UpdateUser(int id, User updatedUser)
         {
-          
             try
             {
                 var user = await _userService.UpdateUser(id, updatedUser);
@@ -60,7 +59,6 @@ namespace RecruitmentAPI.Controllers
             }
             catch (KeyNotFoundException ex)
             {
-                Console.WriteLine(ex);
                 return NotFound(ex.Message);
             }
             
