@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import MainPage from './pages/MainPage';
@@ -18,7 +18,8 @@ function App() {
           <Route path="/main" element={<MainPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/mystaff" element={<MyStaffPage />} />
-          <Route path="/applications/:advertisementId" element={<ApplicationsPage />} /> 
+          <Route path="/applications/:advertisementId" element={<ApplicationsPage />} />
+          <Route path="/" element={<Navigate to="/login" />} /> 
         </Routes>
       </div>
     </Router>

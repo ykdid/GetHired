@@ -4,7 +4,6 @@ import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
 import Modal from '../components/ModalAd';
 import AdvertisementCard from '../components/AdvertisementCard';
-import { FaTimes, FaBars } from 'react-icons/fa';  
 
 const MainPage = () => {
     const [ads, setAds] = useState([]);
@@ -16,7 +15,6 @@ const MainPage = () => {
         expireDate: '',
         imagePath: '',
         htmlContent: '',
-        employerId: '',
         jobType: ''
     });
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -24,12 +22,18 @@ const MainPage = () => {
     useEffect(() => {
         const fetchAds = async () => {
             try {
-                const response = await axios.get('https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/19');
+                const employerId = localStorage.getItem('employerId'); 
+                if (!employerId) {
+                    throw new Error('Employer ID not found in localStorage');
+                }
+
+                const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`);
                 setAds(response.data);
             } catch (error) {
-                console.error('an error occured while getting advertisements:', error);
+                console.error('An error occurred while getting advertisements:', error);
             }
         };
+
         fetchAds();
     }, []);
 
@@ -50,19 +54,27 @@ const MainPage = () => {
             formDataToSend.append(key, formData[key]);
         });
 
+        const employerId = localStorage.getItem('employerId'); 
+        if (!employerId) {
+            alert('Employer ID not found in localStorage');
+            return;
+        }
+
+        formDataToSend.append('employerId', employerId); 
+
         try {
             await axios.post('https://localhost:7053/api/JobAdvertisement/addJobAdvertisement', formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            alert('Advertisement created succsesfully!');
+            alert('Advertisement created successfully!');
             setShowModal(false);
-            const response = await axios.get('https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/19');
+            const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`);
             setAds(response.data);
         } catch (error) {
-            console.error('An error occur:', error);
-            alert('An error occur while creating advertisement.');
+            console.error('An error occurred while creating advertisement:', error);
+            alert('An error occurred while creating advertisement.');
         }
     };
 
@@ -76,20 +88,14 @@ const MainPage = () => {
         }
     };
 
-    
-
     return (
         <div className="min-h-screen bg-gray-100 flex">
-        
             <Sidebar isSidebarOpen={isSidebarOpen} />
-            
             <div
                 className={`flex-1 flex flex-col bg-gray-100 transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-64' : 'translate-x-0'}`}
                 onClick={handleContentClick}
             >
-                
                 <Navbar isSidebarOpen={isSidebarOpen} handleSidebarToggle={handleSidebarToggle} />
-
                 <div className="p-6 flex-1" onClick={(e) => e.stopPropagation()}>
                     <div className="flex justify-center mb-6">
                         <button
@@ -99,7 +105,6 @@ const MainPage = () => {
                             Create New Advertisement
                         </button>
                     </div>
-              
                     <Modal
                         showModal={showModal}
                         setShowModal={setShowModal}
@@ -107,7 +112,6 @@ const MainPage = () => {
                         formData={formData}
                         handleInputChange={handleInputChange}
                     />
-                  
                     <div className="flex flex-col items-center space-y-4 py-4 w-full">
                         {ads.map((ad) => (
                             <AdvertisementCard key={ad.id} ad={ad} />

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; 
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode'; 
+
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
@@ -11,8 +13,18 @@ const LoginForm = () => {
         event.preventDefault();
         try {
             const response = await axios.post('https://localhost:7053/api/Auth/login/employer', { email, password });
-            if (response.status === 200 ) {      
-                navigate('/main');
+            if (response.status === 200) {
+                const token = response.data.token;
+                console.log('Token:', token); 
+                const decodedToken = jwtDecode(token);
+                console.log('Decoded Token:', decodedToken); 
+                const employerId = decodedToken.employerId; 
+                if (employerId) {
+                    localStorage.setItem('employerId', employerId);
+                    navigate('/main');
+                } else {
+                    console.error('Employer ID not found in token.');
+                }
             }
         } catch (error) {
             console.error('Login failed:', error);

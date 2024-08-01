@@ -29,9 +29,9 @@ namespace RecruitmentAPI.Services.AuthService
                 .FirstOrDefaultAsync(u => u.Email == email && u.HashPassword == hashedPassword);
 
             if (user == null)
-                return new AuthResponse { IsSuccess = false, ErrorMessage = "Invalid email or   password" };
+                return new AuthResponse { IsSuccess = false, ErrorMessage = "Invalid email or password" };
 
-            var token = GenerateJwtToken(user.Email);
+            var token = GenerateJwtToken(user.Email, userId: user.Id);
             return new AuthResponse { IsSuccess = true, Token = token };
         }
 
@@ -55,21 +55,25 @@ namespace RecruitmentAPI.Services.AuthService
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            var token = GenerateJwtToken(request.Email);
+            var token = GenerateJwtToken(user.Email, userId: user.Id);
             return new AuthResponse { IsSuccess = true, Token = token };
         }
 
         public async Task<AuthResponse> LoginEmployer(EmployerLoginRequest request)
         {
-            
             var employer = await _context.Employers
                 .FirstOrDefaultAsync(e => e.Email.Equals(request.Email) && e.HashPassword.Equals(request.Password));
 
             if (employer == null)
                 return new AuthResponse { IsSuccess = false, ErrorMessage = "Invalid email or password" };
 
-            var token = GenerateJwtToken(employer.Email);
-            return new AuthResponse { IsSuccess = true, Token = token };
+            var token = GenerateJwtToken(employer.Email, employerId: employer.Id);
+            return new AuthResponse
+            {
+                IsSuccess = true,
+                Token = token,
+                EmployerId = employer.Id
+            };
         }
 
         public async Task<AuthResponse> RegisterEmployer(EmployerRegisterRequest request)
@@ -83,28 +87,45 @@ namespace RecruitmentAPI.Services.AuthService
                 Surname = request.Surname,
                 Email = request.Email,
                 HashPassword = request.Password,
-                CompanyName = request.CompanyName,
+                CompanyName = request.CompanyName
             };
 
             _context.Employers.Add(employer);
             await _context.SaveChangesAsync();
 
-            var token = GenerateJwtToken(employer.Email);
-            return new AuthResponse { IsSuccess = true, Token = token };
+            var token = GenerateJwtToken(employer.Email, employerId: employer.Id);
+            return new AuthResponse
+            {
+                IsSuccess = true,
+                Token = token,
+                EmployerId = employer.Id
+            };
         }
 
-        private string GenerateJwtToken(string email)
+        private string GenerateJwtToken(string email, int? userId = null, int? employerId = null)
         {
             var jwtSettings = _configuration.GetSection("Jwt");
             var key = Encoding.ASCII.GetBytes(jwtSettings["Key"]);
 
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Email, email)
+            };
+
+            if (userId.HasValue)
+            {
+                claims.Add(new Claim("userId", userId.Value.ToString()));
+            }
+
+            if (employerId.HasValue)
+            {
+                claims.Add(new Claim("employerId", employerId.Value.ToString()));
+            }
+
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[]
-                {
-                    new Claim(ClaimTypes.Email, email)
-                }),
+                Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddMinutes(double.Parse(jwtSettings["ExpiryInMinutes"])),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
                 Issuer = jwtSettings["Issuer"],

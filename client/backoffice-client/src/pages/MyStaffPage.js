@@ -21,12 +21,15 @@ const MyStaffPage = () => {
         registrationNumber: '',
         identityNumber: ''
     });
-
+    
     useEffect(() => {
         const fetchEmployees = async () => {
             try {
-                const response = await axios.get('https://localhost:7053/api/Employee/getEmployeesByEmployer/19');
-                setEmployees(response.data);
+                const employerId = localStorage.getItem('employerId'); // Employer ID'yi localStorage'dan al
+                if (employerId) {
+                    const response = await axios.get(`https://localhost:7053/api/Employee/getEmployeesByEmployer/${employerId}`);
+                    setEmployees(response.data);
+                }
             } catch (error) {
                 console.error('An error occurred while fetching employees:', error);
             }
@@ -47,9 +50,12 @@ const MyStaffPage = () => {
     const handleFilterSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.get('https://localhost:7053/api/Employee/getFilteredEmployees', { params: filterData });
-            setEmployees(response.data);
-            setShowFilterModal(false);
+            const employerId = localStorage.getItem('employerId'); // Employer ID'yi localStorage'dan al
+            if (employerId) {
+                const response = await axios.get('https://localhost:7053/api/Employee/getFilteredEmployees', { params: { ...filterData, employerId } });
+                setEmployees(response.data);
+                setShowFilterModal(false);
+            }
         } catch (error) {
             console.error('An error occurred while filtering employees:', error);
         }
@@ -58,11 +64,14 @@ const MyStaffPage = () => {
     const handleAddEmployee = async (event) => {
         event.preventDefault();
         try {
-            await axios.post('https://localhost:7053/api/Employee/addEmployee', newEmployee);
-            alert('Employee added successfully!');
-            setShowAddModal(false);
-            const response = await axios.get('https://localhost:7053/api/Employee/getEmployeesByEmployer/19');
-            setEmployees(response.data);
+            const employerId = localStorage.getItem('employerId'); // Employer ID'yi localStorage'dan al
+            if (employerId) {
+                await axios.post('https://localhost:7053/api/Employee/addEmployee', { ...newEmployee, employerId });
+                alert('Employee added successfully!');
+                setShowAddModal(false);
+                const response = await axios.get(`https://localhost:7053/api/Employee/getEmployeesByEmployer/${employerId}`);
+                setEmployees(response.data);
+            }
         } catch (error) {
             console.error('An error occurred while adding an employee:', error);
             alert('An error occurred while adding an employee.');
@@ -167,14 +176,17 @@ const MyStaffPage = () => {
                                         className="mt-1 p-2 border rounded w-full"
                                     />
                                 </div>
-                                <div className="mt-6">
-                                    <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded">
+                                <div className="flex justify-end">
+                                    <button
+                                        type="submit"
+                                        className="bg-blue-500 text-white py-2 px-4 rounded"
+                                    >
                                         Apply Filters
                                     </button>
                                     <button
                                         type="button"
-                                        className="bg-gray-500 text-white py-2 px-4 rounded ml-2"
                                         onClick={() => setShowFilterModal(false)}
+                                        className="ml-4 bg-gray-500 text-white py-2 px-4 rounded"
                                     >
                                         Cancel
                                     </button>
@@ -187,7 +199,7 @@ const MyStaffPage = () => {
                 {showAddModal && (
                     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                         <div className="bg-white p-6 rounded-lg">
-                            <h2 className="text-xl mb-4">Add Employee</h2>
+                            <h2 className="text-xl mb-4">Add New Employee</h2>
                             <form onSubmit={handleAddEmployee}>
                                 <div className="mb-4">
                                     <label className="block text-gray-700">Name</label>
@@ -239,14 +251,17 @@ const MyStaffPage = () => {
                                         className="mt-1 p-2 border rounded w-full"
                                     />
                                 </div>
-                                <div className="mt-6">
-                                    <button type="submit" className="bg-green-500 text-white py-2 px-4 rounded">
+                                <div className="flex justify-end">
+                                    <button
+                                        type="submit"
+                                        className="bg-green-500 text-white py-2 px-4 rounded"
+                                    >
                                         Add Employee
                                     </button>
                                     <button
                                         type="button"
-                                        className="bg-gray-500 text-white py-2 px-4 rounded ml-2"
                                         onClick={() => setShowAddModal(false)}
+                                        className="ml-4 bg-gray-500 text-white py-2 px-4 rounded"
                                     >
                                         Cancel
                                     </button>

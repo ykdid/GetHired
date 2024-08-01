@@ -1,4 +1,3 @@
-// ApplicationsPage.js
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -14,6 +13,11 @@ const ApplicationsPage = () => {
     useEffect(() => {
         const fetchApplications = async () => {
             try {
+                const employerId = localStorage.getItem('employerId'); // Employer ID'yi localStorage'dan al
+                if (!employerId) {
+                    throw new Error('Employer ID not found in localStorage');
+                }
+
                 const response = await axios.get(`https://localhost:7053/api/JobApplication/getJobApplicationsByAdvertisement/${advertisementId}`);
                 const applicationsData = response.data;
                 setApplications(applicationsData);
@@ -46,14 +50,22 @@ const ApplicationsPage = () => {
         try {
             await axios.put(`https://localhost:7053/api/JobApplication/${applicationId}/status`, { status: 'Accepted' });
             console.log(`Application ${applicationId} accepted.`);
+            alert('Application accepted.');
         } catch (error) {
             console.error('Error updating application status:', error);
         }
     };
 
-    const handleReject = (applicationId) => {
-        setApplications(applications.filter(app => app.id !== applicationId));
-        setUsers(users.filter(user => user.id !== applicationId));
+    const handleReject = async (applicationId) => {
+        try {
+            await axios.delete(`https://localhost:7053/api/JobApplication/deleteApplication/${applicationId}`);
+            setApplications(applications.filter(app => app.id !== applicationId));
+            setUsers(users.filter(user => user.id !== applicationId));
+            alert('Application rejected.');
+        } catch (error) {
+            console.error('Error rejecting application:', error);
+            alert('Error rejecting application.');
+        }
     };
 
     return (
@@ -75,6 +87,7 @@ const ApplicationsPage = () => {
                                 <h3 className="text-lg font-bold mb-2">{users[index]?.name} {users[index]?.surname}</h3>
                                 <p className="text-gray-700 mb-2">Age: {users[index]?.age}</p>
                                 <p className="text-gray-700 mb-2">Email: {users[index]?.email}</p>
+                                <p className="text-gray-700 mb-2">Phone Number: {users[index]?.phoneNumber}</p>
                                 <div className="flex justify-end gap-2 mt-4">
                                     <button
                                         className="bg-blue-500 text-white py-1 px-2 rounded"

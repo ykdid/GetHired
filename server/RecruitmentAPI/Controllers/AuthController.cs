@@ -10,7 +10,6 @@ namespace RecruitmentAPI.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
-        
 
         public AuthController(IAuthService authService)
         {
@@ -44,7 +43,7 @@ namespace RecruitmentAPI.Controllers
             if (!response.IsSuccess)
                 return BadRequest(response.ErrorMessage);
 
-            return Ok(new { Token = response.Token });
+            return Ok(new { Token = response.Token, EmployerId = response.EmployerId });
         }
 
         [HttpPost("register/employer")]
@@ -54,7 +53,7 @@ namespace RecruitmentAPI.Controllers
             if (!response.IsSuccess)
                 return BadRequest(response.ErrorMessage);
 
-            return Ok(new { Token = response.Token });
+            return Ok(new { Token = response.Token, EmployerId = response.EmployerId });
         }
     }
 }

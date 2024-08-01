@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
-import { FaTimes, FaBars } from 'react-icons/fa';
 
 const ProfilePage = () => {
     const [user, setUser] = useState({
@@ -15,9 +14,14 @@ const ProfilePage = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     useEffect(() => {
-        const fetchUser = async () => {
+        const fetchUser = async () => { 
             try {
-                const response = await axios.get('https://localhost:7053/api/Employer/getEmployerById/19');
+                const employerId = localStorage.getItem('employerId'); // Employer ID'yi localStorage'dan al
+                if (!employerId) {
+                    throw new Error('Employer ID not found in localStorage');
+                }
+
+                const response = await axios.get(`https://localhost:7053/api/Employer/getEmployerById/${employerId}`);
                 setUser(response.data);
             } catch (error) {
                 console.error('An error occurred while fetching user data:', error);
@@ -29,7 +33,7 @@ const ProfilePage = () => {
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setUser({ ...user, [name]: value });
-    };  
+    };
 
     const handleImageChange = (event) => {
         setUser({ ...user, employerImagePath: event.target.files[0] });
@@ -44,7 +48,13 @@ const ProfilePage = () => {
         });
 
         try {
-            await axios.patch('https://localhost:7053/api/Employer/updateEmployer/{19}', formDataToSend, {
+            const employerId = localStorage.getItem('employerId'); // Employer ID'yi localStorage'dan al
+            if (!employerId) {
+                alert('Employer ID not found in localStorage');
+                return;
+            }
+
+            await axios.patch(`https://localhost:7053/api/Employer/updateEmployer/${employerId}`, formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -78,7 +88,7 @@ const ProfilePage = () => {
                     <div className="bg-white shadow-md rounded-lg p-6">
                         <h2 className="text-2xl font-semibold mb-4">Profile Information</h2>
                         <div className="mb-4">
-                            <img src={user.employerImagePath} alt="Employer" className="w-24 h-24 rounded-full mx-auto" />
+                            <img src={user.employerImagePath || 'default-avatar.png'} alt="Employer" className="w-24 h-24 rounded-full mx-auto" />
                         </div>
                         <div className="mb-4">
                             <p><strong>Name:</strong> {user.name}</p>
