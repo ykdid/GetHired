@@ -48,7 +48,7 @@ const ProfilePage = () => {
         });
 
         try {
-            const employerId = localStorage.getItem('employerId'); // Employer ID'yi localStorage'dan al
+            const employerId = localStorage.getItem('employerId'); 
             if (!employerId) {
                 alert('Employer ID not found in localStorage');
                 return;

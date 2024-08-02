@@ -7,7 +7,8 @@ public interface IEmployeeService
     Task<Employee> GetEmployeeById(int id);
     Task<bool> DeleteEmployee(int id);
     Task<List<Employee>> GetEmployeesByEmployer(int employerId);
-    Task<List<Employee>> GetFilteredEmployees( 
+    Task<List<Employee>> GetFilteredEmployees(
+        int employerId,
         string? name = null,
         string? surname = null,
         string? regNo = null,

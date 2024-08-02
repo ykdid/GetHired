@@ -50,10 +50,10 @@ const MyStaffPage = () => {
     const handleFilterSubmit = async (event) => {
         event.preventDefault();
         try {
-            const employerId = localStorage.getItem('employerId'); // Employer ID'yi localStorage'dan al
+            const employerId = localStorage.getItem('employerId'); 
             if (employerId) {
                 const response = await axios.get('https://localhost:7053/api/Employee/getFilteredEmployees', { params: { ...filterData, employerId } });
-                setEmployees(response.data);
+                setEmployees(response.data);    
                 setShowFilterModal(false);
             }
         } catch (error) {

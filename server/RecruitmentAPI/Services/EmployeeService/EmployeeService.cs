@@ -58,16 +58,19 @@ public class EmployeeService : IEmployeeService
     }
 
     public async Task<List<Employee>> GetFilteredEmployees(
+        int employerId,
         string? name = null,
         string? surname = null,
         string? regNo = null,
         string? identityNo = null)
     {
-        var query = _context.Employees.AsQueryable();
+        var query = _context.Employees
+            .Where(e => e.EmployerId == employerId)
+            .AsQueryable();
 
-        if (!string.IsNullOrEmpty(name))
+        if (!string.IsNullOrEmpty(name))    
         {
-            query = query.Where(e => e.Name.Contains(name));
+            query = query.Where(e => e.Name.Contains(name) );
         }
 
         if (!string.IsNullOrEmpty(surname))

@@ -77,12 +77,13 @@ namespace RecruitmentAPI.Controllers
         [HttpGet("getFilteredEmployees")]
         
         public async Task<IActionResult> GetFilteredEmployees(
+            [FromQuery] int employerId,
             [FromQuery] string? name = null,
             [FromQuery] string? surname = null,
             [FromQuery] string? regNo = null,
             [FromQuery] string? identityNo = null)
         {
-            var employees = await _employeeService.GetFilteredEmployees(name, surname, regNo, identityNo);
+            var employees = await _employeeService.GetFilteredEmployees(employerId, name, surname, regNo, identityNo);
 
             if (employees == null)
             {

@@ -8,6 +8,7 @@ namespace RecruitmentAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    
 
     public class JobAdvertisementController : Controller
     {
