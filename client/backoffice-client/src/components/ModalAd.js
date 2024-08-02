@@ -30,17 +30,6 @@ const ModalAd = ({ showModal, setShowModal, handleSubmit, formData, handleInputC
                         />
                     </div>
                     <div className="mb-4">
-                        <label className="block text-gray-700">Init Date</label>
-                        <input
-                            type="date"
-                            name="initDate"
-                            value={formData.initDate}
-                            onChange={handleInputChange}
-                            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            required
-                        />
-                    </div>
-                    <div className="mb-4">
                         <label className="block text-gray-700">Expire Date</label>
                         <input
                             type="date"

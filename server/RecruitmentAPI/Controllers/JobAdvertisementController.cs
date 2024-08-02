@@ -22,7 +22,7 @@ namespace RecruitmentAPI.Controllers
         
         [HttpPost("addJobAdvertisement")]
         
-        public async Task<IActionResult> CreateJobAdvertisement(JobAdvertisement jobAdvertisement)
+        public async Task<IActionResult> CreateJobAdvertisement([FromForm] JobAdvertisement jobAdvertisement)
         {
             var result = await _jobAdvertisementService.CreateAdvertisement(jobAdvertisement);
 

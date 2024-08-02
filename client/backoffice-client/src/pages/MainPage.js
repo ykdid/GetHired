@@ -51,7 +51,11 @@ const MainPage = () => {
 
         const formDataToSend = new FormData();
         Object.keys(formData).forEach(key => {
-            formDataToSend.append(key, formData[key]);
+            if (key === 'initDate' || key === 'expireDate') {
+                formDataToSend.append(key, new Date(formData[key]).toISOString());
+            } else {
+                formDataToSend.append(key, formData[key]);
+            }
         });
 
         const employerId = localStorage.getItem('employerId'); 
@@ -113,6 +117,11 @@ const MainPage = () => {
                         handleInputChange={handleInputChange}
                     />
                     <div className="flex flex-col items-center space-y-4 py-4 w-full">
+                        <div className="flex justify-center mb-4">
+                            <h1 className="text-2xl font-bold text-center">
+                                My JobList
+                            </h1>
+                        </div>
                         {ads.map((ad) => (
                             <AdvertisementCard key={ad.id} ad={ad} />
                         ))}
