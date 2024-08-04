@@ -62,7 +62,7 @@ namespace RecruitmentAPI.Controllers
             return Ok(advertisement);
         }
         
-        [HttpDelete("deleteAdvertisement")]
+        [HttpDelete("deleteAdvertisement/{advertisementId}")]
         
         public async Task<IActionResult> DeleteAdvertisement(int advertisementId)
         {

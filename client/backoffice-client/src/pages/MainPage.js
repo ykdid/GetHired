@@ -1,135 +1,211 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Sidebar from '../components/Sidebar';
-import Navbar from '../components/Navbar';
-import Modal from '../components/ModalAd';
-import AdvertisementCard from '../components/AdvertisementCard';
+    import React, { useState, useEffect } from 'react';
+    import axios from 'axios';
+    import Sidebar from '../components/Sidebar';
+    import Navbar from '../components/Navbar';
+    import ModalAd from '../components/ModalAd';
+    import AdvertisementCard from '../components/AdvertisementCard';
+    import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
+    import UpdateAdModal from '../components/UpdateModalAd';
 
-const MainPage = () => {
-    const [ads, setAds] = useState([]);
-    const [showModal, setShowModal] = useState(false);
-    const [formData, setFormData] = useState({
-        title: '',
-        description: '',
-        initDate: '',
-        expireDate: '',
-        imagePath: '',
-        htmlContent: '',
-        jobType: ''
-    });
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const MainPage = () => {
+        const [ads, setAds] = useState([]);
+        const [showModal, setShowModal] = useState(false);
+        const [formData, setFormData] = useState({
+            title: '',
+            description: '',
+            initDate: '',
+            expireDate: '',
+            imagePath: '',
+            htmlContent: '',
+            jobType: ''
+        });
+        const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+        const [selectedAd, setSelectedAd] = useState(null);
+        const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+        const [showUpdateModal, setShowUpdateModal] = useState(false);
 
-    useEffect(() => {
-        const fetchAds = async () => {
-            try {
-                const employerId = localStorage.getItem('employerId'); 
-                if (!employerId) {
-                    throw new Error('Employer ID not found in localStorage');
+        useEffect(() => {
+            const fetchAds = async () => {
+                try {
+                    const employerId = localStorage.getItem('employerId'); 
+                    if (!employerId) {
+                        throw new Error('Employer ID not found in localStorage');
+                    }
+
+                    const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`);
+                    setAds(response.data);
+                } catch (error) {
+                    console.error('An error occurred while getting advertisements:', error);
                 }
+            };
 
-                const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`);
-                setAds(response.data);
-            } catch (error) {
-                console.error('An error occurred while getting advertisements:', error);
+            fetchAds();
+        }, []);
+
+        const handleInputChange = (event) => {
+            const { name, value, files } = event.target;
+            if (name === 'imagePath') {
+                setFormData({ ...formData, [name]: files[0] });
+            } else {
+                setFormData({ ...formData, [name]: value });
             }
         };
 
-        fetchAds();
-    }, []);
+        const handleSubmit = async (event) => {
+            event.preventDefault();
 
-    const handleInputChange = (event) => {
-        const { name, value, files } = event.target;
-        if (name === 'imagePath') {
-            setFormData({ ...formData, [name]: files[0] });
-        } else {
-            setFormData({ ...formData, [name]: value });
-        }
-    };
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-
-        const formDataToSend = new FormData();
-        Object.keys(formData).forEach(key => {
-            if (key === 'initDate' || key === 'expireDate') {
-                formDataToSend.append(key, new Date(formData[key]).toISOString());
-            } else {
-                formDataToSend.append(key, formData[key]);
-            }
-        });
-
-        const employerId = localStorage.getItem('employerId'); 
-        if (!employerId) {
-            alert('Employer ID not found in localStorage');
-            return;
-        }
-
-        formDataToSend.append('employerId', employerId); 
-
-        try {
-            await axios.post('https://localhost:7053/api/JobAdvertisement/addJobAdvertisement', formDataToSend, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
+            const formDataToSend = new FormData();
+            Object.keys(formData).forEach(key => {
+                if (key === 'initDate' || key === 'expireDate') {
+                    formDataToSend.append(key, new Date(formData[key]).toISOString());
+                } else {
+                    formDataToSend.append(key, formData[key]);
+                }
             });
-            alert('Advertisement created successfully!');
-            setShowModal(false);
-            const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`);
-            setAds(response.data);
-        } catch (error) {
-            console.error('An error occurred while creating advertisement:', error);
-            alert('An error occurred while creating advertisement.');
-        }
-    };
 
-    const handleSidebarToggle = () => {
-        setIsSidebarOpen(!isSidebarOpen);
-    };
+            const employerId = localStorage.getItem('employerId'); 
+            if (!employerId) {
+                alert('Employer ID not found in localStorage');
+                return;
+            }
 
-    const handleContentClick = () => {
-        if (isSidebarOpen) {
-            setIsSidebarOpen(false);
-        }
-    };
+            formDataToSend.append('employerId', employerId); 
 
-    return (
-        <div className="min-h-screen bg-gray-100 flex">
-            <Sidebar isSidebarOpen={isSidebarOpen} />
-            <div
-                className={`flex-1 flex flex-col bg-gray-100 transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-64' : 'translate-x-0'}`}
-                onClick={handleContentClick}
-            >
-                <Navbar isSidebarOpen={isSidebarOpen} handleSidebarToggle={handleSidebarToggle} />
-                <div className="p-6 flex-1" onClick={(e) => e.stopPropagation()}>
-                    <div className="flex justify-center mb-6">
-                        <button
-                            onClick={() => setShowModal(true)}
-                            className="bg-blue-500 text-white p-2 rounded shadow-lg hover:bg-blue-600 transition"
-                        >
-                            Create New Advertisement
-                        </button>
-                    </div>
-                    <Modal
-                        showModal={showModal}
-                        setShowModal={setShowModal}
-                        handleSubmit={handleSubmit}
-                        formData={formData}
-                        handleInputChange={handleInputChange}
-                    />
-                    <div className="flex flex-col items-center space-y-4 py-4 w-full">
-                        <div className="flex justify-center mb-4">
-                            <h1 className="text-2xl font-bold text-center">
-                                My JobList
-                            </h1>
+            try {
+                await axios.post('https://localhost:7053/api/JobAdvertisement/addJobAdvertisement', formDataToSend, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+                alert('Advertisement created successfully!');
+                setShowModal(false);
+                const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`);
+                setAds(response.data);
+            } catch (error) {
+                console.error('An error occurred while creating advertisement:', error);
+                alert('An error occurred while creating advertisement.');
+            }
+        };
+
+        const handleSidebarToggle = () => {
+            setIsSidebarOpen(!isSidebarOpen);
+        };
+
+        const handleContentClick = () => {
+            if (isSidebarOpen) {
+                setIsSidebarOpen(false);
+            }
+        };
+
+        const handleDeleteClick = (ad) => {
+            setSelectedAd(ad);
+            setShowConfirmDelete(true);
+        };
+
+        const handleUpdateClick = (ad) => {
+            setSelectedAd(ad);
+            setFormData({
+                title: ad.title,
+                description: ad.description,
+                expireDate: ad.expireDate,
+                imagePath: ad.imagePath,
+                jobType: ad.jobType
+            });
+            setShowUpdateModal(true);
+        };
+
+        return (
+            <div className="min-h-screen bg-gray-100 flex">
+                <Sidebar isSidebarOpen={isSidebarOpen} />
+                <div
+                    className={`flex-1 flex flex-col bg-gray-100 transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-64' : 'translate-x-0'}`}
+                    onClick={handleContentClick}
+                >
+                    <Navbar isSidebarOpen={isSidebarOpen} handleSidebarToggle={handleSidebarToggle} />
+                    <div className="p-6 flex-1 relative" onClick={(e) => e.stopPropagation()}>
+                        <div className="flex justify-center mb-6">
+                            <button
+                                onClick={() => setShowModal(true)}
+                                className="bg-blue-500 text-white p-2 rounded shadow-lg hover:bg-blue-600 transition"
+                            >
+                                Create New Advertisement
+                            </button>
                         </div>
-                        {ads.map((ad) => (
-                            <AdvertisementCard key={ad.id} ad={ad} />
-                        ))}
+                        <ModalAd
+                            showModal={showModal}
+                            setShowModal={setShowModal}
+                            handleSubmit={handleSubmit}
+                            formData={formData}
+                            handleInputChange={handleInputChange}
+                        />
+                        <div className="flex flex-col items-center space-y-4 py-4 w-full">
+                            <div className="flex justify-center mb-4">
+                                <h1 className="text-2xl font-bold text-center">
+                                    My JobList
+                                </h1>
+                            </div>
+                            {ads.map((ad) => (
+                                <AdvertisementCard
+                                    key={ad.id}
+                                    ad={ad}
+                                    onUpdate={() => {
+                                        const fetchAds = async () => {
+                                            try {
+                                                const employerId = localStorage.getItem('employerId');
+                                                if (!employerId) {
+                                                    throw new Error('Employer ID not found in localStorage');
+                                                }
+
+                                                const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`);
+                                                setAds(response.data);
+                                            } catch (error) {
+                                                console.error('An error occurred while getting advertisements:', error);
+                                            }
+                                        };
+
+                                        fetchAds();
+                                    }}
+                                    onDelete={handleDeleteClick}
+                                    onEdit={handleUpdateClick}
+                                />
+                            ))}
+                        </div>
                     </div>
                 </div>
+                {showConfirmDelete && (
+                    <ConfirmDeleteModal
+                        show={showConfirmDelete}
+                        onClose={() => setShowConfirmDelete(false)}
+                        onConfirm={async () => {
+                            if (selectedAd) {
+                                try {
+                                    await axios.delete(`https://localhost:7053/api/JobAdvertisement/deleteAdvertisement/${selectedAd.id}`);
+                                    alert('Advertisement deleted successfully!');
+                                    const employerId = localStorage.getItem('employerId');
+                                    const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`);
+                                    setAds(response.data);
+                                } catch (error) {
+                                    console.error('An error occurred while deleting advertisement:', error);
+                                    alert('An error occurred while deleting advertisement.');
+                                    
+                                } finally {
+                                    setShowConfirmDelete(false);
+                                }
+                            }
+                        }}
+                    />
+                )}
+                {showUpdateModal && (
+                    <UpdateAdModal
+                        showModal={showUpdateModal}
+                        setShowModal={setShowUpdateModal}
+                        handleSubmit={handleSubmit}
+                        formData={formData}
+                        handleInputChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
+                    />
+                )}
             </div>
-        </div>
-    );
-};
+        );
+    };
 
-export default MainPage;
+    export default MainPage;

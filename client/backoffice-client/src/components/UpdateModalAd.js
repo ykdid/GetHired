@@ -1,17 +1,26 @@
 import React from 'react';
 
-const ModalAd = ({ showModal, setShowModal, handleSubmit, formData, handleInputChange }) => {
+const UpdateAdModal = ({ showModal, setShowModal, handleSubmit, formData, handleInputChange, modalPosition }) => {
     if (!showModal) return null;
 
+    const modalStyle = modalPosition
+        ? {
+              top: modalPosition.top,
+              left: modalPosition.left,
+              transform: 'translate(-50%, -50%)',
+              zIndex  : 60,
+          }
+        : {};   
+
     return (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 z-50">
-            <div className="absolute top-40 left-1/2 transform -translate-x-1/2 bg-white p-6 rounded shadow-lg w-1/2 z-60">
-                <h2 className="text-2xl mb-4 font-bold text-gray-800">Create New Advertisement</h2>
+        <div className="absolute inset-0 bg-gray-600 bg-opacity-50 z-50 flex justify-center items-center ">
+            <div className="bg-white p-6 rounded shadow-lg w-[700px] h-[350px]" style={modalStyle}>
+                <h2 className="text-2xl mb-4 font-bold text-gray-800">Edit Advertisement</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label className="block text-gray-700">Title</label>
                         <input
-                            type="text" 
+                            type="text"
                             name="title"
                             value={formData.title}
                             onChange={handleInputChange}
@@ -49,7 +58,7 @@ const ModalAd = ({ showModal, setShowModal, handleSubmit, formData, handleInputC
                             className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
-                    <div className="mb-4">
+                    <div className="mb-">
                         <label className="block text-gray-700">Job Type</label>
                         <input
                             type="text"
@@ -72,7 +81,7 @@ const ModalAd = ({ showModal, setShowModal, handleSubmit, formData, handleInputC
                             type="submit"
                             className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition"
                         >
-                            Create
+                            Update
                         </button>
                     </div>
                 </form>
@@ -81,4 +90,4 @@ const ModalAd = ({ showModal, setShowModal, handleSubmit, formData, handleInputC
     );
 };
 
-export default ModalAd;
+export default UpdateAdModal;
