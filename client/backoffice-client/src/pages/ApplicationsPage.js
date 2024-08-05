@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
+import ScrollToTop from '../components/ScrollToTop';
 
 const ApplicationsPage = () => {
     const { advertisementId } = useParams();
@@ -106,6 +107,7 @@ const ApplicationsPage = () => {
                         ))}
                     </div>
                 </div>
+                <ScrollToTop />
             </div>
         </div>
     );

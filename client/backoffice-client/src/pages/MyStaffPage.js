@@ -143,7 +143,7 @@ const MyStaffPage = () => {
                     </div>
                     <div className="grid grid-cols-1 gap-4">
                         {employees.map(employee => (
-                            <div key={employee.id} className="bg-white shadow-md rounded-lg p-4 relative transition-transform duration-300 ease-in-out transform hover:scale-102">
+                            <div key={employee.id} className="z-10 bg-white shadow-md rounded-lg p-4 relative transition-transform duration-300 ease-in-out transform hover:scale-102">
                                 <div className="absolute top-2 right-2 flex space-x-2">
                                     <button
                                         onClick={() => handleEditEmployee(employee)}
@@ -169,7 +169,7 @@ const MyStaffPage = () => {
                     </div>
                 </div>
                 {showFilterModal && (
-                    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="fixed p-20 inset-0 flex items-start justify-center bg-black bg-opacity-50 z-40">
                         <div className="bg-white p-6 rounded-lg">
                             <h2 className="text-xl mb-4">Filter Employees</h2>
                             <form onSubmit={handleFilterSubmit}>
@@ -233,9 +233,8 @@ const MyStaffPage = () => {
                     </div>
                 )}
 
-                {/* Add Modal */}
                 {showAddModal && (
-                    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="fixed p-20 inset-0 flex items-start justify-center bg-black bg-opacity-50 z-40">
                         <div className="bg-white p-6 rounded-lg">
                             <h2 className="text-xl mb-4">Add New Employee</h2>
                             <form onSubmit={handleAddEmployee}>
@@ -308,8 +307,10 @@ const MyStaffPage = () => {
                         </div>
                     </div>
                 )}
-
+            <div className="z-20">
                 <ScrollToTop />
+            </div>
+            
                 {showEditModal && selectedEmployee && (
                     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                         <div className="bg-white p-6 rounded-lg">
