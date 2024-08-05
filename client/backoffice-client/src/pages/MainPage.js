@@ -53,24 +53,26 @@
 
         const handleSubmit = async (event) => {
             event.preventDefault();
-
-            const formDataToSend = new FormData();
-            Object.keys(formData).forEach(key => {
-                if (key === 'initDate' || key === 'expireDate') {
-                    formDataToSend.append(key, new Date(formData[key]).toISOString());
-                } else {
-                    formDataToSend.append(key, formData[key]);
-                }
-            });
-
-            const employerId = localStorage.getItem('employerId'); 
+        
+            const employerId = localStorage.getItem('employerId');
             if (!employerId) {
                 alert('Employer ID not found in localStorage');
                 return;
             }
-
-            formDataToSend.append('employerId', employerId); 
-
+        
+            const formDataToSend = new FormData();
+            Object.keys(formData).forEach(key => {
+                if (key === 'initDate' || key === 'expireDate') {
+                    if (formData[key]) {
+                        formDataToSend.append(key, new Date(formData[key]).toISOString());
+                    }
+                } else {
+                    formDataToSend.append(key, formData[key]);
+                }
+            });
+        
+            formDataToSend.append('employerId', employerId);
+        
             try {
                 await axios.post('https://localhost:7053/api/JobAdvertisement/addJobAdvertisement', formDataToSend, {
                     headers: {
@@ -100,6 +102,7 @@
         const handleDeleteClick = (ad) => {
             setSelectedAd(ad);
             setShowConfirmDelete(true);
+            console.log('Selected ad:', ad);
         };
 
         const handleUpdateClick = (ad) => {
@@ -178,7 +181,7 @@
                         onClose={() => setShowConfirmDelete(false)}
                         onConfirm={async () => {
                             if (selectedAd) {
-                                try {
+                                try {               
                                     await axios.delete(`https://localhost:7053/api/JobAdvertisement/deleteAdvertisement/${selectedAd.id}`);
                                     alert('Advertisement deleted successfully!');
                                     const employerId = localStorage.getItem('employerId');
@@ -188,8 +191,11 @@
                                     console.error('An error occurred while deleting advertisement:', error);
                                     alert('An error occurred while deleting advertisement.');
                                     
+                                    
                                 } finally {
                                     setShowConfirmDelete(false);
+                                    console.log(selectedAd.id);
+                                    
                                 }
                             }
                         }}

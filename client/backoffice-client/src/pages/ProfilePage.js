@@ -84,11 +84,11 @@ const ProfilePage = () => {
                 onClick={handleContentClick}
             >
                 <Navbar isSidebarOpen={isSidebarOpen} handleSidebarToggle={handleSidebarToggle} />
-                <div className="p-6">
-                    <div className="bg-white shadow-md rounded-lg p-6">
+                <div className="p-6">                    
+                    <div className="bg-white shadow-md rounded-lg p-6 mb-6">
                         <h2 className="text-2xl font-semibold mb-4">Profile Information</h2>
                         <div className="mb-4">
-                            <img src={user.employerImagePath || 'default-avatar.png'} alt="Employer" className="w-24 h-24 rounded-full mx-auto" />
+                            <img src={user.employerImagePath || 'default-avatar.png'} alt="Employer" className="w-24 h-24  mx-auto" />
                         </div>
                         <div className="mb-4">
                             <p><strong>Name:</strong> {user.name}</p>
@@ -96,6 +96,9 @@ const ProfilePage = () => {
                             <p><strong>Email:</strong> {user.email}</p>
                             <p><strong>Company Name:</strong> {user.companyName}</p>
                         </div>
+                    </div>
+                    <div className="bg-white shadow-md rounded-lg p-6">
+                        <h2 className="text-2xl font-semibold mb-4">Update Profile</h2>
                         <form onSubmit={handleSubmit}>
                             <div className="mb-4">
                                 <label className="block text-gray-700">Name</label>

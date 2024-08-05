@@ -25,7 +25,7 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
         try {
             await axios.delete(`https://localhost:7053/api/JobAdvertisement/deleteJobAdvertisement/${ad.id}`);
             alert('Advertisement deleted successfully!');
-            onUpdate(); // Refresh ads list
+            onUpdate(); 
         } catch (error) {
             console.error('An error occurred while deleting advertisement:', error);
             alert('An error occurred while deleting advertisement.');
