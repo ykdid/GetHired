@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
+import { FaEdit, FaTrash } from 'react-icons/fa'; // Import your icons here
+import ScrollToTop from '../components/ScrollToTop';
 
 const MyStaffPage = () => {
     const [employees, setEmployees] = useState([]);
@@ -21,11 +23,13 @@ const MyStaffPage = () => {
         registrationNumber: '',
         identityNumber: ''
     });
-    
+    const [selectedEmployee, setSelectedEmployee] = useState(null);
+    const [showEditModal, setShowEditModal] = useState(false);
+
     useEffect(() => {
         const fetchEmployees = async () => {
             try {
-                const employerId = localStorage.getItem('employerId'); // Employer ID'yi localStorage'dan al
+                const employerId = localStorage.getItem('employerId');
                 if (employerId) {
                     const response = await axios.get(`https://localhost:7053/api/Employee/getEmployeesByEmployer/${employerId}`);
                     setEmployees(response.data);
@@ -64,7 +68,7 @@ const MyStaffPage = () => {
     const handleAddEmployee = async (event) => {
         event.preventDefault();
         try {
-            const employerId = localStorage.getItem('employerId'); // Employer ID'yi localStorage'dan al
+            const employerId = localStorage.getItem('employerId');
             if (employerId) {
                 await axios.post('https://localhost:7053/api/Employee/addEmployee', { ...newEmployee, employerId });
                 alert('Employee added successfully!');
@@ -75,6 +79,26 @@ const MyStaffPage = () => {
         } catch (error) {
             console.error('An error occurred while adding an employee:', error);
             alert('An error occurred while adding an employee.');
+        }
+    };
+
+    const handleEditEmployee = (employee) => {
+        setSelectedEmployee(employee);
+        setShowEditModal(true);
+    };
+
+    const handleDeleteEmployee = async (id) => {
+        try {
+            await axios.delete(`https://localhost:7053/api/Employee/deleteEmployee/${id}`);
+            alert('Employee deleted successfully!');
+            const employerId = localStorage.getItem('employerId');
+            if (employerId) {
+                const response = await axios.get(`https://localhost:7053/api/Employee/getEmployeesByEmployer/${employerId}`);
+                setEmployees(response.data);
+            }
+        } catch (error) {
+            console.error('An error occurred while deleting an employee:', error);
+            alert('An error occurred while deleting an employee.');
         }
     };
 
@@ -119,7 +143,21 @@ const MyStaffPage = () => {
                     </div>
                     <div className="grid grid-cols-1 gap-4">
                         {employees.map(employee => (
-                            <div key={employee.id} className="bg-white shadow-md rounded-lg p-4">
+                            <div key={employee.id} className="bg-white shadow-md rounded-lg p-4 relative transition-transform duration-300 ease-in-out transform hover:scale-102">
+                                <div className="absolute top-2 right-2 flex space-x-2">
+                                    <button
+                                        onClick={() => handleEditEmployee(employee)}
+                                        className="text-blue-500 hover:text-blue-700"
+                                    >
+                                        <FaEdit />
+                                    </button>
+                                    <button
+                                        onClick={() => handleDeleteEmployee(employee.id)}
+                                        className="text-red-500 hover:text-red-700"
+                                    >
+                                        <FaTrash />
+                                    </button>
+                                </div>
                                 <p><strong>Name:</strong> {employee.name}</p>
                                 <p><strong>Surname:</strong> {employee.surname}</p>
                                 <p><strong>Email:</strong> {employee.email}</p>
@@ -130,7 +168,6 @@ const MyStaffPage = () => {
                         ))}
                     </div>
                 </div>
-
                 {showFilterModal && (
                     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                         <div className="bg-white p-6 rounded-lg">
@@ -196,6 +233,7 @@ const MyStaffPage = () => {
                     </div>
                 )}
 
+                {/* Add Modal */}
                 {showAddModal && (
                     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                         <div className="bg-white p-6 rounded-lg">
@@ -261,6 +299,97 @@ const MyStaffPage = () => {
                                     <button
                                         type="button"
                                         onClick={() => setShowAddModal(false)}
+                                        className="ml-4 bg-gray-500 text-white py-2 px-4 rounded"
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                )}
+
+                <ScrollToTop />
+                {showEditModal && selectedEmployee && (
+                    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                        <div className="bg-white p-6 rounded-lg">
+                            <h2 className="text-xl mb-4">Edit Employee</h2>
+                            <form onSubmit={async (e) => {
+                                e.preventDefault();
+                                try {
+                                    const employerId = localStorage.getItem('employerId');
+                                    if (employerId) {
+                                        await axios.patch(`https://localhost:7053/api/Employee/updateEmployee/${selectedEmployee.id}`, { ...selectedEmployee, employerId });
+                                        alert('Employee updated successfully!');
+                                        setShowEditModal(false);
+                                        const response = await axios.get(`https://localhost:7053/api/Employee/getEmployeesByEmployer/${employerId}`);
+                                        setEmployees(response.data);
+                                    }
+                                } catch (error) {
+                                    console.error('An error occurred while updating an employee:', error);
+                                    alert('An error occurred while updating an employee.');
+                                }
+                            }}>
+                                <div className="mb-4">
+                                    <label className="block text-gray-700">Name</label>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        value={selectedEmployee.name}
+                                        onChange={(e) => setSelectedEmployee({ ...selectedEmployee, name: e.target.value })}
+                                        className="mt-1 p-2 border rounded w-full"
+                                    />
+                                </div>
+                                <div className="mb-4">
+                                    <label className="block text-gray-700">Surname</label>
+                                    <input
+                                        type="text"
+                                        name="surname"
+                                        value={selectedEmployee.surname}
+                                        onChange={(e) => setSelectedEmployee({ ...selectedEmployee, surname: e.target.value })}
+                                        className="mt-1 p-2 border rounded w-full"
+                                    />
+                                </div>
+                                <div className="mb-4">
+                                    <label className="block text-gray-700">Email</label>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        value={selectedEmployee.email}
+                                        onChange={(e) => setSelectedEmployee({ ...selectedEmployee, email: e.target.value })}
+                                        className="mt-1 p-2 border rounded w-full"
+                                    />
+                                </div>
+                                <div className="mb-4">
+                                    <label className="block text-gray-700">Registration Number</label>
+                                    <input
+                                        type="text"
+                                        name="registrationNumber"
+                                        value={selectedEmployee.registrationNumber}
+                                        onChange={(e) => setSelectedEmployee({ ...selectedEmployee, registrationNumber: e.target.value })}
+                                        className="mt-1 p-2 border rounded w-full"
+                                    />
+                                </div>
+                                <div className="mb-4">
+                                    <label className="block text-gray-700">Identity Number</label>
+                                    <input
+                                        type="text"
+                                        name="identityNumber"
+                                        value={selectedEmployee.identityNumber}
+                                        onChange={(e) => setSelectedEmployee({ ...selectedEmployee, identityNumber: e.target.value })}
+                                        className="mt-1 p-2 border rounded w-full"
+                                    />
+                                </div>
+                                <div className="flex justify-end">
+                                    <button
+                                        type="submit"
+                                        className="bg-blue-500 text-white py-2 px-4 rounded"
+                                    >
+                                        Save Changes
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowEditModal(false)}
                                         className="ml-4 bg-gray-500 text-white py-2 px-4 rounded"
                                     >
                                         Cancel

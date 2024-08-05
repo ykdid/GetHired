@@ -6,6 +6,7 @@
     import AdvertisementCard from '../components/AdvertisementCard';
     import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
     import UpdateAdModal from '../components/UpdateModalAd';
+    import ScrollToTop from '../components/ScrollToTop';
 
     const MainPage = () => {
         const [ads, setAds] = useState([]);
@@ -168,13 +169,24 @@
 
                                         fetchAds();
                                     }}
-                                    onDelete={handleDeleteClick}
                                     onEdit={handleUpdateClick}
+                                    onDelete={handleDeleteClick}
+                                   
                                 />
                             ))}
                         </div>
                     </div>
                 </div>
+                <ScrollToTop />
+                {showUpdateModal && (
+                    <UpdateAdModal
+                        showModal={showUpdateModal}
+                        setShowModal={setShowUpdateModal}
+                        handleSubmit={handleSubmit}
+                        formData={formData}
+                        handleInputChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
+                    />
+                )}
                 {showConfirmDelete && (
                     <ConfirmDeleteModal
                         show={showConfirmDelete}
@@ -201,15 +213,7 @@
                         }}
                     />
                 )}
-                {showUpdateModal && (
-                    <UpdateAdModal
-                        showModal={showUpdateModal}
-                        setShowModal={setShowUpdateModal}
-                        handleSubmit={handleSubmit}
-                        formData={formData}
-                        handleInputChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
-                    />
-                )}
+                
             </div>
         );
     };

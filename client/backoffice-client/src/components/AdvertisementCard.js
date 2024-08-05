@@ -62,19 +62,20 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
         <div key={ad.id} className={` bg-white shadow-md p-4 rounded-lg w-[700px] h-[350px] flex flex-col justify-between relative ${isModalOpen ? 'opacity-50' : ''}`} style={{ zIndex: 30 }}>
             <div className="absolute top-2 right-2 flex space-x-2">
                 <button
-                    onClick={() => setShowConfirmDelete(true)}
-                    className={`text-red-500 hover:text-red-700 ${isModalOpen ? 'cursor-not-allowed' : ''}`}
-                    disabled={isModalOpen}
-                >
-                    <FaTrash size={20} />
-                </button>
-                <button
                     onClick={() => setShowUpdateModal(true)}
                     className={`text-blue-500 hover:text-blue-700 ${isModalOpen ? 'cursor-not-allowed' : ''}`}
                     disabled={isModalOpen}
                 >
                     <FaEdit size={20} />
                 </button>
+                <button
+                    onClick={() => setShowConfirmDelete(true)}
+                    className={`text-red-500 hover:text-red-700 ${isModalOpen ? 'cursor-not-allowed' : ''}`}
+                    disabled={isModalOpen}
+                >
+                    <FaTrash size={20} />
+                </button>
+                
             </div>
             <div>
                 <h3 className="text-lg font-bold mb-2">{ad.title}</h3>
@@ -99,17 +100,17 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
                     Show Applications
                 </button>
             </div>
-            <ConfirmDeleteModal
-                show={showConfirmDelete}
-                onClose={() => setShowConfirmDelete(false)}
-                onConfirm={handleDelete}
-            />
             <UpdateAdModal
                 showModal={showUpdateModal}
                 setShowModal={setShowUpdateModal}
                 handleSubmit={handleUpdate}
                 formData={formData}
                 handleInputChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
+            />
+             <ConfirmDeleteModal
+                show={showConfirmDelete}
+                onClose={() => setShowConfirmDelete(false)}
+                onConfirm={handleDelete}
             />
         </div>
     );
