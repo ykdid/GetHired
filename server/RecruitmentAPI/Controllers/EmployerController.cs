@@ -47,7 +47,7 @@ namespace RecruitmentAPI.Controllers
         
         [HttpPatch("updateEmployer/{id}")]
         
-        public async Task<IActionResult> UpdateEmployer(int id, Employer updatedEmployer)
+        public async Task<IActionResult> UpdateEmployer(int id, [FromBody] Employer updatedEmployer)
         {
             try
             {

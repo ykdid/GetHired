@@ -13,8 +13,8 @@ const UpdateAdModal = ({ showModal, setShowModal, handleSubmit, formData, handle
         : {};   
 
     return (
-        <div className="absolute inset-0 bg-gray-600 bg-opacity-50 z-50 flex justify-center items-center ">
-            <div className="bg-white p-6 rounded shadow-lg relative z-60" style={modalStyle}>
+        <div className="fixed p-20 inset-0 bg-gray-600 bg-opacity-50 z-70 flex justify-center items-center ">
+            <div className="bg-white p-6 rounded shadow-lg relative z-60" style={modalStyle}>   
                 <h2 className="text-2xl mb-4 font-bold text-gray-800">Edit Advertisement</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="">
