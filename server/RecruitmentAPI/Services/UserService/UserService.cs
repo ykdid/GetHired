@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+using System.Text;
 using Microsoft.AspNetCore.Http.HttpResults;
 using RecruitmentAPI.Data;
 using RecruitmentAPI.Entities;
@@ -7,10 +9,13 @@ namespace RecruitmentAPI.Services.UserService;
 public class UserService : IUserService
 {
     private readonly RecruitmentDbContext _context;
+    private readonly IConfiguration _configuration;
 
-    public UserService(RecruitmentDbContext context)
+    public UserService(RecruitmentDbContext context, IConfiguration configuration)
     {
         _context = context;
+        _configuration = configuration;
+
     }
 
     public async Task<bool> CreateUser(User user)
@@ -30,6 +35,9 @@ public class UserService : IUserService
         {
             throw new KeyNotFoundException($"User with id {id} was not found.");
         }
+
+        user.Email = Decrypt(user.Email);
+        user.PhoneNumber = Decrypt(user.PhoneNumber);
         
         return user;
 
@@ -55,6 +63,22 @@ public class UserService : IUserService
         await _context.SaveChangesAsync();
 
         return user;
+    }
+    
+    private string Decrypt(string input)
+    {
+        using (var aes = Aes.Create())
+        {
+            aes.Key = Encoding.UTF8.GetBytes(_configuration["EncryptionKey"]);
+            aes.IV = Encoding.UTF8.GetBytes(_configuration["EncryptionIV"]);
+
+            using (var decryptor = aes.CreateDecryptor(aes.Key, aes.IV))
+            {
+                var inputBytes = Convert.FromBase64String(input);
+                var decryptedBytes = decryptor.TransformFinalBlock(inputBytes, 0, inputBytes.Length);
+                return Encoding.UTF8.GetString(decryptedBytes);
+            }
+        }
     }
     
    
