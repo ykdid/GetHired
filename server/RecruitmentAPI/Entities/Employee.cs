@@ -12,7 +12,7 @@ public class Employee
     [MaxLength(100)]
     public string Surname { get; set; }
     [MaxLength(100)]
-    public string Email { get; set; }
+    public string Email { get; set; } 
     public int? EmployerId { get; set; }
     public int? UserId { get; set; }
     [MaxLength(100)]

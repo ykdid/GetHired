@@ -7,8 +7,9 @@ using RecruitmentAPI.Services.JobApplicationService;
 namespace RecruitmentAPI.Controllers
 { 
     
-[Route("api/[controller]")]
-[ApiController]
+    [Authorize]
+    [Route("api/[controller]")]
+    [ApiController]
     
     public class JobApplicationController : Controller
     {

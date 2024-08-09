@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "l3k1afRIe/vxMWGQYEwPw1dRenNTJMYbIwONdJ1F63mEAw9rayNEY/yynrt2oxzBZbUz3RRzL67DmJajsziDaQ==",
+  "dgSpecHash": "N9FlOJtMVpXVwJGoBC4nCYsbOmnbbUi5kMhKdsz7odFVWAa/4QHSmB4bm0BoqZddpmDvlt/BH9Z6SSZeEvG6GA==",
   "success": true,
   "projectFilePath": "/Users/yusufkaya/Desktop/GetHired/server/RecruitmentAPI/RecruitmentAPI.csproj",
   "expectedPackageFiles": [
@@ -59,7 +59,7 @@
     "/Users/yusufkaya/.nuget/packages/microsoft.identity.web.tokenacquisition/2.15.2/microsoft.identity.web.tokenacquisition.2.15.2.nupkg.sha512",
     "/Users/yusufkaya/.nuget/packages/microsoft.identity.web.tokencache/2.15.2/microsoft.identity.web.tokencache.2.15.2.nupkg.sha512",
     "/Users/yusufkaya/.nuget/packages/microsoft.identitymodel.abstractions/7.6.3/microsoft.identitymodel.abstractions.7.6.3.nupkg.sha512",
-    "/Users/yusufkaya/.nuget/packages/microsoft.identitymodel.jsonwebtokens/7.1.2/microsoft.identitymodel.jsonwebtokens.7.1.2.nupkg.sha512",
+    "/Users/yusufkaya/.nuget/packages/microsoft.identitymodel.jsonwebtokens/7.6.3/microsoft.identitymodel.jsonwebtokens.7.6.3.nupkg.sha512",
     "/Users/yusufkaya/.nuget/packages/microsoft.identitymodel.logging/7.6.3/microsoft.identitymodel.logging.7.6.3.nupkg.sha512",
     "/Users/yusufkaya/.nuget/packages/microsoft.identitymodel.loggingextensions/7.0.3/microsoft.identitymodel.loggingextensions.7.0.3.nupkg.sha512",
     "/Users/yusufkaya/.nuget/packages/microsoft.identitymodel.protocols/7.1.2/microsoft.identitymodel.protocols.7.1.2.nupkg.sha512",
@@ -97,7 +97,7 @@
     "/Users/yusufkaya/.nuget/packages/system.diagnostics.diagnosticsource/8.0.0/system.diagnostics.diagnosticsource.8.0.0.nupkg.sha512",
     "/Users/yusufkaya/.nuget/packages/system.drawing.common/4.7.2/system.drawing.common.4.7.2.nupkg.sha512",
     "/Users/yusufkaya/.nuget/packages/system.formats.asn1/8.0.0-rc.2.23479.6/system.formats.asn1.8.0.0-rc.2.23479.6.nupkg.sha512",
-    "/Users/yusufkaya/.nuget/packages/system.identitymodel.tokens.jwt/7.1.2/system.identitymodel.tokens.jwt.7.1.2.nupkg.sha512",
+    "/Users/yusufkaya/.nuget/packages/system.identitymodel.tokens.jwt/7.6.3/system.identitymodel.tokens.jwt.7.6.3.nupkg.sha512",
     "/Users/yusufkaya/.nuget/packages/system.io.pipelines/6.0.3/system.io.pipelines.6.0.3.nupkg.sha512",
     "/Users/yusufkaya/.nuget/packages/system.memory/4.5.3/system.memory.4.5.3.nupkg.sha512",
     "/Users/yusufkaya/.nuget/packages/system.numerics.vectors/4.5.0/system.numerics.vectors.4.5.0.nupkg.sha512",

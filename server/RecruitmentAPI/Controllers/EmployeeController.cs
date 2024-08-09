@@ -7,9 +7,9 @@ using RecruitmentAPI.Services.JobAdvertisementService;
 
 namespace RecruitmentAPI.Controllers
 {
-    
-[Route("api/[controller]")]
-[ApiController]
+    [Authorize]
+    [Route("api/[controller]")]
+    [ApiController]
 
 
     public class EmployeeController : Controller
@@ -46,7 +46,7 @@ namespace RecruitmentAPI.Controllers
 
         }
         
-        [HttpDelete("deleteEmployee")]
+        [HttpDelete("deleteEmployee/{id}")]
         
         public async Task<IActionResult> DeleteEmployee(int id)
         {
@@ -93,8 +93,7 @@ namespace RecruitmentAPI.Controllers
             return Ok(employees);
         }
         
-        [HttpPatch("updateEmployee")]
-        
+        [HttpPatch("updateEmployee/{id}")]
         public async Task<IActionResult> UpdateEmployee(int id,Employee updatedEmployee)
         {
             try

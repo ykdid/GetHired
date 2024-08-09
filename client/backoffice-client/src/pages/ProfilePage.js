@@ -17,12 +17,20 @@ const ProfilePage = () => {
     useEffect(() => {
         const fetchUser = async () => { 
             try {
+                const token = sessionStorage.getItem('token');
                 const employerId = localStorage.getItem('employerId');
                 if (!employerId) {
                     throw new Error('Employer ID not found in localStorage');
                 }
+                if(!token){
+                    throw new Error('Token not found in sessionStorage')
+                }
 
-                const response = await axios.get(`https://localhost:7053/api/Employer/getEmployerById/${employerId}`);
+                const response = await axios.get(`https://localhost:7053/api/Employer/getEmployerById/${employerId}`,{
+                    headers:{
+                        'Authorization' : `Bearer ${token}`
+                    }
+                });
                 setUser(response.data);
             } catch (error) {
                 console.error('An error occurred while fetching user data:', error);
@@ -57,6 +65,7 @@ const ProfilePage = () => {
                 const uploadResponse = await axios.post(`https://localhost:7053/api/Employer/uploadEmployerImage/${employerId}`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
+                        'Authorization' : `Bearer ${token}`,
                     },
                 });
 
@@ -66,6 +75,7 @@ const ProfilePage = () => {
             await axios.patch(`https://localhost:7053/api/Employer/updateEmployer/${employerId}`, user, {
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization' : `Bearer ${token}`,
                 },
             });
 

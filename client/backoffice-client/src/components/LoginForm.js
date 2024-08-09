@@ -18,10 +18,11 @@ const LoginForm = () => {
                 console.log('Token:', token); 
                 const decodedToken = jwtDecode(token);
                 console.log('Decoded Token:', decodedToken); 
-                const employerId = decodedToken.employerId; 
-                if (employerId) {
+                const employerId = decodedToken.employerId;
+                if (employerId && token) {
                     localStorage.setItem('employerId', employerId);
-                    navigate('/main');
+                    sessionStorage.setItem('token',token)
+                    navigate('/main');  
                 } else {
                     console.error('Employer ID not found in token.');
                 }

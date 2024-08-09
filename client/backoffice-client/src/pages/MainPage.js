@@ -29,11 +29,15 @@
             const fetchAds = async () => {
                 try {
                     const employerId = localStorage.getItem('employerId'); 
-                    if (!employerId) {
-                        throw new Error('Employer ID not found in localStorage');
+                    const token = sessionStorage.getItem('token');
+                    if (!token && employerId) {
+                        throw new Error('Employer ID not found in localStorage or token not found in sessionStorage');
                     }
-
-                    const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`);
+                    const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`,{
+                        headers:{
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
                     setAds(response.data);
                 } catch (error) {
                     console.error('An error occurred while getting advertisements:', error);
@@ -75,14 +79,20 @@
             formDataToSend.append('employerId', employerId);
         
             try {
+                const token = sessionStorage.getItem('token');
                 await axios.post('https://localhost:7053/api/JobAdvertisement/addJobAdvertisement', formDataToSend, {
                     headers: {
+                        'Authorization': `Bearer ${token}`,
                         'Content-Type': 'multipart/form-data',
                     },
                 });
                 alert('Advertisement created successfully!');
                 setShowModal(false);
-                const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`);
+                const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`,{
+                    headers : {
+                        'Authorization':`Bearer ${token}`
+                    }
+                });
                 setAds(response.data);
             } catch (error) {
                 console.error('An error occurred while creating advertisement:', error);
@@ -155,12 +165,17 @@
                                     onUpdate={() => {
                                         const fetchAds = async () => {
                                             try {
+                                                const token = sessionStorage.getItem('token');
                                                 const employerId = localStorage.getItem('employerId');
                                                 if (!employerId) {
                                                     throw new Error('Employer ID not found in localStorage');
                                                 }
 
-                                                const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`);
+                                                const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`,{
+                                                    headers : {
+                                                        'Authorization':`Bearer ${token}`
+                                                    }
+                                                });
                                                 setAds(response.data);
                                             } catch (error) {
                                                 console.error('An error occurred while getting advertisements:', error);
@@ -193,11 +208,20 @@
                         onClose={() => setShowConfirmDelete(false)}
                         onConfirm={async () => {
                             if (selectedAd) {
-                                try {               
-                                    await axios.delete(`https://localhost:7053/api/JobAdvertisement/deleteAdvertisement/${selectedAd.id}`);
+                                try {
+                                    const token = sessionStorage.getItem('token');               
+                                    await axios.delete(`https://localhost:7053/api/JobAdvertisement/deleteAdvertisement/${selectedAd.id}`,{
+                                        headers : {
+                                            'Authorization':`Bearer ${token}`
+                                        }
+                                    });
                                     alert('Advertisement deleted successfully!');
                                     const employerId = localStorage.getItem('employerId');
-                                    const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`);
+                                    const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`,{
+                                        headers :{
+                                            'Authorization':`Bearer ${token}`
+                                        }
+                                    });
                                     setAds(response.data);
                                 } catch (error) {
                                     console.error('An error occurred while deleting advertisement:', error);

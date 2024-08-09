@@ -31,7 +31,7 @@ namespace RecruitmentAPI.Services.AuthService
             if (user == null)
                 return new AuthResponse { IsSuccess = false, ErrorMessage = "Invalid email or password" };
 
-            var token = GenerateJwtToken(user.Email, userId: user.Id);
+            var token = GenerateJwtToken(user.Email);
             return new AuthResponse { IsSuccess = true, Token = token };
         }
 
@@ -55,7 +55,7 @@ namespace RecruitmentAPI.Services.AuthService
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            var token = GenerateJwtToken(user.Email, userId: user.Id);
+            var token = GenerateJwtToken(request.Email );
             return new AuthResponse { IsSuccess = true, Token = token };
         }
 
@@ -67,12 +67,12 @@ namespace RecruitmentAPI.Services.AuthService
             if (employer == null)
                 return new AuthResponse { IsSuccess = false, ErrorMessage = "Invalid email or password" };
 
-            var token = GenerateJwtToken(employer.Email, employerId: employer.Id);
+            var token = GenerateJwtToken(employer.Email ,employerId: employer.Id);
             return new AuthResponse
             {
                 IsSuccess = true,
                 Token = token,
-                EmployerId = employer.Id
+                EmployerId = employer.Id 
             };
         }
 
@@ -93,19 +93,19 @@ namespace RecruitmentAPI.Services.AuthService
             _context.Employers.Add(employer);
             await _context.SaveChangesAsync();
 
-            var token = GenerateJwtToken(employer.Email, employerId: employer.Id);
+            var token = GenerateJwtToken(employer.Email , employerId: employer.Id);
             return new AuthResponse
             {
                 IsSuccess = true,
                 Token = token,
-                EmployerId = employer.Id
+                EmployerId = employer.Id 
             };
         }
-
+    
         private string GenerateJwtToken(string email, int? userId = null, int? employerId = null)
         {
             var jwtSettings = _configuration.GetSection("Jwt");
-            var key = Encoding.ASCII.GetBytes(jwtSettings["Key"]);
+            var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]);
 
             var claims = new List<Claim>
             {
@@ -135,6 +135,7 @@ namespace RecruitmentAPI.Services.AuthService
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+
 
         private string HashPassword(string password)
         {

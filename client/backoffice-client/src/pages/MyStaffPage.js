@@ -30,9 +30,14 @@ const MyStaffPage = () => {
     useEffect(() => {
         const fetchEmployees = async () => {
             try {
+                const token = sessionStorage.getItem('token');
                 const employerId = localStorage.getItem('employerId');
                 if (employerId) {
-                    const response = await axios.get(`https://localhost:7053/api/Employee/getEmployeesByEmployer/${employerId}`);
+                    const response = await axios.get(`https://localhost:7053/api/Employee/getEmployeesByEmployer/${employerId}`,{
+                        headers:{
+                            'Authorization':`Bearer ${token}`
+                        }
+                    });
                     setEmployees(response.data);
                 }
             } catch (error) {
@@ -60,9 +65,15 @@ const MyStaffPage = () => {
     const handleFilterSubmit = async (event) => {
         event.preventDefault();
         try {
+            const token = sessionStorage.getItem('token');
             const employerId = localStorage.getItem('employerId');
-            if (employerId) {
-                const response = await axios.get('https://localhost:7053/api/Employee/getFilteredEmployees', { params: { ...filterData, employerId } });
+            if (employerId && token) {
+                const response = await axios.get('https://localhost:7053/api/Employee/getFilteredEmployees', {
+            params: { ...filterData, employerId },
+            headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
                 setEmployees(response.data);
                 setShowFilterModal(false);
             }
@@ -74,12 +85,21 @@ const MyStaffPage = () => {
     const handleAddEmployee = async (event) => {
         event.preventDefault();
         try {
+            const token = sessionStorage.getItem('token');
             const employerId = localStorage.getItem('employerId');
             if (employerId) {
-                await axios.post('https://localhost:7053/api/Employee/addEmployee', { ...newEmployee, employerId });
+                await axios.post('https://localhost:7053/api/Employee/addEmployee', { ...newEmployee, employerId } ,{
+                    headers:{
+                        'Authorization':`Bearer ${token}`
+                    }
+                });
                 alert('Employee added successfully!');
                 setShowAddModal(false);
-                const response = await axios.get(`https://localhost:7053/api/Employee/getEmployeesByEmployer/${employerId}`);
+                const response = await axios.get(`https://localhost:7053/api/Employee/getEmployeesByEmployer/${employerId}`,{
+                    headers:{
+                        'Authorization':`Bearer ${token}`
+                    }
+                });
                 setEmployees(response.data);
             }
         } catch (error) {
@@ -96,12 +116,24 @@ const MyStaffPage = () => {
     const handleUpdateEmployee = async (event) => {
         event.preventDefault();
         try {
-            await axios.patch(`https://localhost:7053/api/Employee/updateEmployee/${selectedEmployee.id}`, selectedEmployee);
+            const token = sessionStorage.getItem('token')
+            await axios.patch(`https://localhost:7053/api/Employee/updateEmployee/${selectedEmployee.id}`, {
+            ...selectedEmployee,  
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json' 
+            }
+        });
             alert('Employee updated successfully!');
             setShowEditModal(false);
             const employerId = localStorage.getItem('employerId');
             if (employerId) {
-                const response = await axios.get(`https://localhost:7053/api/Employee/getEmployeesByEmployer/${employerId}`);
+                const response = await axios.get(`https://localhost:7053/api/Employee/getEmployeesByEmployer/${employerId}`,{
+                    headers:{
+                        'Authorization':`Bearer ${token}`
+                    }
+                });
                 setEmployees(response.data);
             }
         } catch (error) {
@@ -112,12 +144,21 @@ const MyStaffPage = () => {
 
     const handleDeleteEmployee = async () => {
         try {
-            await axios.delete(`https://localhost:7053/api/Employee/deleteEmployee/${selectedEmployee.id}`);
+            const token = sessionStorage.getItem('token');
+            await axios.delete(`https://localhost:7053/api/Employee/deleteEmployee/${selectedEmployee.id}`,{
+                headers:{
+                    'Authorization':`Bearer ${token}`
+                }
+            });
             alert('Employee deleted successfully!');
             setShowDeleteModal(false);
             const employerId = localStorage.getItem('employerId');
             if (employerId) {
-                const response = await axios.get(`https://localhost:7053/api/Employee/getEmployeesByEmployer/${employerId}`);
+                const response = await axios.get(`https://localhost:7053/api/Employee/getEmployeesByEmployer/${employerId}`,{
+                    headers:{
+                        'Authorization':`Bearer ${token}`
+                    }
+                });
                 setEmployees(response.data);
             }
         } catch (error) {
@@ -316,6 +357,16 @@ const MyStaffPage = () => {
                                         className="mt-1 p-2 border rounded w-full"
                                     />
                                 </div>
+                                <div className="mb-4">
+                                    <label className="block text-gray-700">JobType</label>
+                                    <input
+                                        type="text"
+                                        name="jobType"
+                                        value={newEmployee.jobType}
+                                        onChange={handleNewEmployeeChange}
+                                        className="mt-1 p-2 border rounded w-full"
+                                    />
+                                </div>
                                 <div className="flex justify-end">
                                     <button
                                         type="button"
@@ -387,6 +438,16 @@ const MyStaffPage = () => {
                                             type="text"
                                             name="identityNumber"
                                             value={selectedEmployee.identityNumber}
+                                            onChange={handleSelectedEmployeeChange}
+                                            className="mt-1 p-2 border rounded w-full"
+                                        />
+                                    </div>
+                                    <div className="mb-4">
+                                        <label className="block text-gray-700">JobType</label>
+                                        <input
+                                            type="text"
+                                            name="jobType"
+                                            value={selectedEmployee.jobType}
                                             onChange={handleSelectedEmployeeChange}
                                             className="mt-1 p-2 border rounded w-full"
                                         />

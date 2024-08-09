@@ -5,6 +5,7 @@ using RecruitmentAPI.Services.AuthService.DTOs.Models;
 
 namespace RecruitmentAPI.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -40,7 +41,7 @@ namespace RecruitmentAPI.Controllers
         public async Task<IActionResult> LoginEmployer(EmployerLoginRequest request)
         {
             var response = await _authService.LoginEmployer(request);
-            if (!response.IsSuccess)
+            if (!response.IsSuccess)    
                 return BadRequest(response.ErrorMessage);
 
             return Ok(new { Token = response.Token, EmployerId = response.EmployerId });

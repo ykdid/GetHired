@@ -11,8 +11,10 @@ using RecruitmentAPI.Services.EmployerService;
 
 namespace RecruitmentAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
+    
     
    public class EmployerController : ControllerBase
     {
@@ -22,6 +24,7 @@ namespace RecruitmentAPI.Controllers
         {
             _employerService = employerService;
         }
+        
         
         [HttpPost("addEmployer")]
         public async Task<IActionResult> CreateEmployer(Employer employer)

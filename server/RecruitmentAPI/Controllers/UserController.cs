@@ -7,6 +7,7 @@ using RecruitmentAPI.Services.UserService;
 
 namespace RecruitmentAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -17,7 +18,8 @@ namespace RecruitmentAPI.Controllers
         {
             _userService = userService;
         }
-
+        
+        [AllowAnonymous]
         [HttpPost("addUser")]
         public async Task<IActionResult> CreateUser(User user)
         {

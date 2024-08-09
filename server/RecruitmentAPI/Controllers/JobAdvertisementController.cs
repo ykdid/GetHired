@@ -5,11 +5,12 @@ using RecruitmentAPI.Entities;
 using RecruitmentAPI.Services.JobAdvertisementService;
 
 namespace RecruitmentAPI.Controllers
-{
+{   
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     
-
+    
     public class JobAdvertisementController : Controller
     {
         private readonly IJobAdvertisementService _jobAdvertisementService;

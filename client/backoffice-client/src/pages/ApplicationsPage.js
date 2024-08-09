@@ -14,17 +14,29 @@ const ApplicationsPage = () => {
     useEffect(() => {
         const fetchApplications = async () => {
             try {
-                const employerId = localStorage.getItem('employerId'); // Employer ID'yi localStorage'dan al
+                const token = sessionStorage.getItem('token');
+                const employerId = localStorage.getItem('employerId'); 
                 if (!employerId) {
                     throw new Error('Employer ID not found in localStorage');
                 }
+                if(!token){
+                    throw new Error ('Token not found in sessionStorage');
+                }
 
-                const response = await axios.get(`https://localhost:7053/api/JobApplication/getJobApplicationsByAdvertisement/${advertisementId}`);
+                const response = await axios.get(`https://localhost:7053/api/JobApplication/getJobApplicationsByAdvertisement/${advertisementId}`,{
+                    headers : {
+                        'Authorization' : `Bearer ${token}`,
+                    }
+                });
                 const applicationsData = response.data;
                 setApplications(applicationsData);
 
                 const userRequests = applicationsData.map(application =>
-                    axios.get(`https://localhost:7053/api/User/getUserById/${application.userId}`)
+                    axios.get(`https://localhost:7053/api/User/getUserById/${application.userId}`,{
+                        headers : {
+                            'Authorization' : `Bearer ${token}`,
+                        }
+                    })
                 );
                 const usersResponses = await Promise.all(userRequests);
                 const usersData = usersResponses.map(res => res.data);
@@ -49,7 +61,13 @@ const ApplicationsPage = () => {
 
     const handleAccept = async (applicationId) => {
         try {
-            await axios.put(`https://localhost:7053/api/JobApplication/${applicationId}/status`, { status: 'Accepted' });
+            const token = sessionStorage.getItem('token');
+            await axios.put(`https://localhost:7053/api/JobApplication/${applicationId}/status`, { 
+                status: 'Accepted',
+                headers : {
+                    'Authorization' : `Bearer ${token}`,
+                }
+            });
             console.log(`Application ${applicationId} accepted.`);
             alert('Application accepted.');
         } catch (error) {
@@ -59,7 +77,12 @@ const ApplicationsPage = () => {
 
     const handleReject = async (applicationId) => {
         try {
-            await axios.delete(`https://localhost:7053/api/JobApplication/deleteApplication/${applicationId}`);
+            const token = sessionStorage.getItem('token');
+            await axios.delete(`https://localhost:7053/api/JobApplication/deleteApplication/${applicationId}`,{
+                headers :{
+                    'Authorization' : `Bearer ${token}`,
+                }
+            });
             setApplications(applications.filter(app => app.id !== applicationId));
             setUsers(users.filter(user => user.id !== applicationId));
             alert('Application rejected.');
