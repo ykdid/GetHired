@@ -65,24 +65,4 @@ public class UserService : IUserService
 
         return user;
     }
-    
-    private string Decrypt(string input)
-    {
-        using (var aes = Aes.Create())
-        {
-            aes.Key = Encoding.UTF8.GetBytes(_configuration["EncryptionKey"]);
-            aes.IV = Encoding.UTF8.GetBytes(_configuration["EncryptionIV"]);
-
-            using (var decryptor = aes.CreateDecryptor(aes.Key, aes.IV))
-            {
-                var inputBytes = Convert.FromBase64String(input);
-                var decryptedBytes = decryptor.TransformFinalBlock(inputBytes, 0, inputBytes.Length);
-                return Encoding.UTF8.GetString(decryptedBytes);
-            }
-        }
-    }
-    
-   
-
-   
 }

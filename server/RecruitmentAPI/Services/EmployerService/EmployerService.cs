@@ -1,15 +1,18 @@
 using RecruitmentAPI.Data;
 using RecruitmentAPI.Entities;
+using RecruitmentAPI.Services.EncryptionService;
 
 namespace RecruitmentAPI.Services.EmployerService;
 
 public class EmployerService:IEmployerService
 {
     private readonly RecruitmentDbContext _context;
+    private readonly IEncryptionService _encryptionService;
 
-    public EmployerService(RecruitmentDbContext context)
+    public EmployerService(RecruitmentDbContext context , IEncryptionService encryptionService)
     {
         _context = context;
+        _encryptionService = encryptionService;
     }
     
     public async Task<bool> CreateEmployer(Employer employer)
@@ -29,6 +32,8 @@ public class EmployerService:IEmployerService
         {
             throw new KeyNotFoundException($"User with id {id} was not found.");
         }
+
+        employer.Email = _encryptionService.Decrypt(employer.Email);
         
         return employer;
 

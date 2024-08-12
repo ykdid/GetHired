@@ -5,6 +5,7 @@ const Sidebar = ({ isSidebarOpen }) => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
+        sessionStorage.removeItem('token');
         localStorage.removeItem('employerId');
         navigate('/login');
     };
