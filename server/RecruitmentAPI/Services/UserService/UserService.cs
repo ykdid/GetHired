@@ -3,18 +3,19 @@ using System.Text;
 using Microsoft.AspNetCore.Http.HttpResults;
 using RecruitmentAPI.Data;
 using RecruitmentAPI.Entities;
+using RecruitmentAPI.Services.EncryptionService;
 
 namespace RecruitmentAPI.Services.UserService;
 
 public class UserService : IUserService
 {
     private readonly RecruitmentDbContext _context;
-    private readonly IConfiguration _configuration;
+    private readonly IEncryptionService _encryptionService;
 
-    public UserService(RecruitmentDbContext context, IConfiguration configuration)
+    public UserService(RecruitmentDbContext context, IEncryptionService encryptionService)
     {
         _context = context;
-        _configuration = configuration;
+        _encryptionService = encryptionService;
 
     }
 
@@ -36,8 +37,8 @@ public class UserService : IUserService
             throw new KeyNotFoundException($"User with id {id} was not found.");
         }
 
-        user.Email = Decrypt(user.Email);
-        user.PhoneNumber = Decrypt(user.PhoneNumber);
+        user.Email = _encryptionService.Decrypt(user.Email);
+        user.PhoneNumber = _encryptionService.Decrypt(user.PhoneNumber);
         
         return user;
 

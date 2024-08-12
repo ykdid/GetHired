@@ -8,9 +8,11 @@ using Microsoft.OpenApi.Models;
 using RecruitmentAPI.Services.AuthService;
 using RecruitmentAPI.Services.EmployeeService;
 using RecruitmentAPI.Services.EmployerService;
+using RecruitmentAPI.Services.EncryptionService;
 using RecruitmentAPI.Services.JobAdvertisementService;
 using RecruitmentAPI.Services.JobApplicationService;
 using RecruitmentAPI.Services.UserService;
+using RecruitmentAPI.Services.EncryptionService;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,6 +42,7 @@ builder.Services.AddTransient<IEmployerService, EmployerService>();
 builder.Services.AddTransient<IJobAdvertisementService, JobAdvertisementService>();
 builder.Services.AddTransient<IEmployeeService, EmployeeService>();
 builder.Services.AddTransient<IJobApplicationService, JobApplicationService>();
+builder.Services.AddTransient<IEncryptionService, EncryptionService>();
 
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]);

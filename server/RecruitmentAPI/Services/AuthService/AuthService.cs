@@ -7,32 +7,40 @@ using Microsoft.IdentityModel.Tokens;
 using RecruitmentAPI.Data;
 using RecruitmentAPI.Entities;
 using RecruitmentAPI.Services.AuthService.DTOs.Models;
+using RecruitmentAPI.Services.EncryptionService;
 
 namespace RecruitmentAPI.Services.AuthService
 {
     public class AuthService : IAuthService
     {
         private readonly RecruitmentDbContext _context;
+        private readonly IEncryptionService _encryptionService;
         private readonly IConfiguration _configuration;
 
-        public AuthService(RecruitmentDbContext context, IConfiguration configuration)
+        public AuthService(RecruitmentDbContext context, IEncryptionService encryptionService, IConfiguration configuration)
         {
             _context = context;
+            _encryptionService = encryptionService;
             _configuration = configuration;
         }
 
         public async Task<AuthResponse> LoginUser(UserLoginRequest request)
         {
-            var hashedPassword = HashPassword(request.Password);
-            var email = Encrypt(request.Email);
+            var hashedPassword = _encryptionService.Hash(request.Password);
+            var email = _encryptionService.Encrypt(request.Email);
             var user = await _context.Users
                 .FirstOrDefaultAsync(u => u.Email == email && u.HashPassword == hashedPassword);
 
             if (user == null)
                 return new AuthResponse { IsSuccess = false, ErrorMessage = "Invalid email or password" };
 
-            var token = GenerateJwtToken(user.Email);
-            return new AuthResponse { IsSuccess = true, Token = token };
+            var token = GenerateJwtToken(user.Email ,userId: user.Id);
+            return new AuthResponse
+            {
+                IsSuccess = true,
+                Token = token,
+                UserId = user.Id 
+            };;
         }
 
         public async Task<AuthResponse> RegisterUser(UserRegisterRequest request)
@@ -44,9 +52,9 @@ namespace RecruitmentAPI.Services.AuthService
             {
                 Name = request.Name,
                 Surname = request.Surname,
-                Email = Encrypt(request.Email),
-                PhoneNumber = Encrypt(request.PhoneNumber),
-                HashPassword = HashPassword(request.Password),
+                Email = _encryptionService.Encrypt(request.Email),
+                PhoneNumber = _encryptionService.Encrypt(request.PhoneNumber),
+                HashPassword = _encryptionService.Hash(request.Password),
                 Age = request.Age,
                 RegistrationNumber = request.RegistrationNumber,
                 IdentityNumber = request.IdentityNumber
@@ -61,8 +69,10 @@ namespace RecruitmentAPI.Services.AuthService
 
         public async Task<AuthResponse> LoginEmployer(EmployerLoginRequest request)
         {
+            var hashedPassword = _encryptionService.Hash(request.Password);
+            var email = _encryptionService.Encrypt(request.Email);  
             var employer = await _context.Employers
-                .FirstOrDefaultAsync(e => e.Email.Equals(request.Email) && e.HashPassword.Equals(request.Password));
+                .FirstOrDefaultAsync(e => e.Email.Equals(email) && e.HashPassword.Equals(hashedPassword));
 
             if (employer == null)
                 return new AuthResponse { IsSuccess = false, ErrorMessage = "Invalid email or password" };
@@ -85,8 +95,8 @@ namespace RecruitmentAPI.Services.AuthService
             {
                 Name = request.Name,
                 Surname = request.Surname,
-                Email = request.Email,
-                HashPassword = request.Password,
+                Email = _encryptionService.Encrypt(request.Email),
+                HashPassword =_encryptionService.Hash(request.Password),
                 CompanyName = request.CompanyName
             };
 
@@ -134,53 +144,6 @@ namespace RecruitmentAPI.Services.AuthService
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
-        }
-
-
-        private string HashPassword(string password)
-        {
-            using (var sha256 = SHA256.Create())
-            {
-                var bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-                var builder = new StringBuilder();
-                for (var i = 0; i < bytes.Length; i++)
-                {
-                    builder.Append(bytes[i].ToString("x2"));
-                }
-                return builder.ToString();
-            }
-        }
-
-        private string Encrypt(string input)
-        {
-            using (var aes = Aes.Create())
-            {
-                aes.Key = Encoding.UTF8.GetBytes(_configuration["EncryptionKey"]);
-                aes.IV = Encoding.UTF8.GetBytes(_configuration["EncryptionIV"]);
-
-                using (var encryptor = aes.CreateEncryptor(aes.Key, aes.IV))
-                {
-                    var inputBytes = Encoding.UTF8.GetBytes(input);
-                    var encryptedBytes = encryptor.TransformFinalBlock(inputBytes, 0, inputBytes.Length);
-                    return Convert.ToBase64String(encryptedBytes);
-                }
-            }
-        }
-
-        private string Decrypt(string input)
-        {
-            using (var aes = Aes.Create())
-            {
-                aes.Key = Encoding.UTF8.GetBytes(_configuration["EncryptionKey"]);
-                aes.IV = Encoding.UTF8.GetBytes(_configuration["EncryptionIV"]);
-
-                using (var decryptor = aes.CreateDecryptor(aes.Key, aes.IV))
-                {
-                    var inputBytes = Convert.FromBase64String(input);
-                    var decryptedBytes = decryptor.TransformFinalBlock(inputBytes, 0, inputBytes.Length);
-                    return Encoding.UTF8.GetString(decryptedBytes);
-                }
-            }
         }
     }
 }
