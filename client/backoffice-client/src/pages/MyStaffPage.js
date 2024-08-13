@@ -4,8 +4,10 @@ import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import ScrollToTop from '../components/ScrollToTop';
+import Loading from '../components/Loading';
 
 const MyStaffPage = () => {
+    const [loading , setloading] = useState(true);
     const [employees, setEmployees] = useState([]);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [showFilterModal, setShowFilterModal] = useState(false);
@@ -29,6 +31,7 @@ const MyStaffPage = () => {
 
     useEffect(() => {
         const fetchEmployees = async () => {
+            setloading(true);
             try {
                 const token = sessionStorage.getItem('token');
                 const employerId = localStorage.getItem('employerId');
@@ -43,9 +46,16 @@ const MyStaffPage = () => {
             } catch (error) {
                 console.error('An error occurred while fetching employees:', error);
             }
+            finally{
+                setloading(false);
+            }
         };
         fetchEmployees();
     }, []);
+    
+    if(loading){
+        return <Loading />;
+    }
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;

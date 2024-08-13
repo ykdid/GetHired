@@ -12,6 +12,7 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
     const [formData, setFormData] = useState({
         title: ad.title,
         description: ad.description,
+        initDate: new Date().toISOString(), // Yeni eklenen alan
         expireDate: ad.expireDate,      
         imagePath: ad.imagePath,
         jobType: ad.jobType
@@ -47,7 +48,7 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
             formDataToSend.append(key, formData[key]);
         });
         
-        formDataToSend.set('imagePath',formData.imagePath);
+        formDataToSend.set('imagePath', formData.imagePath);
         try {
             const token = sessionStorage.getItem('token');
             await axios.patch(`https://localhost:7053/api/JobAdvertisement/updateAdvertisement/${ad.id}`, formDataToSend, {
@@ -67,7 +68,7 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
     };
 
     return (
-        <div key={ad.id} className={` bg-white shadow-md p-4 rounded-lg w-[700px] h-[350px] flex flex-col justify-between relative ${isModalOpen ? 'opacity-50' : ''}`} style={{ zIndex: 10}}>
+        <div key={ad.id} className={` bg-white shadow-md p-4 rounded-lg w-[700px] h-[350px] flex flex-col justify-between relative ${isModalOpen ? 'opacity-50' : ''}`} style={{ zIndex: 10 }}>
             <div className="absolute top-2 right-2 flex space-x-2">
                 <button
                     onClick={() => setShowUpdateModal(true)}
@@ -83,15 +84,12 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
                 >
                     <FaTrash size={20} />
                 </button>
-                
             </div>
             <div>
                 <h3 className="text-lg font-bold mb-2">{ad.title}</h3>
                 <p className="text-gray-700 mb-2">{ad.description}</p>
                 <p className="text-gray-700 mb-2">{ad.jobType}</p>  
-                <p className="text-gray-500 mb-2">
-                    {new Date(ad.initDate).toLocaleDateString()} - {new Date(ad.expireDate).toLocaleDateString()}
-                </p>
+                
                 {ad.imagePath && (
                     <img
                         src={ad.imagePath}
@@ -108,6 +106,9 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
                     Show Applications
                 </button>
             </div>
+            <p className="absolute bottom-2 left-2 text-gray-500 text-sm p-2">
+                {new Date(formData.initDate).toLocaleDateString()}  - {new Date(ad.expireDate).toLocaleDateString()}
+            </p>
             <UpdateAdModal
                 showModal={showUpdateModal}
                 setShowModal={setShowUpdateModal}
@@ -115,7 +116,7 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
                 formData={formData}
                 handleInputChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
             />
-             <ConfirmDeleteModal
+            <ConfirmDeleteModal
                 show={showConfirmDelete}
                 onClose={() => setShowConfirmDelete(false)}
                 onConfirm={handleDelete}

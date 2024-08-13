@@ -7,8 +7,10 @@
     import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
     import UpdateAdModal from '../components/UpdateModalAd';
     import ScrollToTop from '../components/ScrollToTop';
+    import Loading from '../components/Loading';
 
     const MainPage = () => {
+        const [loading , setloading] = useState(true);
         const [ads, setAds] = useState([]);
         const [showModal, setShowModal] = useState(false);
         const [formData, setFormData] = useState({
@@ -27,6 +29,7 @@
 
         useEffect(() => {
             const fetchAds = async () => {
+               setloading(true);
                 try {
                     const employerId = localStorage.getItem('employerId'); 
                     const token = sessionStorage.getItem('token');
@@ -42,10 +45,17 @@
                 } catch (error) {
                     console.error('An error occurred while getting advertisements:', error);
                 }
+                finally{
+                    setloading(false);
+                }
             };
 
             fetchAds();
         }, []);
+
+        if (loading) {
+            return <Loading />;
+        }
 
         const handleInputChange = (event) => {
             const { name, value, files } = event.target;
@@ -127,7 +137,8 @@
             });
             setShowUpdateModal(true);
         };
-
+    
+        
         return (
             <div className="min-h-screen bg-gray-100 flex">
                 <Sidebar isSidebarOpen={isSidebarOpen} />
