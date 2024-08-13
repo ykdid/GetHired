@@ -38,7 +38,7 @@
                             'Authorization': `Bearer ${token}`
                         }
                     });
-                    setAds(response.data);
+                    setAds(Array.isArray(response.data) ? response.data : []);
                 } catch (error) {
                     console.error('An error occurred while getting advertisements:', error);
                 }
@@ -93,7 +93,7 @@
                         'Authorization':`Bearer ${token}`
                     }
                 });
-                setAds(response.data);
+                setAds(Array.isArray(response.data) ? response.data : []);
             } catch (error) {
                 console.error('An error occurred while creating advertisement:', error);
                 alert('An error occurred while creating advertisement.');
@@ -158,37 +158,41 @@
                                     My JobList
                                 </h1>
                             </div>
-                            {ads.map((ad) => (
-                                <AdvertisementCard
-                                    key={ad.id}
-                                    ad={ad}
-                                    onUpdate={() => {
-                                        const fetchAds = async () => {
-                                            try {
-                                                const token = sessionStorage.getItem('token');
-                                                const employerId = localStorage.getItem('employerId');
-                                                if (!employerId) {
-                                                    throw new Error('Employer ID not found in localStorage');
-                                                }
+                            {Array.isArray(ads) && ads.length > 0 ? (
+    ads.map((ad) => (
+        <AdvertisementCard
+            key={ad.id}
+            ad={ad}
+            onUpdate={() => {
+                const fetchAds = async () => {
+                    try {
+                        const token = sessionStorage.getItem('token');
+                        const employerId = localStorage.getItem('employerId');
+                        if (!employerId) {
+                            throw new Error('Employer ID not found in localStorage');
+                        }
 
-                                                const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`,{
-                                                    headers : {
-                                                        'Authorization':`Bearer ${token}`
-                                                    }
-                                                });
-                                                setAds(response.data);
-                                            } catch (error) {
-                                                console.error('An error occurred while getting advertisements:', error);
-                                            }
-                                        };
+                        const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`, {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
 
-                                        fetchAds();
-                                    }}
-                                    onEdit={handleUpdateClick}
-                                    onDelete={handleDeleteClick}
-                                   
-                                />
-                            ))}
+                        setAds(Array.isArray(response.data) ? response.data : []);
+                    } catch (error) {
+                        console.error('An error occurred while getting advertisements:', error);
+                    }
+                };
+
+                fetchAds();
+            }}
+            onEdit={handleUpdateClick}
+            onDelete={handleDeleteClick}
+        />
+    ))
+) : (
+    <p>No advertisements available</p>
+)}
                         </div>
                     </div>
                 </div>
@@ -222,7 +226,7 @@
                                             'Authorization':`Bearer ${token}`
                                         }
                                     });
-                                    setAds(Array.isArray(response.data ? response.data : []));
+                                    setAds(Array.isArray(response.data) ? response.data : []);
                                 } catch (error) {
                                     console.error('An error occurred while deleting advertisement:', error);
                                     alert('An error occurred while deleting advertisement.');
