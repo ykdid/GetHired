@@ -43,7 +43,7 @@ namespace RecruitmentAPI.Controllers
 
             if (advertisement == null || advertisement.Count == 0)
             {
-                return NotFound($"Advertisements for employerId {employerId} were not found.");
+                return NotFound();
             }
 
             return Ok(advertisement);

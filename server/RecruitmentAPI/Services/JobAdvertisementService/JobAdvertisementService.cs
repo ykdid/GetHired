@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using RecruitmentAPI.Data;
 using RecruitmentAPI.Entities;
@@ -24,9 +25,16 @@ public class JobAdvertisementService:IJobAdvertisementService
 
     public async Task<List<JobAdvertisement>> GetAdvertisementsByEmployerId(int employerId)
     {
-        return await _context.JobAdvertisements
-            .Where(ja => ja.EmployerId == employerId)
-            .ToListAsync();
+        try
+        {
+            return await _context.JobAdvertisements
+                .Where(ja => ja.EmployerId == employerId)
+                .ToListAsync();
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Failed.", e);
+        }
     }
 
     public async Task<List<JobAdvertisement>> GetAllAdvertisements()

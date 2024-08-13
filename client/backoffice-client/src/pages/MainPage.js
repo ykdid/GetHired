@@ -222,7 +222,7 @@
                                             'Authorization':`Bearer ${token}`
                                         }
                                     });
-                                    setAds(response.data);
+                                    setAds(Array.isArray(response.data ? response.data : []));
                                 } catch (error) {
                                     console.error('An error occurred while deleting advertisement:', error);
                                     alert('An error occurred while deleting advertisement.');

@@ -7,21 +7,26 @@ import './index.css';
 import ProfilePage from './pages/ProfilePage';
 import MyStaffPage from './pages/MyStaffPage';
 import ApplicationsPage from './pages/ApplicationsPage';
+import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
   return (
     <Router>
+      <AuthProvider>
       <div className="App">
-        <Routes>  
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/main" element={<MainPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/mystaff" element={<MyStaffPage />} />
-          <Route path="/applications/:advertisementId" element={<ApplicationsPage />} />
-          <Route path="/" element={<Navigate to="/login" />} /> 
-        </Routes>
+        
+          <Routes> 
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/main" element={<MainPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/mystaff" element={<MyStaffPage />} />
+            <Route path="/applications/:advertisementId" element={<ApplicationsPage />} />
+            <Route path="/" element={<Navigate to="/login" />} /> 
+          </Routes>
+         
       </div>
+      </AuthProvider> 
     </Router>
   );
 }
