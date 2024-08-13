@@ -15,9 +15,9 @@ const LoginForm = () => {
             const response = await axios.post('https://localhost:7053/api/Auth/login/employer', { email, password });
             if (response.status === 200) {
                 const token = response.data.token;
-                console.log('Token:', token); 
+                //console.log('Token:', token); 
                 const decodedToken = jwtDecode(token);
-                console.log('Decoded Token:', decodedToken); 
+                //console.log('Decoded Token:', decodedToken); 
                 const employerId = decodedToken.employerId;
                 if (employerId && token) {
                     localStorage.setItem('employerId', employerId);

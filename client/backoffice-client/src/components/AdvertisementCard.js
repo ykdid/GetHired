@@ -23,7 +23,12 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`https://localhost:7053/api/JobAdvertisement/deleteJobAdvertisement/${ad.id}`);
+            const token = sessionStorage.getItem('token');
+            await axios.delete(`https://localhost:7053/api/JobAdvertisement/deleteAdvertisement/${ad.id}`,{
+                headers:{
+                    'Authorization': `Bearer ${token}`,
+                }
+            });
             alert('Advertisement deleted successfully!');
             onUpdate(); 
         } catch (error) {
@@ -41,15 +46,18 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
         Object.keys(formData).forEach(key => {
             formDataToSend.append(key, formData[key]);
         });
-
+        
+        formDataToSend.set('imagePath',formData.imagePath);
         try {
-            await axios.patch(`https://localhost:7053/api/JobAdvertisement/updateJobAdvertisement/${ad.id}`, formDataToSend, {
+            const token = sessionStorage.getItem('token');
+            await axios.patch(`https://localhost:7053/api/JobAdvertisement/updateAdvertisement/${ad.id}`, formDataToSend, {
                 headers: {
-                    'Content-Type': 'multipart/form-data',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
             });
             alert('Advertisement updated successfully!');
-            onUpdate(); // Refresh ads list
+            onUpdate(); 
         } catch (error) {
             console.error('An error occurred while updating advertisement:', error);
             alert('An error occurred while updating advertisement.');
