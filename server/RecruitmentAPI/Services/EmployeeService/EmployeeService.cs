@@ -54,6 +54,7 @@ public class EmployeeService : IEmployeeService
     {
         return await _context.Employees
             .Where(e => e.EmployerId == employerId)
+            .OrderBy(e => e.Id)
             .ToListAsync();
     }
 
