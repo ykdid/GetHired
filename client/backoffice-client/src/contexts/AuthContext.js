@@ -12,19 +12,25 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const checkTokenExpiry = () => {
             const token = sessionStorage.getItem('token');
+            const currentPath = window.location.pathname;
             if (token) {
                 const decodedToken = jwtDecode(token);
                 const expiryTime = decodedToken.exp * 1000; 
                 if (Date.now() >= expiryTime) {
                     sessionStorage.removeItem('token');
                     localStorage.removeItem('employerId');
-                    alert('Session has expired. You are directed to the login page.');
-                    navigate('/login');
+                    if(currentPath !== '/register'){
+                        alert('Session has expired. You are directed to the login page.');
+                        navigate('/login');
+                    }
+                   
                 } else {
                     setAuth({ token, employerId: decodedToken.employerId }); 
                 }
             } else {
-                navigate('/login');
+                if(currentPath !== '/register'){
+                    navigate('/login');
+                }              
             }
         };
 
