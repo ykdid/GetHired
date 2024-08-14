@@ -52,12 +52,13 @@ const ApplicationsPage = () => {
             }
         };
 
-        if(loading){
-            return <Loading />
-        }
-
+       
         fetchApplications();
     }, [advertisementId]);
+
+    if(loading){
+        return <Loading />
+    }
 
     const handleSidebarToggle = () => {
         setIsSidebarOpen(!isSidebarOpen);

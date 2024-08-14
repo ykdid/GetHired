@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode'; 
+import { jwtDecode }  from 'jwt-decode';  
 
 const AuthContext = createContext();
 
@@ -15,13 +15,13 @@ export const AuthProvider = ({ children }) => {
             if (token) {
                 const decodedToken = jwtDecode(token);
                 const expiryTime = decodedToken.exp * 1000; 
-                if (Date.now() >= expiryTime) {   
+                if (Date.now() >= expiryTime) {
                     sessionStorage.removeItem('token');
                     localStorage.removeItem('employerId');
-                    setTimeout(() => navigate('/login'), 3000);
-                    alert('Session has expired. You are directed to the login page.')
+                    alert('Session has expired. You are directed to the login page.');
+                    navigate('/login');
                 } else {
-                    setAuth({ token, employerId: decodedToken.employerId });     
+                    setAuth({ token, employerId: decodedToken.employerId }); 
                 }
             } else {
                 navigate('/login');
@@ -32,10 +32,10 @@ export const AuthProvider = ({ children }) => {
         const interval = setInterval(checkTokenExpiry, 60000); 
 
         return () => clearInterval(interval); 
-    }, [navigate]);
+    }, [navigate]); 
 
     return (
-        <AuthContext.Provider value= {auth}>
+        <AuthContext.Provider value={auth}>
             {children}
         </AuthContext.Provider>
     );
