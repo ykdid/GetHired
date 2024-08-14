@@ -6,7 +6,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [auth, setAuth] = useState({ token: null, employerId: null });
-    const [sessionExpired, setSessionExpired] = useState(false);
+    
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -14,16 +14,14 @@ export const AuthProvider = ({ children }) => {
             const token = sessionStorage.getItem('token');
             if (token) {
                 const decodedToken = jwtDecode(token);
-                const expiryTime = decodedToken.exp * 1000; //s to ms
-                if (Date.now() >= expiryTime) {
-                    setSessionExpired(true); 
+                const expiryTime = decodedToken.exp * 1000; 
+                if (Date.now() >= expiryTime) {   
                     sessionStorage.removeItem('token');
                     localStorage.removeItem('employerId');
                     setTimeout(() => navigate('/login'), 3000);
                     alert('Session has expired. You are directed to the login page.')
                 } else {
-                    setAuth({ token, employerId: decodedToken.employerId });
-                    setSessionExpired(false); 
+                    setAuth({ token, employerId: decodedToken.employerId });     
                 }
             } else {
                 navigate('/login');

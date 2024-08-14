@@ -2,24 +2,26 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode'; 
+import Loading from './Loading';
 
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const [loading,setLoading] = useState(false);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        
         try {
             const response = await axios.post('https://localhost:7053/api/Auth/login/employer', { email, password });
             if (response.status === 200) {
                 const token = response.data.token;
-                //console.log('Token:', token); 
                 const decodedToken = jwtDecode(token);
-                //console.log('Decoded Token:', decodedToken); 
                 const employerId = decodedToken.employerId;
                 if (employerId && token) {
+                    setLoading(true);
                     localStorage.setItem('employerId', employerId);
                     sessionStorage.setItem('token',token)
                     navigate('/main');  
@@ -31,7 +33,14 @@ const LoginForm = () => {
             console.error('Login failed:', error);
             alert('Invalid email or password.');
         }
+        finally{
+            setLoading(false);
+        }
     };
+
+    if(loading){
+      return <Loading />
+    }
 
     return (
         <div className="max-w-md mx-auto bg-white p-8 mt-10 shadow-md rounded">

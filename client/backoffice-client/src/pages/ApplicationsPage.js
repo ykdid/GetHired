@@ -4,14 +4,17 @@ import axios from 'axios';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import ScrollToTop from '../components/ScrollToTop';
+import Loading from '../components/Loading';
 
 const ApplicationsPage = () => {
     const { advertisementId } = useParams();
     const [applications, setApplications] = useState([]);
     const [users, setUsers] = useState([]);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [loading,setLoading] = useState(true);
 
     useEffect(() => {
+        setLoading(true);
         const fetchApplications = async () => {
             try {
                 const token = sessionStorage.getItem('token');
@@ -44,7 +47,14 @@ const ApplicationsPage = () => {
             } catch (error) {
                 console.error('Error fetching applications or user data:', error);
             }
+            finally{
+                setLoading(false);
+            }
         };
+
+        if(loading){
+            return <Loading />
+        }
 
         fetchApplications();
     }, [advertisementId]);

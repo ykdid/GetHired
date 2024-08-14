@@ -43,7 +43,7 @@ namespace RecruitmentAPI.Controllers
 
             if (advertisement == null || advertisement.Count == 0)
             {
-                return NoContent();
+                return NoContent(); 
             }
 
             return Ok(advertisement);

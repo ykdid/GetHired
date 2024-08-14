@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
+import Loading from '../components/Loading';
 
 const ProfilePage = () => {
     const [user, setUser] = useState({
@@ -13,8 +14,10 @@ const ProfilePage = () => {
     });
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        setLoading(true);
         const fetchUser = async () => { 
             try {
                 const token = sessionStorage.getItem('token');
@@ -35,9 +38,16 @@ const ProfilePage = () => {
             } catch (error) {
                 console.error('An error occurred while fetching user data:', error);
             }
+            finally{
+                setLoading(false);
+            }
         };
         fetchUser();
     }, []);
+
+    if(loading){
+        return <Loading />
+    }
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -52,9 +62,10 @@ const ProfilePage = () => {
         event.preventDefault();
 
         try {
-            const employerId = localStorage.getItem('employerId'); 
-            if (!employerId) {
-                alert('Employer ID not found in localStorage');
+            const employerId = localStorage.getItem('employerId');
+            const token = sessionStorage.getItem('token');  
+            if (!employerId && !token) {
+                alert('Employer ID or Token not found');
                 return;
             }
 
