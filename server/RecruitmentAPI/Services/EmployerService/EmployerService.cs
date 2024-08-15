@@ -50,8 +50,8 @@ public class EmployerService:IEmployerService
         employer.Name = updatedEmployer.Name ?? employer.Name;
         employer.Surname = updatedEmployer.Surname ?? employer.Surname;
         employer.EmployerImagePath = updatedEmployer.EmployerImagePath ?? employer.EmployerImagePath;
-        employer.Email = updatedEmployer.Email ?? employer.Email;
-        employer.HashPassword = updatedEmployer.HashPassword ?? employer.HashPassword;
+        employer.Email = _encryptionService.Encrypt(updatedEmployer.Email) ?? employer.Email;
+        employer.HashPassword = _encryptionService.Hash(updatedEmployer.HashPassword) ?? employer.HashPassword;
        
 
         await _context.SaveChangesAsync();

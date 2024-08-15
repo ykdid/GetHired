@@ -45,7 +45,7 @@ namespace RecruitmentAPI.Services.AuthService
 
         public async Task<AuthResponse> RegisterUser(UserRegisterRequest request)
         {
-            if (await _context.Users.AnyAsync(u => u.Email == request.Email))
+            if (await _context.Users.AnyAsync(u => u.Email == _encryptionService.Encrypt(request.Email)))
                 return new AuthResponse { IsSuccess = false, ErrorMessage = "Email already exists" };
 
             var user = new User
@@ -88,7 +88,7 @@ namespace RecruitmentAPI.Services.AuthService
 
         public async Task<AuthResponse> RegisterEmployer(EmployerRegisterRequest request)
         {
-            if (await _context.Employers.AnyAsync(e => e.Email == request.Email))
+            if (await _context.Employers.AnyAsync(e => e.Email == _encryptionService.Encrypt(request.Email)))
                 return new AuthResponse { IsSuccess = false, ErrorMessage = "Email already exists" };
 
             var employer = new Employer
