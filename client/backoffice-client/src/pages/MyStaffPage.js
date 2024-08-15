@@ -5,8 +5,8 @@ import Navbar from '../components/Navbar';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import ScrollToTop from '../components/ScrollToTop';
 import Loading from '../components/Loading';
-import 'react-toastify/dist/ReactToastify.css';
-import { toast, ToastContainer } from 'react-toastify';
+import CustomToastContainer from '../components/CustomToastContainer';
+import { toast } from 'react-toastify';
 
 
 const MyStaffPage = () => {
@@ -511,7 +511,7 @@ const MyStaffPage = () => {
                 )}
             </div>
             <ScrollToTop />
-            <ToastContainer />
+            <CustomToastContainer />
         </div>
     );
 };

@@ -3,8 +3,8 @@ import axios from 'axios';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
 import Loading from '../components/Loading';
-import 'react-toastify/dist/ReactToastify.css';
-import { toast, ToastContainer } from 'react-toastify';
+import CustomToastContainer from '../components/CustomToastContainer';
+import { toast } from 'react-toastify';
 
 const ProfilePage = () => {
     const [user, setUser] = useState({
@@ -191,7 +191,7 @@ const ProfilePage = () => {
                     </div>
                 </div>
             </div>
-            <ToastContainer />
+            <CustomToastContainer />
         </div>
     );
 };

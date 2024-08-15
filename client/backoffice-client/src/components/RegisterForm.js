@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import 'react-toastify/dist/ReactToastify.css';
-import { toast, ToastContainer } from 'react-toastify';
+import CustomToastContainer from './CustomToastContainer';
+import { toast } from 'react-toastify';
 
 const RegisterForm = () => {
     const [formData, setFormData] = useState({
@@ -111,7 +111,7 @@ const RegisterForm = () => {
                     Already have an account? <Link to="/login" className="text-blue-500 hover:underline">Login</Link>
                 </p>
             </div>
-            <ToastContainer />
+            <CustomToastContainer />
         </div>
     );
 };

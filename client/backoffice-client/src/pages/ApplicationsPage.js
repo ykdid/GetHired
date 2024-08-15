@@ -5,8 +5,8 @@ import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import ScrollToTop from '../components/ScrollToTop';
 import Loading from '../components/Loading';
-import 'react-toastify/dist/ReactToastify.css';
-import { toast, ToastContainer } from 'react-toastify';
+import CustomToastContainer from '../components/CustomToastContainer';
+import { toast } from 'react-toastify';
 
 const ApplicationsPage = () => {
     const { advertisementId } = useParams();
@@ -146,7 +146,7 @@ const ApplicationsPage = () => {
                 </div>
                 <ScrollToTop />
             </div>
-            <ToastContainer />
+            <CustomToastContainer />
         </div>
     );
 };

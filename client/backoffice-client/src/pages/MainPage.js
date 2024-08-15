@@ -8,8 +8,8 @@
     import UpdateAdModal from '../components/UpdateModalAd';
     import ScrollToTop from '../components/ScrollToTop';
     import Loading from '../components/Loading';
-    import 'react-toastify/dist/ReactToastify.css';
-    import { toast, ToastContainer } from 'react-toastify';
+    import CustomToastContainer from '../components/CustomToastContainer';
+    import { toast } from 'react-toastify';
   
 
     const MainPage = () => {
@@ -255,7 +255,7 @@
                         }}
                     />
                 )}
-                <ToastContainer />
+                <CustomToastContainer />
             </div>
         );
     };

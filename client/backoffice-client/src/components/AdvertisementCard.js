@@ -4,8 +4,8 @@ import axios from 'axios';
 import { FaTrash, FaEdit } from 'react-icons/fa';   
 import ConfirmDeleteModal from './ConfirmDeleteModal'; 
 import UpdateAdModal from './UpdateModalAd';
-import 'react-toastify/dist/ReactToastify.css';
-import { toast, ToastContainer } from 'react-toastify';
+import CustomToastContainer from './CustomToastContainer';
+import { toast } from 'react-toastify';
 
 const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
     const navigate = useNavigate();
@@ -70,7 +70,7 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
     };
 
     return (
-        <>
+        
         <div key={ad.id} className={` bg-white shadow-md p-4 rounded-lg w-[700px] h-[350px] flex flex-col justify-between relative ${isModalOpen ? 'opacity-50' : ''}`} style={{ zIndex: 10 }}>
             <div className="absolute top-2 right-2 flex space-x-2">
                 <button
@@ -126,8 +126,7 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
                 onConfirm={handleDelete}
             />
         </div>
-        <ToastContainer />
-        </> 
+       
     );
 };
 
