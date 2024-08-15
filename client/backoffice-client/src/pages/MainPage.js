@@ -8,6 +8,9 @@
     import UpdateAdModal from '../components/UpdateModalAd';
     import ScrollToTop from '../components/ScrollToTop';
     import Loading from '../components/Loading';
+    import 'react-toastify/dist/ReactToastify.css';
+    import { toast, ToastContainer } from 'react-toastify';
+  
 
     const MainPage = () => {
         const [loading , setloading] = useState(true);
@@ -71,7 +74,7 @@
         
             const employerId = localStorage.getItem('employerId');
             if (!employerId) {
-                alert('Employer ID not found in localStorage');
+                console.error('Employer ID not found in localStorage');
                 return;
             }
         
@@ -96,7 +99,7 @@
                         'Content-Type': 'application/json',
                     },
                 });
-                alert('Advertisement created successfully!');
+                toast.success('Advertisement created successfully!');
                 setShowModal(false);
                 const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`,{
                     headers : {
@@ -106,7 +109,7 @@
                 setAds(Array.isArray(response.data) ? response.data : []);
             } catch (error) {
                 console.error('An error occurred while creating advertisement:', error);
-                alert('An error occurred while creating advertisement.');
+                toast.error('An error occurred while creating advertisement.');
             }
         };
 
@@ -230,7 +233,7 @@
                                             'Authorization':`Bearer ${token}`
                                         }
                                     });
-                                    alert('Advertisement deleted successfully!');
+                                    toast.success('Advertisement deleted successfully!');
                                     const employerId = localStorage.getItem('employerId');
                                     const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`,{
                                         headers :{
@@ -240,7 +243,7 @@
                                     setAds(Array.isArray(response.data) ? response.data : []);
                                 } catch (error) {
                                     console.error('An error occurred while deleting advertisement:', error);
-                                    alert('An error occurred while deleting advertisement.');
+                                    toast.error('An error occurred while deleting advertisement.');
                                     
                                     
                                 } finally {
@@ -252,7 +255,7 @@
                         }}
                     />
                 )}
-                
+                <ToastContainer />
             </div>
         );
     };

@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode'; 
 import Loading from './Loading';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
 
 
 const LoginForm = () => {
@@ -31,7 +33,7 @@ const LoginForm = () => {
             }
         } catch (error) {
             console.error('Login failed:', error);
-            alert('Invalid email or password.');
+            toast.error('Invalid email or password.');
         }
         finally{
             setLoading(false);
@@ -80,6 +82,7 @@ const LoginForm = () => {
                     Don't have an account? <Link to="/register" className="text-blue-500 hover:underline">Register</Link>
                 </p>
             </div>
+            <ToastContainer/>
         </div>
     );
 };

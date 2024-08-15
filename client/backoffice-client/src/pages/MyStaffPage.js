@@ -5,6 +5,9 @@ import Navbar from '../components/Navbar';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import ScrollToTop from '../components/ScrollToTop';
 import Loading from '../components/Loading';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
+
 
 const MyStaffPage = () => {
     const [loading , setloading] = useState(true);
@@ -103,7 +106,7 @@ const MyStaffPage = () => {
                         'Authorization':`Bearer ${token}`
                     }
                 });
-                alert('Employee added successfully!');
+                toast.success('Employee added successfully!');
                 setShowAddModal(false);
                 const response = await axios.get(`https://localhost:7053/api/Employee/getEmployeesByEmployer/${employerId}`,{
                     headers:{
@@ -114,7 +117,7 @@ const MyStaffPage = () => {
             }
         } catch (error) {
             console.error('An error occurred while adding an employee:', error);
-            alert('An error occurred while adding an employee.');
+            toast.error('An error occurred while adding an employee.');
         }
     };
 
@@ -135,7 +138,7 @@ const MyStaffPage = () => {
                 'Content-Type': 'application/json' 
             }
         });
-            alert('Employee updated successfully!');
+            toast.success('Employee updated successfully!');
             setShowEditModal(false);
             const employerId = localStorage.getItem('employerId');
             if (employerId) {
@@ -148,7 +151,7 @@ const MyStaffPage = () => {
             }
         } catch (error) {
             console.error('An error occurred while updating an employee:', error);
-            alert('An error occurred while updating an employee.');
+            toast.error('An error occurred while updating an employee.');
         }
     };
 
@@ -160,7 +163,7 @@ const MyStaffPage = () => {
                     'Authorization':`Bearer ${token}`
                 }
             });
-            alert('Employee deleted successfully!');
+            toast.success('Employee deleted successfully!');
             setShowDeleteModal(false);
             const employerId = localStorage.getItem('employerId');
             if (employerId) {
@@ -173,7 +176,7 @@ const MyStaffPage = () => {
             }
         } catch (error) {
             console.error('An error occurred while deleting an employee:', error);
-            alert('An error occurred while deleting an employee.');
+            toast.error('An error occurred while deleting an employee.');
         }
     };
 
@@ -508,6 +511,7 @@ const MyStaffPage = () => {
                 )}
             </div>
             <ScrollToTop />
+            <ToastContainer />
         </div>
     );
 };

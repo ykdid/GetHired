@@ -5,6 +5,8 @@ import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import ScrollToTop from '../components/ScrollToTop';
 import Loading from '../components/Loading';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
 
 const ApplicationsPage = () => {
     const { advertisementId } = useParams();
@@ -80,9 +82,10 @@ const ApplicationsPage = () => {
                 }
             });
             console.log(`Application ${applicationId} accepted.`);
-            alert('Application accepted.');
+            toast.info('Application accepted.');
         } catch (error) {
             console.error('Error updating application status:', error);
+            toast.error('Error accepting application.');
         }
     };
 
@@ -96,10 +99,10 @@ const ApplicationsPage = () => {
             });
             setApplications(applications.filter(app => app.id !== applicationId));
             setUsers(users.filter(user => user.id !== applicationId));
-            alert('Application rejected.');
+            toast.info('Application rejected.');
         } catch (error) {
             console.error('Error rejecting application:', error);
-            alert('Error rejecting application.');
+            toast.error('Error rejecting application.');
         }
     };
 
@@ -143,6 +146,7 @@ const ApplicationsPage = () => {
                 </div>
                 <ScrollToTop />
             </div>
+            <ToastContainer />
         </div>
     );
 };

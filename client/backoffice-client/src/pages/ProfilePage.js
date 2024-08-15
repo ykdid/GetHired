@@ -3,6 +3,8 @@ import axios from 'axios';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
 import Loading from '../components/Loading';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
 
 const ProfilePage = () => {
     const [user, setUser] = useState({
@@ -65,7 +67,7 @@ const ProfilePage = () => {
             const employerId = localStorage.getItem('employerId');
             const token = sessionStorage.getItem('token');  
             if (!employerId && !token) {
-                alert('Employer ID or Token not found');
+                console.error('Employer ID or Token not found');
                 return;
             }
 
@@ -90,10 +92,10 @@ const ProfilePage = () => {
                 },
             });
 
-            alert('Employer information updated successfully!');
+            toast.success('Your informations updated successfully!');
         } catch (error) {
             console.error('An error occurred while updating user information:', error);
-            alert('An error occurred while updating user information.');
+            toast.error('An error occurred while updating user information.');
         }
     };
 
@@ -189,6 +191,7 @@ const ProfilePage = () => {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 };

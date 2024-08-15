@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaTrash, FaEdit } from 'react-icons/fa';   
 import ConfirmDeleteModal from './ConfirmDeleteModal'; 
-import UpdateAdModal from './UpdateModalAd'; 
+import UpdateAdModal from './UpdateModalAd';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
 
 const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
     const navigate = useNavigate();
@@ -12,7 +14,7 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
     const [formData, setFormData] = useState({
         title: ad.title,
         description: ad.description,
-        initDate: new Date().toISOString(), // Yeni eklenen alan
+        initDate: new Date().toISOString(), 
         expireDate: ad.expireDate,      
         imagePath: ad.imagePath,
         jobType: ad.jobType
@@ -30,11 +32,11 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
                     'Authorization': `Bearer ${token}`,
                 }
             });
-            alert('Advertisement deleted successfully!');
+            toast.success('Advertisement deleted successfully');
             onUpdate(); 
         } catch (error) {
             console.error('An error occurred while deleting advertisement:', error);
-            alert('An error occurred while deleting advertisement.');
+            toast.error('An error occurred while deleting advertisement.');
         } finally {
             setShowConfirmDelete(false);
         }
@@ -57,17 +59,18 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
                     'Authorization': `Bearer ${token}`,
                 },
             });
-            alert('Advertisement updated successfully!');
+            toast.success('Advertisement updated successfully!');
             onUpdate(); 
         } catch (error) {
             console.error('An error occurred while updating advertisement:', error);
-            alert('An error occurred while updating advertisement.');
+            toast.error('An error occurred while updating advertisement.');
         } finally {
             setShowUpdateModal(false);
         }
     };
 
     return (
+        <>
         <div key={ad.id} className={` bg-white shadow-md p-4 rounded-lg w-[700px] h-[350px] flex flex-col justify-between relative ${isModalOpen ? 'opacity-50' : ''}`} style={{ zIndex: 10 }}>
             <div className="absolute top-2 right-2 flex space-x-2">
                 <button
@@ -85,6 +88,7 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
                     <FaTrash size={20} />
                 </button>
             </div>
+            
             <div>
                 <h3 className="text-lg font-bold mb-2">{ad.title}</h3>
                 <p className="text-gray-700 mb-2">{ad.description}</p>
@@ -122,6 +126,8 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
                 onConfirm={handleDelete}
             />
         </div>
+        <ToastContainer />
+        </> 
     );
 };
 

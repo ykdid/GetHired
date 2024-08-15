@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
 
 const RegisterForm = () => {
     const [formData, setFormData] = useState({
@@ -22,17 +24,17 @@ const RegisterForm = () => {
         const { name, surname, email, password, companyName } = formData;
         
         if (!name || !surname || !email || !password || !companyName) {
-            alert('Lütfen tüm alanları doldurun.');
+            toast.error('Please fill the all blanks.');
             return;
         }
 
         try {
             await axios.post('https://localhost:7053/api/Auth/register/employer', formData);
-            alert('Registration completed successfully!');
+            toast.success('Registration completed successfully!');
             navigate('/login');
         } catch (error) {
             console.error('An error occur while registration:', error);
-            alert('An error occur while registration.');
+            toast.error('An error occur while registration.');
         }
     };
 
@@ -109,6 +111,7 @@ const RegisterForm = () => {
                     Already have an account? <Link to="/login" className="text-blue-500 hover:underline">Login</Link>
                 </p>
             </div>
+            <ToastContainer />
         </div>
     );
 };
