@@ -8,7 +8,6 @@ import Loading from '../components/Loading';
 import CustomToastContainer from '../components/CustomToastContainer';
 import { toast } from 'react-toastify';
 
-
 const MyStaffPage = () => {
     const [loading , setloading] = useState(true);
     const [employees, setEmployees] = useState([]);
@@ -82,11 +81,11 @@ const MyStaffPage = () => {
             const employerId = localStorage.getItem('employerId');
             if (employerId && token) {
                 const response = await axios.get('https://localhost:7053/api/Employee/getFilteredEmployees', {
-            params: { ...filterData, employerId },
-            headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    });
+                    params: { ...filterData, employerId },
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
                 setEmployees(response.data);
                 setShowFilterModal(false);
             }
@@ -129,15 +128,15 @@ const MyStaffPage = () => {
     const handleUpdateEmployee = async (event) => {
         event.preventDefault();
         try {
-            const token = sessionStorage.getItem('token')
+            const token = sessionStorage.getItem('token');
             await axios.patch(`https://localhost:7053/api/Employee/updateEmployee/${selectedEmployee.id}`, {
-            ...selectedEmployee,  
-        }, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json' 
-            }
-        });
+                ...selectedEmployee,  
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json' 
+                }
+            });
             toast.success('Employee updated successfully!');
             setShowEditModal(false);
             const employerId = localStorage.getItem('employerId');
@@ -196,320 +195,283 @@ const MyStaffPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100 flex">
+        <div className="min-h-screen bg-gray-50 flex">
             <Sidebar isSidebarOpen={isSidebarOpen} />
             <div
-                className={`flex-1 flex flex-col bg-gray-100 transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-64' : 'translate-x-0'}`}
+                className={`flex-1 flex flex-col bg-gray-50 transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-64' : 'translate-x-0'}`}
                 onClick={handleContentClick}
             >
                 <Navbar isSidebarOpen={isSidebarOpen} handleSidebarToggle={handleSidebarToggle} />
                 <div className="p-6">
-                    <div className="flex justify-between mb-4 items-center">
-                        <div className='flex-1 text-center'>
-                            <h1><strong>My Staff</strong></h1>
-                        </div>
-                        <div className='flex space-x-2'>
+                    <div className="flex justify-between mb-6 items-center">
+                        <h1 className="text-2xl font-semibold text-gray-800">My Staff</h1>
+                        <div className='flex space-x-4'>
                             <button
-                                className="bg-blue-500 text-white py-2 px-4 rounded mr-2"
+                                className="bg-blue-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-700 transition-colors"
                                 onClick={() => setShowFilterModal(true)}
                             >
                                 Filter Employees
                             </button>
                             <button
-                                className="bg-green-500 text-white py-2 px-4 rounded"
+                                className="bg-green-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-green-700 transition-colors"
                                 onClick={() => setShowAddModal(true)}
                             >
                                 Add Employee
                             </button>
                         </div>
-                       
                     </div>
-                    <div className="grid grid-cols-1 gap-4">
+                    <div className="grid grid-cols-1 gap-6">
                         {employees.map(employee => (
-                            <div key={employee.id} className="z-10 bg-white shadow-md rounded-lg p-4 relative transition-transform duration-300 ease-in-out transform hover:scale-102">
-                                <div className="absolute top-2 right-2 flex space-x-2">
+                            <div key={employee.id} className="bg-white shadow-lg rounded-lg p-6 relative transition-transform duration-300 hover:scale-102">
+                                <div className="absolute top-4 right-4 flex space-x-3">
                                     <button
                                         onClick={() => handleEditEmployee(employee)}
-                                        className="text-blue-500 hover:text-blue-700"
+                                        className="text-blue-500 hover:text-blue-700 transition-colors"
                                     >
-                                        <FaEdit />
+                                        <FaEdit size={20} />
                                     </button>
                                     <button
                                         onClick={() => confirmDeleteEmployee(employee)}
-                                        className="text-red-500 hover:text-red-700"
+                                        className="text-red-500 hover:text-red-700 transition-colors"
                                     >
-                                        <FaTrash />
+                                        <FaTrash size={20} />
                                     </button>
                                 </div>
-                                <p><strong>Name:</strong> {employee.name}</p>
-                                <p><strong>Surname:</strong> {employee.surname}</p>
-                                <p><strong>Email:</strong> {employee.email}</p>
-                                <p><strong>Job Type:</strong> {employee.jobType}</p>
-                                <p><strong>Registration Number:</strong> {employee.registrationNumber}</p>
-                                <p><strong>Identity Number:</strong> {employee.identityNumber}</p>
+                                <h2 className="text-xl font-bold mb-2">{employee.name} {employee.surname}</h2>
+                                <p className="text-gray-700 mb-1">Email: {employee.email}</p>
+                                <p className="text-gray-700 mb-1">Registration Number: {employee.registrationNumber}</p>
+                                <p className="text-gray-700">Identity Number: {employee.identityNumber}</p>
                             </div>
                         ))}
                     </div>
                 </div>
-                {showFilterModal && (
-                    <div className="fixed p-20 inset-0 flex items-start justify-center bg-black bg-opacity-50 z-40">
-                        <div className="bg-white p-6 rounded-lg">
-                            <h2 className="text-xl mb-4">Filter Employees</h2>
-                            <form onSubmit={handleFilterSubmit}>
-                                <div className="mb-4">
-                                    <label className="block text-gray-700">Name</label>
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        value={filterData.name}
-                                        onChange={handleInputChange}
-                                        className="mt-1 p-2 border rounded w-full"
-                                    />
-                                </div>
-                                <div className="mb-4">
-                                    <label className="block text-gray-700">Surname</label>
-                                    <input
-                                        type="text"
-                                        name="surname"
-                                        value={filterData.surname}
-                                        onChange={handleInputChange}
-                                        className="mt-1 p-2 border rounded w-full"
-                                    />
-                                </div>
-                                <div className="mb-4">
-                                    <label className="block text-gray-700">Registration Number</label>
-                                    <input
-                                        type="text"
-                                        name="regNo"
-                                        value={filterData.regNo}
-                                        onChange={handleInputChange}
-                                        className="mt-1 p-2 border rounded w-full"
-                                    />
-                                </div>
-                                <div className="mb-4">
-                                    <label className="block text-gray-700">Identity Number</label>
-                                    <input
-                                        type="text"
-                                        name="identityNo"
-                                        value={filterData.identityNo}
-                                        onChange={handleInputChange}
-                                        className="mt-1 p-2 border rounded w-full"
-                                    />
-                                </div>
-                                <div className="flex justify-end">
-                                    <button
-                                        type="button"
-                                        className="bg-red-500 text-white py-2 px-4 rounded mr-2"
-                                        onClick={() => setShowFilterModal(false)}
-                                    >
-                                        Cancel
-                                    </button>
-                                    <button
-                                        type="submit"
-                                        className="bg-blue-500 text-white py-2 px-4 rounded"
-                                    >
-                                        Apply Filters
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                )}
-                {showAddModal && (
-                    <div className="fixed p-20 inset-0 flex items-start justify-center bg-black bg-opacity-50 z-40">
-                        <div className="bg-white p-6 rounded-lg">
-                            <h2 className="text-xl mb-4">Add Employee</h2>
-                            <form onSubmit={handleAddEmployee}>
-                                <div className="mb-4">
-                                    <label className="block text-gray-700">Name</label>
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        value={newEmployee.name}
-                                        onChange={handleNewEmployeeChange}
-                                        className="mt-1 p-2 border rounded w-full"
-                                    />
-                                </div>
-                                <div className="mb-4">
-                                    <label className="block text-gray-700">Surname</label>
-                                    <input
-                                        type="text"
-                                        name="surname"
-                                        value={newEmployee.surname}
-                                        onChange={handleNewEmployeeChange}
-                                        className="mt-1 p-2 border rounded w-full"
-                                    />
-                                </div>
-                                <div className="mb-4">
-                                    <label className="block text-gray-700">Email</label>
-                                    <input
-                                        type="text"
-                                        name="email"
-                                        value={newEmployee.email}
-                                        onChange={handleNewEmployeeChange}
-                                        className="mt-1 p-2 border rounded w-full"
-                                    />
-                                </div>
-                                <div className="mb-4">
-                                    <label className="block text-gray-700">Registration Number</label>
-                                    <input
-                                        type="text"
-                                        name="registrationNumber"
-                                        value={newEmployee.registrationNumber}
-                                        onChange={handleNewEmployeeChange}
-                                        className="mt-1 p-2 border rounded w-full"
-                                    />
-                                </div>
-                                <div className="mb-4">
-                                    <label className="block text-gray-700">Identity Number</label>
-                                    <input
-                                        type="text"
-                                        name="identityNumber"
-                                        value={newEmployee.identityNumber}
-                                        onChange={handleNewEmployeeChange}
-                                        className="mt-1 p-2 border rounded w-full"
-                                    />
-                                </div>
-                                <div className="mb-4">
-                                    <label className="block text-gray-700">JobType</label>
-                                    <input
-                                        type="text"
-                                        name="jobType"
-                                        value={newEmployee.jobType}
-                                        onChange={handleNewEmployeeChange}
-                                        className="mt-1 p-2 border rounded w-full"
-                                    />
-                                </div>
-                                <div className="flex justify-end">
-                                    <button
-                                        type="button"
-                                        className="bg-red-500 text-white py-2 px-4 rounded mr-2"
-                                        onClick={() => setShowAddModal(false)}
-                                    >
-                                        Cancel
-                                    </button>
-                                    <button
-                                        type="submit"
-                                        className="bg-green-500 text-white py-2 px-4 rounded"
-                                    >
-                                        Add Employee
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                )}
-                {showEditModal && (
-                    <div className="fixed p-20 inset-0 flex items-start justify-center bg-black bg-opacity-50 z-40">
-                        <div className="bg-white p-6 rounded-lg">
-                            <h2 className="text-xl mb-4">Edit Employee</h2>
-                            {selectedEmployee && (
-                                <form onSubmit={handleUpdateEmployee}>
-                                    <div className="mb-4">
-                                        <label className="block text-gray-700">Name</label>
-                                        <input
-                                            type="text"
-                                            name="name"
-                                            value={selectedEmployee.name}
-                                            onChange={handleSelectedEmployeeChange}
-                                            className="mt-1 p-2 border rounded w-full"
-                                        />
-                                    </div>
-                                    <div className="mb-4">
-                                        <label className="block text-gray-700">Surname</label>
-                                        <input
-                                            type="text"
-                                            name="surname"
-                                            value={selectedEmployee.surname}
-                                            onChange={handleSelectedEmployeeChange}
-                                            className="mt-1 p-2 border rounded w-full"
-                                        />
-                                    </div>
-                                    <div className="mb-4">
-                                        <label className="block text-gray-700">Email</label>
-                                        <input
-                                            type="text"
-                                            name="email"
-                                            value={selectedEmployee.email}
-                                            onChange={handleSelectedEmployeeChange}
-                                            className="mt-1 p-2 border rounded w-full"
-                                        />
-                                    </div>
-                                    <div className="mb-4">
-                                        <label className="block text-gray-700">Registration Number</label>
-                                        <input
-                                            type="text"
-                                            name="registrationNumber"
-                                            value={selectedEmployee.registrationNumber}
-                                            onChange={handleSelectedEmployeeChange}
-                                            className="mt-1 p-2 border rounded w-full"
-                                        />
-                                    </div>
-                                    <div className="mb-4">
-                                        <label className="block text-gray-700">Identity Number</label>
-                                        <input
-                                            type="text"
-                                            name="identityNumber"
-                                            value={selectedEmployee.identityNumber}
-                                            onChange={handleSelectedEmployeeChange}
-                                            className="mt-1 p-2 border rounded w-full"
-                                        />
-                                    </div>
-                                    <div className="mb-4">
-                                        <label className="block text-gray-700">JobType</label>
-                                        <input
-                                            type="text"
-                                            name="jobType"
-                                            value={selectedEmployee.jobType}
-                                            onChange={handleSelectedEmployeeChange}
-                                            className="mt-1 p-2 border rounded w-full"
-                                        />
-                                    </div>
-                                    <div className="flex justify-end">
-                                        <button
-                                            type="button"
-                                            className="bg-red-500 text-white py-2 px-4 rounded mr-2"
-                                            onClick={() => setShowEditModal(false)}
-                                        >
-                                            Cancel
-                                        </button>
-                                        <button
-                                            type="submit"
-                                            className="bg-green-500 text-white py-2 px-4 rounded"
-                                        >
-                                            Update Employee
-                                        </button>
-                                    </div>
-                                </form>
-                            )}
-                        </div>
-                    </div>
-                )}
-                {showDeleteModal && (
-                    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                        <div className="bg-white p-6 rounded-lg">
-                            <h2 className="text-xl mb-4">Confirm Delete</h2>
-                            <p>Are you sure you want to delete this employee?</p>
-                            <div className="flex justify-end mt-4">
+            </div>
+
+            {/* Modal for Filtering */}
+            {showFilterModal && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40">
+                    <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+                        <h2 className="text-xl font-semibold mb-4">Filter Employees</h2>
+                        <form onSubmit={handleFilterSubmit} className="space-y-4">
+                            <input
+                                type="text"
+                                name="name"
+                                value={filterData.name}
+                                onChange={handleInputChange}
+                                placeholder="Name"
+                                className="w-full p-2 border border-gray-300 rounded-md"
+                            />
+                            <input
+                                type="text"
+                                name="surname"
+                                value={filterData.surname}
+                                onChange={handleInputChange}
+                                placeholder="Surname"
+                                className="w-full p-2 border border-gray-300 rounded-md"
+                            />
+                            <input
+                                type="text"
+                                name="regNo"
+                                value={filterData.regNo}
+                                onChange={handleInputChange}
+                                placeholder="Registration Number"
+                                className="w-full p-2 border border-gray-300 rounded-md"
+                            />
+                            <input
+                                type="text"
+                                name="identityNo"
+                                value={filterData.identityNo}
+                                onChange={handleInputChange}
+                                placeholder="Identity Number"
+                                className="w-full p-2 border border-gray-300 rounded-md"
+                            />
+                            <div className="flex justify-end space-x-3">
                                 <button
                                     type="button"
-                                    className="bg-gray-500 text-white py-2 px-4 rounded mr-2"
-                                    onClick={() => setShowDeleteModal(false)}
+                                    onClick={() => setShowFilterModal(false)}
+                                    className="bg-gray-300 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-400 transition-colors"
                                 >
                                     Cancel
                                 </button>
                                 <button
-                                    type="button"
-                                    className="bg-red-500 text-white py-2 px-4 rounded"
-                                    onClick={handleDeleteEmployee}
+                                    type="submit"
+                                    className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
                                 >
-                                    Delete
+                                    Apply Filters
                                 </button>
                             </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Modal for Adding Employee */}
+            {showAddModal && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40">
+                    <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+                        <h2 className="text-xl font-semibold mb-4">Add New Employee</h2>
+                        <form onSubmit={handleAddEmployee} className="space-y-4">
+                            <input
+                                type="text"
+                                name="name"
+                                value={newEmployee.name}
+                                onChange={handleNewEmployeeChange}
+                                placeholder="Name"
+                                className="w-full p-2 border border-gray-300 rounded-md"
+                                required
+                            />
+                            <input
+                                type="text"
+                                name="surname"
+                                value={newEmployee.surname}
+                                onChange={handleNewEmployeeChange}
+                                placeholder="Surname"
+                                className="w-full p-2 border border-gray-300 rounded-md"
+                                required
+                            />
+                            <input
+                                type="email"
+                                name="email"
+                                value={newEmployee.email}
+                                onChange={handleNewEmployeeChange}
+                                placeholder="Email"
+                                className="w-full p-2 border border-gray-300 rounded-md"
+                                required
+                            />
+                            <input
+                                type="text"
+                                name="registrationNumber"
+                                value={newEmployee.registrationNumber}
+                                onChange={handleNewEmployeeChange}
+                                placeholder="Registration Number"
+                                className="w-full p-2 border border-gray-300 rounded-md"
+                                required
+                            />
+                            <input
+                                type="text"
+                                name="identityNumber"
+                                value={newEmployee.identityNumber}
+                                onChange={handleNewEmployeeChange}
+                                placeholder="Identity Number"
+                                className="w-full p-2 border border-gray-300 rounded-md"
+                                required
+                            />
+                            <div className="flex justify-end space-x-3">
+                                <button
+                                    type="button"
+                                    onClick={() => setShowAddModal(false)}
+                                    className="bg-gray-300 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-400 transition-colors"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors"
+                                >
+                                    Add Employee
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Modal for Editing Employee */}
+            {showEditModal && selectedEmployee && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40">
+                    <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+                        <h2 className="text-xl font-semibold mb-4">Edit Employee</h2>
+                        <form onSubmit={handleUpdateEmployee} className="space-y-4">
+                            <input
+                                type="text"
+                                name="name"
+                                value={selectedEmployee.name}
+                                onChange={handleSelectedEmployeeChange}
+                                placeholder="Name"
+                                className="w-full p-2 border border-gray-300 rounded-md"
+                                required
+                            />
+                            <input
+                                type="text"
+                                name="surname"
+                                value={selectedEmployee.surname}
+                                onChange={handleSelectedEmployeeChange}
+                                placeholder="Surname"
+                                className="w-full p-2 border border-gray-300 rounded-md"
+                                required
+                            />
+                            <input
+                                type="email"
+                                name="email"
+                                value={selectedEmployee.email}
+                                onChange={handleSelectedEmployeeChange}
+                                placeholder="Email"
+                                className="w-full p-2 border border-gray-300 rounded-md"
+                                required
+                            />
+                            <input
+                                type="text"
+                                name="registrationNumber"
+                                value={selectedEmployee.registrationNumber}
+                                onChange={handleSelectedEmployeeChange}
+                                placeholder="Registration Number"
+                                className="w-full p-2 border border-gray-300 rounded-md"
+                                required
+                            />
+                            <input
+                                type="text"
+                                name="identityNumber"
+                                value={selectedEmployee.identityNumber}
+                                onChange={handleSelectedEmployeeChange}
+                                placeholder="Identity Number"
+                                className="w-full p-2 border border-gray-300 rounded-md"
+                                required
+                            />
+                            <div className="flex justify-end space-x-3">
+                                <button
+                                    type="button"
+                                    onClick={() => setShowEditModal(false)}
+                                    className="bg-gray-300 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-400 transition-colors"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
+                                >
+                                    Update Employee
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Modal for Deleting Employee */}
+            {showDeleteModal && selectedEmployee && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40">
+                    <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+                        <h2 className="text-xl font-semibold mb-4">Confirm Deletion</h2>
+                        <p className="mb-4">Are you sure you want to delete {selectedEmployee.name} {selectedEmployee.surname}?</p>
+                        <div className="flex justify-end space-x-3">
+                            <button
+                                type="button"
+                                onClick={() => setShowDeleteModal(false)}
+                                className="bg-gray-300 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-400 transition-colors"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                type="button"
+                                onClick={handleDeleteEmployee}
+                                className="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 transition-colors"
+                            >
+                                Delete
+                            </button>
                         </div>
                     </div>
-                )}
-            </div>
+                </div>
+            )}
             <ScrollToTop />
             <CustomToastContainer />
         </div>

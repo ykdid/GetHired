@@ -8,7 +8,7 @@ import ProfilePage from './pages/ProfilePage';
 import MyStaffPage from './pages/MyStaffPage';
 import ApplicationsPage from './pages/ApplicationsPage';
 import { AuthProvider } from './contexts/AuthContext';
-import { ToastContainer } from 'react-toastify';
+import CustomToastContainer from './components/CustomToastContainer';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
               <Route path="/applications/:advertisementId" element={<ApplicationsPage />} />
               <Route path="/" element={<Navigate to="/login" />} /> 
             </Routes> 
-            <ToastContainer /> 
+            <CustomToastContainer /> 
         </div>
       </AuthProvider> 
     </Router>
