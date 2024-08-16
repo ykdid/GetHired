@@ -4,7 +4,6 @@ import axios from 'axios';
 import { FaTrash, FaEdit } from 'react-icons/fa';   
 import ConfirmDeleteModal from './ConfirmDeleteModal'; 
 import UpdateAdModal from './UpdateModalAd';
-import CustomToastContainer from './CustomToastContainer';
 import { toast } from 'react-toastify';
 
 const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
@@ -104,7 +103,7 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
             </div>
             <div className="flex justify-end mt-4">
                 <button
-                    className="bg-green-500 text-white py-2 px-4 rounded"
+                    className="bg-gradient-to-r from-blue-500 to-teal-500 text-white py-2 px-4 rounded"
                     onClick={handleShowApplications}
                 >
                     Show Applications

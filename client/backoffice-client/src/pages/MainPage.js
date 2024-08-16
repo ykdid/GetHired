@@ -167,46 +167,49 @@
                             handleInputChange={handleInputChange}
                         />
                         <div className="flex flex-col items-center space-y-4 py-4 w-full">
-                            <div className="flex justify-center mb-4">
-                                <h1 className="text-2xl font-bold text-center">
+                        <div className="flex justify-center mb-6">
+                            {Array.isArray(ads) && ads.length > 0 && (
+                                <h1 className="text-3xl font-extrabold text-gray-900 bg-gradient-to-r from-blue-500 to-teal-500 text-transparent bg-clip-text">
                                     My JobList
                                 </h1>
-                            </div>
+                            )}
+                        </div>
                             {Array.isArray(ads) && ads.length > 0 ? (
-    ads.map((ad) => (
-        <AdvertisementCard
-            key={ad.id}
-            ad={ad}
-            onUpdate={() => {
-                const fetchAds = async () => {
-                    try {
-                        const token = sessionStorage.getItem('token');
-                        const employerId = localStorage.getItem('employerId');
-                        if (!employerId) {
-                            throw new Error('Employer ID not found in localStorage');
-                        }
+                            ads.map((ad) => (
+                                <AdvertisementCard
+                                    key={ad.id}
+                                    ad={ad}
+                                    onUpdate={() => {
+                                        const fetchAds = async () => {
+                                            try {
+                                                const token = sessionStorage.getItem('token');
+                                                const employerId = localStorage.getItem('employerId');
+                                                if (!employerId) {
+                                                    throw new Error('Employer ID not found in localStorage');
+                                                }
 
-                        const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`, {
-                            headers: {
-                                'Authorization': `Bearer ${token}`
-                            }
-                        });
+                                                const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`, {
+                                                    headers: {
+                                                        'Authorization': `Bearer ${token}`
+                                                    }
+                                                });
 
-                        setAds(Array.isArray(response.data) ? response.data : []);
-                    } catch (error) {
-                        console.error('An error occurred while getting advertisements:', error);
-                    }
-                };
+                                                setAds(Array.isArray(response.data) ? response.data : []);
+                                            } catch (error) {
+                                                console.error('An error occurred while getting advertisements:', error);
+                                            }
+                                        };
 
-                fetchAds();
-            }}
-            onEdit={handleUpdateClick}
-            onDelete={handleDeleteClick}
-        />
-    ))
-) : (
-    <p>No advertisements available</p>
-)}
+                                        fetchAds();
+                                    }}
+                                    onEdit={handleUpdateClick}
+                                    onDelete={handleDeleteClick}
+                                />
+                            ))
+                        ) : (
+
+                            <p>Create an advertisement and find your employees!</p>
+                        )}
                         </div>
                     </div>
                 </div>

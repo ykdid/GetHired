@@ -49,9 +49,17 @@ public class EmployerService:IEmployerService
 
         employer.Name = updatedEmployer.Name ?? employer.Name;
         employer.Surname = updatedEmployer.Surname ?? employer.Surname;
-        employer.EmployerImagePath = updatedEmployer.EmployerImagePath ?? employer.EmployerImagePath;
-        employer.Email = _encryptionService.Encrypt(updatedEmployer.Email) ?? employer.Email;
-        employer.HashPassword = _encryptionService.Hash(updatedEmployer.HashPassword) ?? employer.HashPassword;
+        employer.EmployerImagePath = updatedEmployer.EmployerImagePath ?? employer.EmployerImagePath;,
+            
+        if (!string.IsNullOrEmpty(updatedEmployer.Email))
+        {
+            employer.Email = _encryptionService.Encrypt((updatedEmployer.Email));
+        }
+        
+        if (!string.IsNullOrEmpty(updatedEmployer.HashPassword))
+        {
+            employer.HashPassword = _encryptionService.Hash(updatedEmployer.HashPassword);
+        }
        
 
         await _context.SaveChangesAsync();

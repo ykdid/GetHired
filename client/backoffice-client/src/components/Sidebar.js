@@ -11,61 +11,61 @@ const Sidebar = ({ isSidebarOpen }) => {
     };
 
     const handleMainPage = () => {
-        navigate ('/main')
-    }
+        navigate('/main');
+    };
 
     const handleProfilePage = () => {
-        navigate ('/profile')
-    }
-    
+        navigate('/profile');
+    };
+
     const handleMyStaffPage = () => {
-        navigate ('/mystaff')
-    }
+        navigate('/mystaff');
+    };
 
     return (
         <div
-            className={`fixed inset-y-0 left-0 w-64 bg-gray-800 text-white p-4 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out z-50`}
+            className={`fixed inset-y-0 left-0 w-64 bg-gradient-to-b from-gray-900 to-gray-700 text-white p-6 transform ${
+                isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+            } transition-transform duration-300 ease-in-out z-50 shadow-lg`}
         >
-            <div className="flex justify-center mb-4">
-                <h2 className="text-lg font-semibold text-center">Menu</h2>
+            <div className="flex justify-center mb-8">
+                <h2 className="text-2xl  text-center">Menu</h2>
             </div>
-            <ul className="flex-1">
-                <li className="py-4 border-b border-gray-500">
-                <button
+            <ul className="flex-1 space-y-6">
+                <li>
+                    <button
                         onClick={handleMainPage}
-                        className="hover:text-gray-400 transition-colors duration-200 block w-full text-left"
+                        className="hover:bg-gray-600 transition-colors duration-200 block w-full text-left py-3 px-4 rounded-lg"
                     >
-                        MainPage
+                        Main Page
                     </button>
                 </li>
-                <li className="py-4 border-b border-gray-500">
-                <button
+                <li>
+                    <button
                         onClick={handleProfilePage}
-                        className="hover:text-gray-400 transition-colors duration-200 block w-full text-left"
+                        className="hover:bg-gray-600 transition-colors duration-200 block w-full text-left py-3 px-4 rounded-lg"
                     >
                         Profile
                     </button>
                 </li>
-                <li className="py-4 border-b border-gray-500">
-                <button
+                <li>
+                    <button
                         onClick={handleMyStaffPage}
-                        className="hover:text-gray-400 transition-colors duration-200 block w-full text-left"
+                        className="hover:bg-gray-600 transition-colors duration-200 block w-full text-left py-3 px-4 rounded-lg"
                     >
-                        MyStaff
+                        My Staff
                     </button>
                 </li>
-            </ul>
-            <ul className="mt-auto">
-                <li className="py-4 border-t border-gray-500">
-                <button
+                <li>
+                    <button
                         onClick={handleLogout}
-                        className="hover:text-gray-400 transition-colors duration-200 block w-full text-left"
+                        className="hover:bg-red-500  transition-colors duration-200 block w-full text-left py-3 px-4 rounded-lg"
                     >
                         Logout
                     </button>
-                   
                 </li>
             </ul>
+           
         </div>
     );
 };

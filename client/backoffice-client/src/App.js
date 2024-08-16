@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import MainPage from './pages/MainPage';
-import './index.css'; 
+import './style/index.css'; 
 import ProfilePage from './pages/ProfilePage';
 import MyStaffPage from './pages/MyStaffPage';
 import ApplicationsPage from './pages/ApplicationsPage';

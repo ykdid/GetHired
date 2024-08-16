@@ -41,7 +41,7 @@ const ModalAd = ({ showModal, setShowModal, handleSubmit, formData, handleInputC
                         />
                     </div>
                     <div className="mb-4">
-                        <label className="block text-gray-700">Image Path</label>
+                        <label className="block text-gray-700">Image</label>
                         <input
                             type="file"
                             name="imagePath"

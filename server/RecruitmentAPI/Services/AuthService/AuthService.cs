@@ -71,7 +71,7 @@ namespace RecruitmentAPI.Services.AuthService
         {
             var hashedPassword = _encryptionService.Hash(request.Password);
             var email = _encryptionService.Encrypt(request.Email);  
-            var employer = await _context.Employers
+                var employer = await _context.Employers
                 .FirstOrDefaultAsync(e => e.Email.Equals(email) && e.HashPassword.Equals(hashedPassword));
 
             if (employer == null)

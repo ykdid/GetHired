@@ -11,6 +11,7 @@ const ProfilePage = () => {
         name: '',
         surname: '',
         email: '',
+        password:'',
         companyName: '',
         employerImagePath: ''
     });
@@ -118,72 +119,86 @@ const ProfilePage = () => {
             >
                 <Navbar isSidebarOpen={isSidebarOpen} handleSidebarToggle={handleSidebarToggle} />
                 <div className="p-6 flex space-x-6">
-                <div className="bg-white shadow-md rounded-lg p-6 w-1/3 flex flex-col justify-between pb-10 ">
-                    <h2 className="text-2xl font-semibold mb-4">Profile Information</h2>
-                        <div className="mb-4 pt-10">
-                            <img src={user.employerImagePath || 'default-avatar.png'} alt="Employer" className="w-48 h-48 mx-auto object-cover rounded-full" />
+                    <div className="bg-white shadow-lg rounded-lg p-6 w-1/3 flex flex-col justify-between">
+                        <h2 className="text-3xl font-semibold mb-6 text-center">Profile Information</h2>
+                        <div className="mb-6">
+                            <img
+                                src={user.employerImagePath || 'default-avatar.png'}
+                                alt="Employer"
+                                className="w-48 h-48 mx-auto object-cover rounded-full shadow-md"
+                            />
                         </div>
-                        <div className="mt-auto">
-                            <p><strong>Name:</strong> {user.name}</p>
-                            <p><strong>Surname:</strong> {user.surname}</p>
-                            <p><strong>Email:</strong> {user.email}</p>
-                            <p><strong>Company Name:</strong> {user.companyName}</p>
+                        <div className="mt-auto space-y-4">
+                            <p className="text-lg"><strong>Name:</strong> {user.name}</p>
+                            <p className="text-lg"><strong>Surname:</strong> {user.surname}</p>
+                            <p className="text-lg"><strong>Email:</strong> {user.email}</p>
+                            <p className="text-lg"><strong>Company Name:</strong> {user.companyName}</p>
                         </div>
                     </div>
-                    <div className="bg-white shadow-md rounded-lg p-6 w-2/3">
-                        <h2 className="text-2xl font-semibold mb-4">Update Profile</h2>
-                        <form onSubmit={handleSubmit}>
-                            <div className="mb-4">
-                                <label className="block text-gray-700">Name</label>
+                    <div className="bg-white shadow-lg rounded-lg p-6 w-2/3">
+                        <h2 className="text-3xl font-semibold mb-6 text-center">Update Profile</h2>
+                        <form onSubmit={handleSubmit} className="space-y-6">
+                            <div>
+                                <label className="block text-gray-700 text-lg">Name</label>
                                 <input
                                     type="text"
                                     name="name"
                                     value={user.name}
                                     onChange={handleInputChange}
-                                    className="mt-1 p-2 border rounded w-full"
+                                    className="mt-2 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
                             </div>
-                            <div className="mb-4">
-                                <label className="block text-gray-700">Surname</label>
+                            <div>
+                                <label className="block text-gray-700 text-lg">Surname</label>
                                 <input
                                     type="text"
                                     name="surname"
                                     value={user.surname}
                                     onChange={handleInputChange}
-                                    className="mt-1 p-2 border rounded w-full"
+                                    className="mt-2 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
                             </div>
-                            <div className="mb-4">
-                                <label className="block text-gray-700">Email</label>
+                            <div>
+                                <label className="block text-gray-700 text-lg">Email</label>
                                 <input
                                     type="email"
                                     name="email"
                                     value={user.email}
                                     onChange={handleInputChange}
-                                    className="mt-1 p-2 border rounded w-full"
+                                    className="mt-2 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
                             </div>
-                            <div className="mb-4">
-                                <label className="block text-gray-700">Company Name</label>
+                            <div>
+                                <label className="block text-gray-700 text-lg">Password</label>
+                                <input
+                                    type="text"
+                                    name="password"
+                                    value={user.password}
+                                    onChange={handleInputChange}
+                                    className="mt-2 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-gray-700 text-lg">Company Name</label>
                                 <input
                                     type="text"
                                     name="companyName"
                                     value={user.companyName}
                                     onChange={handleInputChange}
-                                    className="mt-1 p-2 border rounded w-full"
+                                    className="mt-2 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
                             </div>
-                            <div className="mb-4">
-                                <label className="block text-gray-700">Profile Image</label>
+                            <div>
+                                <label className="block text-gray-700 text-lg">Profile Image</label>
                                 <input
                                     type="file"
                                     name="employerImagePath"
                                     onChange={handleFileChange}
-                                    className="mt-1 p-2 border rounded w-full"
+                                    className="mt-2 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
                             </div>
-                            <div className="mt-6">
-                                <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded items-end">
+                            <div className="flex justify-end mt-6">
+                                <button type="submit" className="bg-blue-600 text-white py-3 px-6 rounded-lg shadow hover:bg-blue-700 transition duration-200">
                                     Save Changes
                                 </button>
                             </div>

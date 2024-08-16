@@ -116,7 +116,7 @@ const ApplicationsPage = () => {
                 <Navbar isSidebarOpen={isSidebarOpen} handleSidebarToggle={handleSidebarToggle} />
                 <div className="p-6">
                     <div className="flex justify-center mb-4">
-                        <h1 className="text-2xl font-bold text-center">Applications</h1>
+                        <h1 className="text-3xl font-extrabold text-gray-900 bg-gradient-to-r from-blue-500 to-teal-500 text-transparent bg-clip-text">Applications</h1>
                     </div>
                     <div className="flex flex-col items-center space-y-4 flex-wrap justify-center gap-4">
                         {applications.map((application, index) => (
