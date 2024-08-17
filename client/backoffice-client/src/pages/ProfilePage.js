@@ -11,7 +11,7 @@ const ProfilePage = () => {
         name: '',
         surname: '',
         email: '',
-        password:'',
+        hashPassword:'',
         companyName: '',
         employerImagePath: ''
     });
@@ -172,8 +172,8 @@ const ProfilePage = () => {
                                 <label className="block text-gray-700 text-lg">Password</label>
                                 <input
                                     type="text"
-                                    name="password"
-                                    value={user.password}
+                                    name="hashPassword"
+                                    value={user.hashPassword}
                                     onChange={handleInputChange}
                                     className="mt-2 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />

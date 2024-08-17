@@ -49,7 +49,7 @@ public class EmployerService:IEmployerService
 
         employer.Name = updatedEmployer.Name ?? employer.Name;
         employer.Surname = updatedEmployer.Surname ?? employer.Surname;
-        employer.EmployerImagePath = updatedEmployer.EmployerImagePath ?? employer.EmployerImagePath;,
+        employer.EmployerImagePath = updatedEmployer.EmployerImagePath ?? employer.EmployerImagePath;
             
         if (!string.IsNullOrEmpty(updatedEmployer.Email))
         {
