@@ -35,6 +35,7 @@ public class EmployerService:IEmployerService
 
         employer.Email = _encryptionService.Decrypt(employer.Email);
         
+        
         return employer;
 
     }
@@ -50,6 +51,7 @@ public class EmployerService:IEmployerService
         employer.Name = updatedEmployer.Name ?? employer.Name;
         employer.Surname = updatedEmployer.Surname ?? employer.Surname;
         employer.EmployerImagePath = updatedEmployer.EmployerImagePath ?? employer.EmployerImagePath;
+        employer.CompanyName = updatedEmployer.CompanyName ?? employer.CompanyName;
             
         if (!string.IsNullOrEmpty(updatedEmployer.Email))
         {

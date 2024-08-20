@@ -5,13 +5,15 @@ import Navbar from '../components/Navbar';
 import Loading from '../components/Loading';
 import CustomToastContainer from '../components/CustomToastContainer';
 import { toast } from 'react-toastify';
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { storage } from '../firebase/FirebaseConfig';
 
 const ProfilePage = () => {
     const [user, setUser] = useState({
         name: '',
         surname: '',
         email: '',
-        hashPassword:'',
+        hashPassword: '',
         companyName: '',
         employerImagePath: ''
     });
@@ -28,29 +30,24 @@ const ProfilePage = () => {
                 if (!employerId) {
                     throw new Error('Employer ID not found in localStorage');
                 }
-                if(!token){
-                    throw new Error('Token not found in sessionStorage')
+                if (!token) {
+                    throw new Error('Token not found in sessionStorage');
                 }
 
-                const response = await axios.get(`https://localhost:7053/api/Employer/getEmployerById/${employerId}`,{
-                    headers:{
-                        'Authorization' : `Bearer ${token}`
+                const response = await axios.get(`https://localhost:7053/api/Employer/getEmployerById/${employerId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
                     }
                 });
                 setUser(response.data);
             } catch (error) {
                 console.error('An error occurred while fetching user data:', error);
-            }
-            finally{
+            } finally {
                 setLoading(false);
             }
         };
         fetchUser();
     }, []);
-
-    if(loading){
-        return <Loading />
-    }
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -67,33 +64,55 @@ const ProfilePage = () => {
         try {
             const employerId = localStorage.getItem('employerId');
             const token = sessionStorage.getItem('token');  
-            if (!employerId && !token) {
+            if (!employerId || !token) {
                 console.error('Employer ID or Token not found');
                 return;
             }
 
-            if (selectedFile) {
-                const formData = new FormData();
-                formData.append('file', selectedFile);
+            let imagePath = user.employerImagePath;
 
-                const uploadResponse = await axios.post(`https://localhost:7053/api/Employer/uploadEmployerImage/${employerId}`, formData, {
+            if (selectedFile) {
+                const storageRef = ref(storage, `Employers/EmployerProfileImages/${employerId}/${selectedFile.name}`);
+                const uploadTask = uploadBytesResumable(storageRef, selectedFile);
+
+                uploadTask.on(
+                    'state_changed',
+                    (snapshot) => {
+                        // Progress handler (can be used to show upload progress)
+                    },
+                    (error) => {
+                        console.error('Upload failed:', error);
+                        toast.error('Failed to upload profile image.');
+                    },
+                    async () => {
+                        // Complete handler
+                        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+                        imagePath = downloadURL;
+                        
+                        // Update user state with new image path
+                        setUser((prevUser) => ({ ...prevUser, employerImagePath: imagePath }));
+                        
+                        // Now update the user profile with the new image path
+                        await axios.patch(`https://localhost:7053/api/Employer/updateEmployer/${employerId}`, { ...user, employerImagePath: imagePath }, {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`,
+                            },
+                        });
+                        toast.success('Your information updated successfully!');
+                    }
+                );
+            } else {
+                
+                // Update the user profile without changing the image
+                await axios.patch(`https://localhost:7053/api/Employer/updateEmployer/${employerId}`, user, {
                     headers: {
-                        'Content-Type': 'multipart/form-data',
-                        'Authorization' : `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
                     },
                 });
-
-                user.employerImagePath = uploadResponse.data.filePath;
+                toast.success('Your information updated successfully!');
             }
-
-            await axios.patch(`https://localhost:7053/api/Employer/updateEmployer/${employerId}`, user, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization' : `Bearer ${token}`,
-                },
-            });
-
-            toast.success('Your informations updated successfully!');
         } catch (error) {
             console.error('An error occurred while updating user information:', error);
             toast.error('An error occurred while updating user information.');
@@ -109,6 +128,10 @@ const ProfilePage = () => {
             setIsSidebarOpen(false);
         }
     };
+
+    if (loading) {
+        return <Loading />;
+    }
 
     return (
         <div className="min-h-screen bg-gray-100 flex">
@@ -174,7 +197,6 @@ const ProfilePage = () => {
                                     type="text"
                                     name="hashPassword"
                                     value={user.hashPassword}
-                                    onChange={handleInputChange}
                                     className="mt-2 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
                             </div>

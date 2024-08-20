@@ -39,7 +39,10 @@ public class JobAdvertisementService:IJobAdvertisementService
 
     public async Task<List<JobAdvertisement>> GetAllAdvertisements()
     {
-        return await _context.JobAdvertisements.ToListAsync();
+        return await _context.JobAdvertisements
+            .OrderByDescending(ad => ad.InitDate)
+            .ToListAsync();
+
     }
 
     public async Task<bool> DeleteAdvertisement(int advertisementId)
