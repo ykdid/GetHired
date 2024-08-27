@@ -7,14 +7,16 @@ import UpdateAdModal from './UpdateModalAd';
 import { toast } from 'react-toastify';
 
 const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
+    const date = new Date();
+    const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
     const navigate = useNavigate();
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
     const [showUpdateModal, setShowUpdateModal] = useState(false);
     const [formData, setFormData] = useState({
         title: ad.title,
         description: ad.description,
-        initDate: new Date().toISOString(), 
-        expireDate: ad.expireDate,      
+        initDate: ad.initDate, 
+        expireDate: ad.expireDate ? ad.expireDate.split('T')[0] : '',    
         imagePath: ad.imagePath,
         jobType: ad.jobType
     });

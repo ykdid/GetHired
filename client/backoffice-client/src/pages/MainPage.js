@@ -13,13 +13,15 @@
   
 
     const MainPage = () => {
+        const date = new Date();
+        const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
         const [loading , setloading] = useState(true);
         const [ads, setAds] = useState([]);
         const [showModal, setShowModal] = useState(false);
         const [formData, setFormData] = useState({
             title: '',
             description: '',
-            initDate: '',
+            initDate: formattedDate,
             expireDate: '',
             htmlContent: '',
             jobType: ''
