@@ -1,4 +1,4 @@
-namespace RecruitmentAPI.Services.AuthService.DTOs.Models;
+namespace RecruitmentAPI.DTOs.Models;
 
 public class EmployerLoginRequest
 {

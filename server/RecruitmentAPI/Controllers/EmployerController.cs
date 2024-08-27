@@ -6,6 +6,7 @@ using System.Data.Common;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
+using RecruitmentAPI.DTOs.Models;
 using RecruitmentAPI.Entities;
 using RecruitmentAPI.Services.EmployerService;
 
@@ -49,7 +50,6 @@ namespace RecruitmentAPI.Controllers
         }
         
         [HttpPatch("updateEmployer/{id}")]
-        
         public async Task<IActionResult> UpdateEmployer(int id, [FromBody] Employer updatedEmployer)
         {
             try
@@ -65,6 +65,32 @@ namespace RecruitmentAPI.Controllers
             catch (KeyNotFoundException ex)
             {
                 return NotFound(ex.Message);
+            }
+        }
+        
+        [HttpPatch("changePassword/{id}")]
+        public async Task<IActionResult> ChangePassword(int id, [FromBody] PasswordChangeModel passwordChangeModel)
+        {
+            try
+            {
+                var result = await _employerService.UpdatePassword(id, passwordChangeModel.CurrentPassword, passwordChangeModel.NewPassword);
+
+                if (result)
+                {
+                    return Ok("Password changed successfully.");
+                }
+                else
+                {
+                    return BadRequest("Failed to change password.");
+                }
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
             }
         }
     }

@@ -1,7 +1,7 @@
 using RecruitmentAPI.Data;
 using RecruitmentAPI.Entities;
 using RecruitmentAPI.Services.EncryptionService;
-
+using RecruitmentAPI.DTOs.Models;
 namespace RecruitmentAPI.Services.EmployerService;
 
 public class EmployerService:IEmployerService
@@ -47,7 +47,7 @@ public class EmployerService:IEmployerService
         {
             throw new KeyNotFoundException($"{updatedEmployer} was not found.");
         }
-
+        
         employer.Name = updatedEmployer.Name ?? employer.Name;
         employer.Surname = updatedEmployer.Surname ?? employer.Surname;
         employer.EmployerImagePath = updatedEmployer.EmployerImagePath ?? employer.EmployerImagePath;
@@ -58,14 +58,30 @@ public class EmployerService:IEmployerService
             employer.Email = _encryptionService.Encrypt((updatedEmployer.Email));
         }
         
-        if (!string.IsNullOrEmpty(updatedEmployer.HashPassword))
-        {
-            employer.HashPassword = _encryptionService.Hash(updatedEmployer.HashPassword);
-        }
-       
-
         await _context.SaveChangesAsync();
 
         return employer;
+    }
+
+    public async Task<bool> UpdatePassword(int id, string currentPassword, string newPassword)
+    {
+        var employer = await _context.Employers.FindAsync(id);
+
+        if (employer == null)
+        {
+            throw new KeyNotFoundException($"Employer with id {id} doesn't found");
+        }
+        
+        if (!_encryptionService.VerifyHash(currentPassword, employer.HashPassword))
+        {
+            throw new UnauthorizedAccessException("Current password is incorrect.");
+        }
+        
+        employer.HashPassword = _encryptionService.Hash(newPassword);
+
+        await _context.SaveChangesAsync();
+        
+        return true;
+
     }
 }

@@ -1,4 +1,4 @@
-namespace RecruitmentAPI.Services.EmployerService.DTOs;
+namespace RecruitmentAPI.DTOs.Models;
 
 public class PasswordChangeModel
 {

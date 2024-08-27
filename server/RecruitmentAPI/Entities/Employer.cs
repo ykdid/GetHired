@@ -24,7 +24,7 @@
             [MaxLength(100)]
             public string? CompanyName { get; set; }
 
-            [MaxLength(100)]
+            [MaxLength(500)]
             public string? EmployerImagePath { get; set; }
             
         }

@@ -7,19 +7,20 @@ import CustomToastContainer from '../components/CustomToastContainer';
 import { toast } from 'react-toastify';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { storage } from '../firebase/FirebaseConfig';
+import PasswordChangeModal from '../components/PasswordChangeModal';
 
 const ProfilePage = () => {
     const [user, setUser] = useState({
         name: '',
         surname: '',
         email: '',
-        hashPassword: '',
         companyName: '',
         employerImagePath: ''
     });
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
 
     useEffect(() => {
         setLoading(true);
@@ -60,7 +61,7 @@ const ProfilePage = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
+        setLoading(true);
         try {
             const employerId = localStorage.getItem('employerId');
             const token = sessionStorage.getItem('token');  
@@ -78,44 +79,53 @@ const ProfilePage = () => {
                 uploadTask.on(
                     'state_changed',
                     (snapshot) => {
-                        // Progress handler (can be used to show upload progress)
+                        
                     },
                     (error) => {
                         console.error('Upload failed:', error);
                         toast.error('Failed to upload profile image.');
                     },
                     async () => {
-                        // Complete handler
-                        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-                        imagePath = downloadURL;
-                        
-                        // Update user state with new image path
-                        setUser((prevUser) => ({ ...prevUser, employerImagePath: imagePath }));
-                        
-                        // Now update the user profile with the new image path
-                        await axios.patch(`https://localhost:7053/api/Employer/updateEmployer/${employerId}`, { ...user, employerImagePath: imagePath }, {
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${token}`,
-                            },
-                        });
-                        toast.success('Your information updated successfully!');
+                        setLoading(true);
+                        try {
+                            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+                            imagePath = downloadURL; 
+                            
+                            setUser((prevUser) => ({ ...prevUser, employerImagePath: imagePath }));
+       
+                            await axios.patch(`https://localhost:7053/api/Employer/updateEmployer/${employerId}`, { ...user, employerImagePath: imagePath }, {
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${token}`,
+                                },
+                            });
+                            toast.success('Your information updated successfully!');
+                        }
+                        catch(error){
+                            console.error('An error occurred while updating user information:', error);
+                            toast.error('An error occurred while updating user information.');
+                        }
+                        finally{
+                            setLoading(false);
+                        }
                     }
                 );
-            } else {
-                
-                // Update the user profile without changing the image
+            } 
+            else {
                 await axios.patch(`https://localhost:7053/api/Employer/updateEmployer/${employerId}`, user, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`,
                     },
                 });
-                toast.success('Your information updated successfully!');
+                toast.success('Your information updated successfully!');   
             }
         } catch (error) {
             console.error('An error occurred while updating user information:', error);
             toast.error('An error occurred while updating user information.');
+        }
+        finally{
+            setLoading(false)
         }
     };
 
@@ -127,6 +137,14 @@ const ProfilePage = () => {
         if (isSidebarOpen) {
             setIsSidebarOpen(false);
         }
+    };
+
+    const openPasswordModal = () => {
+        setIsPasswordModalOpen(true);
+    };
+
+    const closePasswordModal = () => {
+        setIsPasswordModalOpen(false);
     };
 
     if (loading) {
@@ -148,7 +166,7 @@ const ProfilePage = () => {
                             <img
                                 src={user.employerImagePath || 'default-avatar.png'}
                                 alt="Employer"
-                                className="w-48 h-48 mx-auto object-cover rounded-full shadow-md"
+                                className="w-64 h-64 mx-auto object-cover rounded-full shadow-md mt-5"
                             />
                         </div>
                         <div className="mt-auto space-y-4">
@@ -192,15 +210,6 @@ const ProfilePage = () => {
                                 />
                             </div>
                             <div>
-                                <label className="block text-gray-700 text-lg">Password</label>
-                                <input
-                                    type="text"
-                                    name="hashPassword"
-                                    value={user.hashPassword}
-                                    className="mt-2 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                />
-                            </div>
-                            <div>
                                 <label className="block text-gray-700 text-lg">Company Name</label>
                                 <input
                                     type="text"
@@ -219,18 +228,31 @@ const ProfilePage = () => {
                                     className="mt-2 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
                             </div>
-                            <div className="flex justify-end mt-6">
+                            <div className="flex justify-end mt-6">      
                                 <button type="submit" className="bg-blue-600 text-white py-3 px-6 rounded-lg shadow hover:bg-blue-700 transition duration-200">
                                     Save Changes
-                                </button>
-                            </div>
+                                </button>    
+                            </div> 
                         </form>
-                    </div>
+                    </div>   
                 </div>
-            </div>
+                <div className="flex justify-end mt-6">
+                <button
+                    onClick={openPasswordModal}
+                    className="bg-blue-600 text-white py-3 px-6 rounded-lg shadow hover:bg-blue-700 transition duration-200 mr-6"
+                >
+                Change Password
+                </button>  
+                </div>
+                
+            </div >
             <CustomToastContainer />
+            {isPasswordModalOpen && (
+                 <PasswordChangeModal closeModal={closePasswordModal} />
+             )}
         </div>
     );
-};
+};  
 
 export default ProfilePage;
+    

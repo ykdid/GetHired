@@ -65,4 +65,26 @@ public class UserService : IUserService
 
         return user;
     }
+    
+    public async Task<bool> UpdatePassword(int id, string currentPassword, string newPassword)
+    {
+        var user = await _context.Users.FindAsync(id);
+
+        if (user == null)
+        {
+            throw new KeyNotFoundException($"User with id {id} doesn't found");
+        }
+        
+        if (!_encryptionService.VerifyHash(currentPassword, user.HashPassword))
+        {
+            throw new UnauthorizedAccessException("Current password is incorrect.");
+        }
+        
+        user.HashPassword = _encryptionService.Hash(newPassword);
+
+        await _context.SaveChangesAsync();
+        
+        return true;
+
+    }
 }

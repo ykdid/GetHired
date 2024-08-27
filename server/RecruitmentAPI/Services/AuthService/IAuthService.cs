@@ -1,6 +1,7 @@
     using Microsoft.AspNetCore.Identity.Data;
+    using RecruitmentAPI.DTOs.Models;
     using RecruitmentAPI.Entities;
-    using RecruitmentAPI.Services.AuthService.DTOs.Models;
+
 
 
     namespace RecruitmentAPI.Services.AuthService;

@@ -1,7 +1,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using RecruitmentAPI.DTOs.Models;
 using RecruitmentAPI.Services.AuthService;
-using RecruitmentAPI.Services.AuthService.DTOs.Models;
+
 
 namespace RecruitmentAPI.Controllers
 {

@@ -6,7 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RecruitmentAPI.Data;
 using RecruitmentAPI.Entities;
-using RecruitmentAPI.Services.AuthService.DTOs.Models;
+using RecruitmentAPI.DTOs.Models;
+
 using RecruitmentAPI.Services.EncryptionService;
 
 namespace RecruitmentAPI.Services.AuthService

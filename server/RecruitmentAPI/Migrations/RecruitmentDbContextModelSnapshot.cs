@@ -89,8 +89,8 @@ namespace RecruitmentAPI.Migrations
                         .HasColumnType("character varying(100)");
 
                     b.Property<string>("EmployerImagePath")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.Property<string>("HashPassword")
                         .IsRequired()
