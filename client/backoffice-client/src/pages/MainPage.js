@@ -21,7 +21,6 @@
             description: '',
             initDate: '',
             expireDate: '',
-            imagePath: '',
             htmlContent: '',
             jobType: ''
         });

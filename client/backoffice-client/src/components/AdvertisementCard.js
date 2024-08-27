@@ -70,7 +70,7 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
 
     return (
         
-        <div key={ad.id} className={` bg-white shadow-md p-4 rounded-lg w-[700px] h-[350px] flex flex-col justify-between relative ${isModalOpen ? 'opacity-50' : ''}`} style={{ zIndex: 10 }}>
+        <div key={ad.id} className={` bg-white shadow-md p-4 rounded-lg w-[700px] h-[350px] flex flex-col justify-between relative ${isModalOpen ? 'opacity-50' : ''}`} >
             <div className="absolute top-2 right-2 flex space-x-2">
                 <button
                     onClick={() => setShowUpdateModal(true)}

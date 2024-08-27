@@ -231,28 +231,25 @@ const ProfilePage = () => {
                             <div className="flex justify-end mt-6">      
                                 <button type="submit" className="bg-blue-600 text-white py-3 px-6 rounded-lg shadow hover:bg-blue-700 transition duration-200">
                                     Save Changes
-                                </button>    
-                            </div> 
+                                </button>
+                            </div>
                         </form>
-                    </div>   
+                        <div className="flex justify-end mt-6">
+                            <button
+                                onClick={openPasswordModal}
+                                className="bg-red-500 text-white py-3 px-6 rounded-lg shadow hover:bg-red-600 transition duration-200"
+                            >
+                                Change Password
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div className="flex justify-end mt-6">
-                <button
-                    onClick={openPasswordModal}
-                    className="bg-blue-600 text-white py-3 px-6 rounded-lg shadow hover:bg-blue-700 transition duration-200 mr-6"
-                >
-                Change Password
-                </button>  
-                </div>
-                
-            </div >
-            <CustomToastContainer />
-            {isPasswordModalOpen && (
-                 <PasswordChangeModal closeModal={closePasswordModal} />
-             )}
+                {isPasswordModalOpen && <PasswordChangeModal closeModal={closePasswordModal} />}
+                <CustomToastContainer />
+            </div>
         </div>
     );
-};  
+};
 
 export default ProfilePage;
     
