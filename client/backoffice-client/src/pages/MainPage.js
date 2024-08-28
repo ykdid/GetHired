@@ -23,8 +23,7 @@
             description: '',
             initDate: formattedDate,
             expireDate: '',
-            htmlContent: '',
-            jobType: ''
+            employmentType: 'FullTime'
         });
         const [isSidebarOpen, setIsSidebarOpen] = useState(false);
         const [selectedAd, setSelectedAd] = useState(null);
@@ -136,8 +135,7 @@
                 title: ad.title,
                 description: ad.description,
                 expireDate: ad.expireDate,
-                imagePath: ad.imagePath,
-                jobType: ad.jobType
+                employmentType: ad.employmentType
             });
             setShowUpdateModal(true);
         };
@@ -147,7 +145,7 @@
             <div className="min-h-screen bg-gray-100 flex">
                 <Sidebar isSidebarOpen={isSidebarOpen} />
                 <div
-                    className={`flex-1 flex flex-col bg-gray-100 transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-64' : 'translate-x-0'}`}
+                    className={`flex-1 flex flex-col bg-gray-50 transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-64' : 'translate-x-0'}`}
                     onClick={handleContentClick}
                 >
                     <Navbar isSidebarOpen={isSidebarOpen} handleSidebarToggle={handleSidebarToggle} />

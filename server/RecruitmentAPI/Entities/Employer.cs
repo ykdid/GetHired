@@ -22,9 +22,12 @@
             public string HashPassword { get; set; }
 
             [MaxLength(100)]
-            public string? CompanyName { get; set; }
+            public string CompanyName { get; set; }
+            
+            [MaxLength(1000)]
+            public string? CompanyImagePath { get; set; }
 
-            [MaxLength(500)]
+            [MaxLength(1000)]
             public string? EmployerImagePath { get; set; }
             
         }

@@ -7,8 +7,6 @@ import UpdateAdModal from './UpdateModalAd';
 import { toast } from 'react-toastify';
 
 const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
-    const date = new Date();
-    const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
     const navigate = useNavigate();
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
     const [showUpdateModal, setShowUpdateModal] = useState(false);
@@ -17,8 +15,7 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
         description: ad.description,
         initDate: ad.initDate, 
         expireDate: ad.expireDate ? ad.expireDate.split('T')[0] : '',    
-        imagePath: ad.imagePath,
-        jobType: ad.jobType
+        employmentType: ad.employmentType
     });
 
     const handleShowApplications = () => {
@@ -113,7 +110,7 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
             </div>
             <p className="absolute bottom-2 left-2 text-gray-500 text-sm p-2">
                 {new Date(formData.initDate).toLocaleDateString()}  - {new Date(ad.expireDate).toLocaleDateString()}
-            </p>
+            </p>    
             <UpdateAdModal
                 showModal={showUpdateModal}
                 setShowModal={setShowUpdateModal}

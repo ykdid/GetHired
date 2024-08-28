@@ -41,16 +41,19 @@ const ModalAd = ({ showModal, setShowModal, handleSubmit, formData, handleInputC
                         />
                     </div>
                     <div className="mb-4">
-                        <label className="block text-gray-700">Job Type</label>
-                        <input
-                            type="text"
-                            name="jobType"
-                            value={formData.jobType}
-                            onChange={handleInputChange}
-                            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            required
-                        />
+                    <label className="block text-gray-700">Employment Type</label>
+                    <select
+                        name="employmentType"
+                        value={formData.employmentType}
+                        onChange={handleInputChange}
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition "
+                    >
+                        <option value="FullTime">Full Time</option>
+                        <option value="PartTime">Part Time</option>
+                        <option value="Intern">Internship</option>
+                    </select>
                     </div>
+                  
                     <div className="flex justify-end">
                         <button
                             type="button"

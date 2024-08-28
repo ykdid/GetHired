@@ -79,7 +79,12 @@ namespace RecruitmentAPI.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("CompanyImagePath")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
+
                     b.Property<string>("CompanyName")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
@@ -89,8 +94,8 @@ namespace RecruitmentAPI.Migrations
                         .HasColumnType("character varying(100)");
 
                     b.Property<string>("EmployerImagePath")
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
 
                     b.Property<string>("HashPassword")
                         .IsRequired()
@@ -121,30 +126,21 @@ namespace RecruitmentAPI.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasMaxLength(10000)
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("EmployerId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("EmploymentType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("ExpireDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("HtmlContent")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("ImagePath")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
                     b.Property<DateTime>("InitDate")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("JobType")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Title")
                         .HasMaxLength(100)
@@ -169,8 +165,9 @@ namespace RecruitmentAPI.Migrations
                     b.Property<int>("JobAdvertisementId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
@@ -192,8 +189,8 @@ namespace RecruitmentAPI.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("CvFilePath")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -216,9 +213,6 @@ namespace RecruitmentAPI.Migrations
                         .HasMaxLength(11)
                         .HasColumnType("character varying(11)");
 
-                    b.Property<string>("JobType")
-                        .HasColumnType("text");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -240,8 +234,8 @@ namespace RecruitmentAPI.Migrations
                         .HasColumnType("character varying(100)");
 
                     b.Property<string>("UserProfileImagePath")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
 
                     b.HasKey("Id");
 

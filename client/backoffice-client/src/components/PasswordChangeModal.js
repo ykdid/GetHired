@@ -52,7 +52,7 @@ const PasswordChangeModal = ({ closeModal }) => {
                 <div className="mb-4">
                     <label className="block text-gray-700">Current Password</label>
                     <input
-                        type="password"
+                        type="text"
                         value={currentPassword}
                         onChange={(e) => setCurrentPassword(e.target.value)}
                         className="mt-1 p-2 border border-gray-300 rounded w-full"
@@ -62,7 +62,7 @@ const PasswordChangeModal = ({ closeModal }) => {
                 <div className="mb-4">
                     <label className="block text-gray-700">New Password</label>
                     <input
-                        type="password"
+                        type="text"
                         value={newPassword}
                         onChange={(e) => setNewPassword(e.target.value)}
                         className="mt-1 p-2 border border-gray-300 rounded w-full"
@@ -72,7 +72,7 @@ const PasswordChangeModal = ({ closeModal }) => {
                 <div className="mb-4">
                     <label className="block text-gray-700">Confirm New Password</label>
                     <input
-                        type="password"
+                        type="text"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         className="mt-1 p-2 border border-gray-300 rounded w-full"

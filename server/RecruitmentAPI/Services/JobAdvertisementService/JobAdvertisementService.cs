@@ -71,9 +71,11 @@ public class JobAdvertisementService:IJobAdvertisementService
 
         adv.Description = updatedAdv.Description ?? adv.Description;
         adv.Title = updatedAdv.Title ?? adv.Title;
-        adv.HtmlContent = updatedAdv.HtmlContent ?? adv.HtmlContent;
-        adv.ImagePath = updatedAdv.ImagePath ?? adv.ImagePath;
-        adv.JobType = updatedAdv.ImagePath ?? adv.JobType;
+
+        if (updatedAdv.EmploymentType != null)
+        {
+            adv.EmploymentType = updatedAdv.EmploymentType;
+        }
 
         await _context.SaveChangesAsync();
 

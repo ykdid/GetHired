@@ -237,7 +237,7 @@ const ProfilePage = () => {
                         <div className="flex justify-end mt-6">
                             <button
                                 onClick={openPasswordModal}
-                                className="bg-red-500 text-white py-3 px-6 rounded-lg shadow hover:bg-red-600 transition duration-200"
+                                className="bg-green-500 text-white py-3 px-6 rounded-lg shadow hover:bg-green-600 transition duration-200"
                             >
                                 Change Password
                             </button>

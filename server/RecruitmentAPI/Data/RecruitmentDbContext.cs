@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using Microsoft.EntityFrameworkCore;
 using RecruitmentAPI.Entities;
 
@@ -53,6 +54,21 @@ namespace RecruitmentAPI.Data
             modelBuilder.Entity<Employee>()
                 .HasKey(ae => ae.Id);
             
+            modelBuilder.Entity<JobAdvertisement>()
+                .Property(ja => ja.Description)
+                .HasColumnType("TEXT");
+            
+            modelBuilder.Entity<JobAdvertisement>()
+                .Property(a => a.EmploymentType)
+                .HasConversion(
+                    v => v.ToString(), 
+                    v => (TypesOfEmployment)Enum.Parse(typeof(TypesOfEmployment), v)); 
+            
+            modelBuilder.Entity<JobApplication>()
+                .Property(a => a.Status)
+                .HasConversion(
+                    v => v.ToString(), 
+                    v => (JobApplicationStatus)Enum.Parse(typeof(JobApplicationStatus), v)); 
         }
     }
 }

@@ -13,23 +13,21 @@ namespace RecruitmentAPI.Entities
         [MaxLength(100)]
         public string? Title { get; set; }
 
-        [MaxLength(200)]
+        [MaxLength(10000)]
         public string? Description { get; set; }
 
         public DateTime InitDate { get; set; }
 
         public DateTime ExpireDate { get; set; }
-
-        [MaxLength(100)]
-        public string? ImagePath { get; set; }
-
-        [MaxLength(100)]
-        public string? HtmlContent { get; set; }
-        
         public int EmployerId { get; set; }
-
-        [MaxLength(100)]
-        public string JobType { get; set; }
         
+        public TypesOfEmployment EmploymentType { get; set; }
+        
+    }
+    public enum TypesOfEmployment
+    {
+        FullTime,
+        PartTime,
+        Intern
     }
 }

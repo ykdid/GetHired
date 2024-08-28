@@ -20,7 +20,7 @@ namespace RecruitmentAPI.Entities
         [Range(0, 100)]
         public int Age { get; set; }
 
-        [MaxLength(100)]
+        [MaxLength(1000)]
         public string? UserProfileImagePath { get; set; }
 
         [MaxLength(100)]
@@ -29,7 +29,7 @@ namespace RecruitmentAPI.Entities
         [MaxLength(100)]
         public string PhoneNumber { get; set; }
 
-        [MaxLength(100)]
+        [MaxLength(1000)]
         public string? CvFilePath { get; set; }
 
         [MaxLength(100)]
@@ -45,7 +45,7 @@ namespace RecruitmentAPI.Entities
         
         public int? EmployerId { get; set; }
         
-        public string? JobType { get; set; }
+        
         
     
 

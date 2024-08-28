@@ -4,8 +4,8 @@ const UpdateAdModal = ({ showModal, setShowModal, handleSubmit, formData, handle
     if (!showModal) return null;
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40">
-            <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg relative z-50">
+        <div className=" fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40">
+            <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg relative">
                 <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Edit Advertisement</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
