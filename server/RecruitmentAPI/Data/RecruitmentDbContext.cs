@@ -21,7 +21,7 @@ namespace RecruitmentAPI.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+
             modelBuilder.HasDefaultSchema("operation");
 
             modelBuilder.Entity<Employer>()
@@ -50,25 +50,32 @@ namespace RecruitmentAPI.Data
 
             modelBuilder.Entity<JobApplication>()
                 .HasKey(jap => jap.Id);
-            
+
             modelBuilder.Entity<Employee>()
                 .HasKey(ae => ae.Id);
-            
+
             modelBuilder.Entity<JobAdvertisement>()
                 .Property(ja => ja.Description)
                 .HasColumnType("TEXT");
             
             modelBuilder.Entity<JobAdvertisement>()
                 .Property(a => a.EmploymentType)
+                .HasColumnType("integer") 
                 .HasConversion(
-                    v => v.ToString(), 
-                    v => (TypesOfEmployment)Enum.Parse(typeof(TypesOfEmployment), v)); 
+                    v => (int)v, 
+                    v => (TypesOfEmployment)v); 
             
             modelBuilder.Entity<JobApplication>()
                 .Property(a => a.Status)
+                .HasColumnType("integer") 
                 .HasConversion(
-                    v => v.ToString(), 
-                    v => (JobApplicationStatus)Enum.Parse(typeof(JobApplicationStatus), v)); 
+                    v => (int)v, 
+                    v => (JobApplicationStatus)v); 
+
+
+
         }
+        
     }
 }
+

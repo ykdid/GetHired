@@ -48,9 +48,9 @@ const ModalAd = ({ showModal, setShowModal, handleSubmit, formData, handleInputC
                         onChange={handleInputChange}
                         className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition "
                     >
-                        <option value="FullTime">Full Time</option>
-                        <option value="PartTime">Part Time</option>
-                        <option value="Intern">Internship</option>
+                        <option value="0">Full Time</option>
+                        <option value="1">Part Time</option>
+                        <option value="2">Internship</option>
                     </select>
                     </div>
                   

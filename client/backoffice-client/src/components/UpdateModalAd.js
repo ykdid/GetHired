@@ -3,8 +3,15 @@ import React from 'react';
 const UpdateAdModal = ({ showModal, setShowModal, handleSubmit, formData, handleInputChange }) => {
     if (!showModal) return null;
 
+    // Enum seçenekleri
+    const employmentTypes = [
+        { value: 'FullTime', label: 'Full Time' },
+        { value: 'PartTime', label: 'Part Time' },
+        { value: 'Intern', label: 'Internship' },
+    ];
+
     return (
-        <div className=" fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40">
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg relative">
                 <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Edit Advertisement</h2>
                 <form onSubmit={handleSubmit}>
@@ -42,15 +49,21 @@ const UpdateAdModal = ({ showModal, setShowModal, handleSubmit, formData, handle
                         />
                     </div>
                     <div className="mb-6">
-                        <label className="block text-lg font-semibold text-gray-700">Job Type</label>
-                        <input
-                            type="text"
-                            name="jobType"
-                            value={formData.jobType}
+                        <label className="block text-lg font-semibold text-gray-700">Employment Type</label>
+                        <select
+                            name="employmentType"
+                            value={formData.employmentType}
                             onChange={handleInputChange}
                             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                             required
-                        />
+                        >
+                            <option value="" disabled>Select Employment Type</option>
+                            {employmentTypes.map(type => (
+                                <option key={type.value} value={type.value}>
+                                    {type.label}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                     <div className="flex justify-end space-x-4">
                         <button

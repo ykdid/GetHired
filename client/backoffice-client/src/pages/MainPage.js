@@ -23,8 +23,8 @@
             description: '',
             initDate: formattedDate,
             expireDate: '',
-            employmentType: 'FullTime'
-        });
+            employmentType: '0'
+        }); 
         const [isSidebarOpen, setIsSidebarOpen] = useState(false);
         const [selectedAd, setSelectedAd] = useState(null);
         const [showConfirmDelete, setShowConfirmDelete] = useState(false);
@@ -64,10 +64,14 @@
             const { name, value, files } = event.target;
             if (name === 'imagePath') {
                 setFormData({ ...formData, [name]: files[0] });
+            } else if (name === 'employmentType') {
+                // Convert employmentType to integer
+                setFormData({ ...formData, [name]: parseInt(value, 10) });
             } else {
                 setFormData({ ...formData, [name]: value });
             }
         };
+        
 
         const handleSubmit = async (event) => {
             event.preventDefault();
@@ -78,33 +82,33 @@
                 return;
             }
         
-            const formDataToSend = new FormData();
-            Object.keys(formData).forEach(key => {
-                if (key === 'initDate' || key === 'expireDate') {
-                    if (formData[key]) {
-                        formDataToSend.append(key, new Date(formData[key]).toISOString());
-                    }
-                } else {
-                    formDataToSend.append(key, formData[key]);
-                }
-            });
-        
-            formDataToSend.append('employerId', employerId);
+            // Create the JSON object to be sent in the POST request
+            const adData = {
+                title: formData.title,
+                description: formData.description,
+                initDate: formData.initDate ? new Date(formData.initDate).toISOString() : null,
+                expireDate: formData.expireDate ? new Date(formData.expireDate).toISOString() : null,
+                employerId: parseInt(employerId, 10), // Convert employerId to integer
+                employmentType: parseInt(formData.employmentType, 10) // Convert employmentType to integer
+            };
         
             try {
+                const employerId = localStorage.getItem('employerId');
                 const token = sessionStorage.getItem('token');
-                await axios.post('https://localhost:7053/api/JobAdvertisement/addJobAdvertisement', formDataToSend, {
+                await axios.post('https://localhost:7053/api/JobAdvertisement/addJobAdvertisement', adData, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'application/json', // Ensure JSON is being sent
                     },
                 });
                 toast.success('Advertisement created successfully!');
                 setShowModal(false);
-                const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`,{
-                    headers : {
-                        'Authorization':`Bearer ${token}`
-                    }
+        
+                // Fetch updated ads list
+                const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
                 });
                 setAds(Array.isArray(response.data) ? response.data : []);
             } catch (error) {
@@ -112,7 +116,6 @@
                 toast.error('An error occurred while creating advertisement.');
             }
         };
-
         const handleSidebarToggle = () => {
             setIsSidebarOpen(!isSidebarOpen);
         };
