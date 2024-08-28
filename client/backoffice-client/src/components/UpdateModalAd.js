@@ -1,13 +1,30 @@
 import React from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'; // Quill'in varsayılan stilleri
 
 const UpdateAdModal = ({ showModal, setShowModal, handleSubmit, formData, handleInputChange }) => {
     if (!showModal) return null;
 
-    // Enum seçenekleri
     const employmentTypes = [
         { value: 'FullTime', label: 'Full Time' },
         { value: 'PartTime', label: 'Part Time' },
         { value: 'Intern', label: 'Internship' },
+    ];
+
+    const modules = {
+        toolbar: [
+            [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            ['bold', 'italic', 'underline'],
+            ['link'],
+            [{ 'color': [] }],
+            ['clean']
+        ],
+    };
+    
+    const formats = [
+        'header', 'font', 'list', 'bullet', 'bold', 'italic', 'underline',
+        'link','color'
     ];
 
     return (
@@ -28,16 +45,16 @@ const UpdateAdModal = ({ showModal, setShowModal, handleSubmit, formData, handle
                     </div>
                     <div className="mb-4">
                         <label className="block text-lg font-semibold text-gray-700">Description</label>
-                        <textarea
+                        <ReactQuill
                             name="description"
                             value={formData.description}
-                            onChange={handleInputChange}
-                            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition resize-none"
-                            rows="4"
-                            required
+                            onChange={(value) => handleInputChange({ target: { name: 'description', value } })}
+                            modules={modules}
+                            formats={formats}
+                            className="h-64"
                         />
                     </div>
-                    <div className="mb-4">
+                    <div className="mb-4 mt-20">
                         <label className="block text-lg font-semibold text-gray-700">Expire Date</label>
                         <input
                             type="date"

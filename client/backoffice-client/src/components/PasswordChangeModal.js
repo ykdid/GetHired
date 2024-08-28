@@ -88,7 +88,7 @@ const PasswordChangeModal = ({ closeModal }) => {
                     </button>
                     <button
                         onClick={handlePasswordChange}
-                        className="bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700 transition duration-200"
+                        className="bg-green-600 text-white py-2 px-4 rounded-lg shadow hover:bg-green-700 transition duration-200"
                         disabled={loading}
                     >
                         {loading ? 'Changing...' : 'Change Password'}

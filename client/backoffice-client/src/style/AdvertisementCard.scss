@@ -1,0 +1,28 @@
+// AdvertisementCard.scss
+
+.advertisement-card {
+    & .description {
+      max-height: 230px; // İçeriğin yüksekliğini belirleyin
+      overflow-y: auto; // Kaydırma çubuğunu ekler
+      margin-bottom: 8px;
+      padding: 8px;
+      //border: 1px solid #e2e8f0; // Kenar çizgisi rengi
+      border-radius: 4px; // Köşe yuvarlaklığı
+  
+      // Kaydırma çubuğu için stil
+      ::-webkit-scrollbar {
+        width: 4px; // Kaydırma çubuğunun genişliği
+      }
+  
+      ::-webkit-scrollbar-thumb {
+        background-color: #a0aec0; // Kaydırma çubuğunun rengi
+        border-radius: 4px; // Köşe yuvarlaklığı
+      }
+  
+      ::-webkit-scrollbar-track {
+        background-color: #edf2f7; // Kaydırma çubuğunun arka plan rengi
+        border-radius: 4px; // Köşe yuvarlaklığı
+      }
+    }
+  }
+  
