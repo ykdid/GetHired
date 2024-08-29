@@ -2,6 +2,7 @@ import React from 'react';
 import 'react-quill/dist/quill.snow.css'; 
 import ReactQuill from 'react-quill';
 
+
 const modules = {
     toolbar: [
         [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
@@ -19,6 +20,7 @@ const formats = [
 ];  
 
 const ModalAd = ({ showModal, setShowModal, handleSubmit, formData, handleInputChange }) => {
+ 
     if (!showModal) return null;
 
     return (

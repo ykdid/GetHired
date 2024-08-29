@@ -30,6 +30,18 @@
         const [showConfirmDelete, setShowConfirmDelete] = useState(false);
         const [showUpdateModal, setShowUpdateModal] = useState(false);
 
+        const handleCreateClick = () => {
+            setFormData({
+                title: '',
+                description: '',
+                initDate: formattedDate,
+                expireDate: '',
+                employmentType: '0'
+            });
+            setTimeout(() => setShowModal(true), 0);
+        };
+        
+
         useEffect(() => {
             const fetchAds = async () => {
                setloading(true);
@@ -65,7 +77,6 @@
             if (name === 'imagePath') {
                 setFormData({ ...formData, [name]: files[0] });
             } else if (name === 'employmentType') {
-                // Convert employmentType to integer
                 setFormData({ ...formData, [name]: parseInt(value, 10) });
             } else {
                 setFormData({ ...formData, [name]: value });
@@ -155,7 +166,7 @@
                     <div className="p-6 flex-1 relative" onClick={(e) => e.stopPropagation()}>
                         <div className="flex justify-center mb-6">
                             <button
-                                onClick={() => setShowModal(true)}
+                                onClick={handleCreateClick}
                                 className="bg-blue-500 text-white p-2 rounded shadow-lg hover:bg-blue-600 transition"
                             >
                                 Create New Advertisement
@@ -165,8 +176,9 @@
                             showModal={showModal}
                             setShowModal={setShowModal}
                             handleSubmit={handleSubmit}
-                            formData={formData}
+                            formData={formData}   
                             handleInputChange={handleInputChange}
+                            
                         />
                         <div className="flex flex-col items-center space-y-4 py-4 w-full">
                         <div className="flex justify-center mb-6">
