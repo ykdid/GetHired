@@ -62,8 +62,10 @@ public class EmployeeService : IEmployeeService
         int employerId,
         string? name = null,
         string? surname = null,
+        string? email = null,
         string? regNo = null,
-        string? identityNo = null)
+        string? identityNo = null
+        )
     {
         var query = _context.Employees
             .Where(e => e.EmployerId == employerId)
@@ -77,6 +79,11 @@ public class EmployeeService : IEmployeeService
         if (!string.IsNullOrEmpty(surname))
         {
             query = query.Where(e => e.Surname.Contains(surname));
+        }
+        
+        if (!string.IsNullOrEmpty(email))
+        {
+            query = query.Where(e => e.Email.Contains(email));
         }
 
         if (!string.IsNullOrEmpty(regNo))

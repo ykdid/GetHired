@@ -80,10 +80,11 @@ namespace RecruitmentAPI.Controllers
             [FromQuery] int employerId,
             [FromQuery] string? name = null,
             [FromQuery] string? surname = null,
+            [FromQuery] string? email = null,
             [FromQuery] string? regNo = null,
             [FromQuery] string? identityNo = null)
         {
-            var employees = await _employeeService.GetFilteredEmployees(employerId, name, surname, regNo, identityNo);
+            var employees = await _employeeService.GetFilteredEmployees(employerId, name, surname, email, regNo, identityNo);
 
             if (employees == null)
             {

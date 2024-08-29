@@ -18,15 +18,18 @@ const MyStaffPage = () => {
     const [filterData, setFilterData] = useState({
         name: '',
         surname: '',
+        email:'',
         regNo: '',
-        identityNo: ''
+        identityNo: '',
+        
     });
     const [newEmployee, setNewEmployee] = useState({
         name: '',
         surname: '',
         email: '',
         registrationNumber: '',
-        identityNumber: ''
+        identityNumber: '',
+        employmentType: '0'
     });
     const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [showEditModal, setShowEditModal] = useState(false);
@@ -303,6 +306,14 @@ const MyStaffPage = () => {
                                 value={filterData.surname}
                                 onChange={handleInputChange}
                                 placeholder="Surname"
+                                className="w-full p-2 border border-gray-300 rounded-md"
+                            />
+                            <input
+                                type="text"
+                                name="email"
+                                value={filterData.email}
+                                onChange={handleInputChange}
+                                placeholder="Email"
                                 className="w-full p-2 border border-gray-300 rounded-md"
                             />
                             <input

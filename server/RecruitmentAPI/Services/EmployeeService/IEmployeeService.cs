@@ -11,6 +11,7 @@ public interface IEmployeeService
         int employerId,
         string? name = null,
         string? surname = null,
+        string? email = null,
         string? regNo = null,
         string? identityNo = null
     );
