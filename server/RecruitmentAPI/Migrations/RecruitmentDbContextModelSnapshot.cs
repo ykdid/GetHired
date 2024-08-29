@@ -39,14 +39,13 @@ namespace RecruitmentAPI.Migrations
                     b.Property<int?>("EmployerId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("EmploymentType")
+                        .HasColumnType("integer");
+
                     b.Property<string>("IdentityNumber")
                         .IsRequired()
                         .HasMaxLength(11)
                         .HasColumnType("character varying(11)");
-
-                    b.Property<string>("JobType")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -132,9 +131,8 @@ namespace RecruitmentAPI.Migrations
                     b.Property<int>("EmployerId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("EmploymentType")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("EmploymentType")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("ExpireDate")
                         .HasColumnType("timestamp with time zone");
@@ -165,9 +163,8 @@ namespace RecruitmentAPI.Migrations
                     b.Property<int>("JobAdvertisementId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer");

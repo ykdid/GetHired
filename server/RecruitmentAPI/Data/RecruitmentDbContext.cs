@@ -1,6 +1,7 @@
 using System.Net.Mime;
 using Microsoft.EntityFrameworkCore;
 using RecruitmentAPI.Entities;
+using RecruitmentAPI.Enums;
 
 
 namespace RecruitmentAPI.Data
@@ -59,6 +60,13 @@ namespace RecruitmentAPI.Data
                 .HasColumnType("TEXT");
             
             modelBuilder.Entity<JobAdvertisement>()
+                .Property(a => a.EmploymentType)
+                .HasColumnType("integer") 
+                .HasConversion(
+                    v => (int)v, 
+                    v => (TypesOfEmployment)v); 
+            
+            modelBuilder.Entity<Employee>()
                 .Property(a => a.EmploymentType)
                 .HasColumnType("integer") 
                 .HasConversion(
