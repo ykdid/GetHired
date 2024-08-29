@@ -29,6 +29,7 @@ public class JobAdvertisementService:IJobAdvertisementService
         {
             return await _context.JobAdvertisements
                 .Where(ja => ja.EmployerId == employerId)
+                .OrderBy(ja=> ja.InitDate)
                 .ToListAsync();
         }
         catch (Exception e)

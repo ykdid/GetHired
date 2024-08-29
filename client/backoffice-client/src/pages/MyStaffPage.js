@@ -7,6 +7,7 @@ import ScrollToTop from '../components/ScrollToTop';
 import Loading from '../components/Loading';
 import CustomToastContainer from '../components/CustomToastContainer';
 import { toast } from 'react-toastify';
+import * as XLSX from 'xlsx';
 
 const MyStaffPage = () => {
     const [loading , setloading] = useState(true);
@@ -74,7 +75,17 @@ const MyStaffPage = () => {
         };
         fetchEmployees();
     }, []);
-    
+
+    const filteredData = employees.map(({id, ...rest}) => rest)
+
+    const exportToExcel = () => {
+        const ws = XLSX.utils.json_to_sheet(filteredData);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Employees');
+        XLSX.writeFile(wb, 'employees.xlsx');
+        toast.success('Data exported to Excel successfully!');
+    };
+
     if(loading){
         return <Loading />;
     }
@@ -229,17 +240,20 @@ const MyStaffPage = () => {
                         <h1 className="text-2xl font-semibold text-gray-800">My Staff</h1>
                         <div className='flex space-x-4'>
                             <button
-                                className="bg-blue-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-700 transition-colors"
-                                onClick={filterEmployees}
-                            >
-                                Filter Employees
-                            </button>
-                            <button
                                 className="bg-green-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-green-700 transition-colors"
                                 onClick={addEmployees}
                             >
                                 Add Employee
                             </button>
+                            <button
+                                className="bg-blue-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-700 transition-colors"
+                                onClick={filterEmployees}
+                            >
+                                Filter Employees
+                            </button>
+                            <button onClick={exportToExcel} className="bg-red-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-red-700 transition-colors">
+                                Export to Excel
+                            </button> 
                         </div>
                     </div>
                     <div className="grid grid-cols-1 gap-6">
