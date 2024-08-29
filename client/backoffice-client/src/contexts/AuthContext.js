@@ -1,6 +1,9 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { jwtDecode }  from 'jwt-decode';  
+import { jwtDecode }  from 'jwt-decode';
+import CustomToastContainer from '../components/CustomToastContainer';
+import { toast } from 'react-toastify';
+  
 
 const AuthContext = createContext();
 
@@ -20,8 +23,22 @@ export const AuthProvider = ({ children }) => {
                     sessionStorage.removeItem('token');
                     localStorage.removeItem('employerId');
                     if(currentPath !== '/register'){
-                        alert('Session has expired. You are directed to the login page.');
-                        navigate('/login');
+                        toast.error(
+                            <div>
+                                <p>Session has expired. You are directed to the login page.</p>
+                                <button
+                                    onClick={() => navigate('/login')}
+                                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+                                >
+                                    OK
+                                </button>
+                            </div>,
+                            {
+                                autoClose: false,
+                                closeButton: false,
+                                position:"top-center"
+                            }
+                        );
                     }
                    
                 } else {
@@ -43,6 +60,7 @@ export const AuthProvider = ({ children }) => {
     return (
         <AuthContext.Provider value={auth}>
             {children}
+            <CustomToastContainer />    
         </AuthContext.Provider>
     );
 };

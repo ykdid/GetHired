@@ -39,4 +39,29 @@ html, body {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
+
+  .password-input-login {
+    position: relative;
+}
+
+.eye-icon-login {
+    position: absolute;
+    right: 0.5rem; 
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #aaa; 
+    opacity: 0;   
+    transition: opacity 0.3s ease;
+    margin-top: 12px;
+}
+
+.password-input-login:hover .eye-icon-login {
+    opacity: 1; 
+}
+
+input {
+    padding-right: 2.5rem; 
+}
+
   

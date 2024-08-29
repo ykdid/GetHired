@@ -31,6 +31,26 @@ const MyStaffPage = () => {
     const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
+    const filterEmployees = () => {
+        setFilterData({
+            name: '',
+            surname: '',
+            regNo: '',
+            identityNo: ''
+        });
+        setTimeout(() => setShowFilterModal(true), 0);
+    };
+    const addEmployees = () => {
+        setNewEmployee({
+            name: '',
+            surname: '',
+            email: '',
+            registrationNumber: '',
+            identityNumber: ''
+        });
+        setTimeout(() => setShowAddModal(true), 0);
+    };
+
     useEffect(() => {
         const fetchEmployees = async () => {
             setloading(true);
@@ -193,6 +213,8 @@ const MyStaffPage = () => {
             setIsSidebarOpen(false);
         }
     };
+  
+ 
 
     return (
         <div className="min-h-screen bg-gray-50 flex">
@@ -208,13 +230,13 @@ const MyStaffPage = () => {
                         <div className='flex space-x-4'>
                             <button
                                 className="bg-blue-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-700 transition-colors"
-                                onClick={() => setShowFilterModal(true)}
+                                onClick={filterEmployees}
                             >
                                 Filter Employees
                             </button>
                             <button
                                 className="bg-green-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-green-700 transition-colors"
-                                onClick={() => setShowAddModal(true)}
+                                onClick={addEmployees}
                             >
                                 Add Employee
                             </button>

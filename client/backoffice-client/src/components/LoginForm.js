@@ -5,12 +5,15 @@ import { jwtDecode } from 'jwt-decode';
 import Loading from './Loading';
 import { toast } from 'react-toastify';
 import '../style/LoginForm.scss';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -26,7 +29,7 @@ const LoginForm = () => {
                     localStorage.setItem('employerId', employerId);
                     sessionStorage.setItem('token', token);
                     toast.success('Login succsessfully!',{
-                        autoClose : 1500,
+                        autoClose : 1000,
                         position: "top-center"
                     });
                     setTimeout(() => {
@@ -48,6 +51,9 @@ const LoginForm = () => {
             setLoading(false);
         }
     };
+    const togglePasswordVisibility = () => {
+        setShowPassword(prevState => !prevState);
+    };
 
     if (loading) {
         return <Loading />;
@@ -68,15 +74,21 @@ const LoginForm = () => {
                             required
                         />
                     </div>
-                    <div className="mb-4">
+                    <div className="mb-4 password-input-login">
                         <label className="block text-gray-700">Password</label>
                         <input
-                            type="password"
+                            type={showPassword ? 'text' : 'password'}
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10"
                             required
                         />
+                         <span 
+                        className="eye-icon-login" 
+                        onClick={() => togglePasswordVisibility('confirm')}
+                        >
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        </span>
                     </div>
                     <div className="flex justify-center">
                         <button
