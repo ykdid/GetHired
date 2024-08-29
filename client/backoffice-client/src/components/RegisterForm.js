@@ -30,11 +30,20 @@ const RegisterForm = () => {
 
         try {
             await axios.post('https://localhost:7053/api/Auth/register/employer', formData);
-            toast.success('Registration completed successfully!');
-            navigate('/login');
+            toast.success('Registration completed successfully!',{
+                position:"top-center",
+                autoClose : 1500
+            });
+            setTimeout(() => {
+                navigate('/login');
+            }, 1600);
+            
         } catch (error) {
             console.error('An error occurred while registration:', error);
-            toast.error('An error occurred while registration.');
+            toast.error('An error occurred while registration.',{
+                position:"top-center",
+                autoClose : 1500
+            });
         }
     };
 

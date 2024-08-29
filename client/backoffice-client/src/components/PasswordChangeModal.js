@@ -1,12 +1,25 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; 
+import '../style/PasswordChangeModal.scss'; 
 
 const PasswordChangeModal = ({ closeModal }) => {
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+    const [showNewPassword, setShowNewPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+
+    const togglePasswordVisibility = (type) => {
+        if (type === 'current') setShowCurrentPassword(!showCurrentPassword);
+        if (type === 'new') setShowNewPassword(!showNewPassword);
+        if (type === 'confirm') setShowConfirmPassword(!showConfirmPassword);
+    };
 
     const handlePasswordChange = async () => {
         if (newPassword !== confirmPassword) {
@@ -22,7 +35,6 @@ const PasswordChangeModal = ({ closeModal }) => {
                 throw new Error('Token or Employer ID not found.');
             }
 
-            // Backend'in beklediği veri yapısını oluşturma
             const passwordChangeModel = {
                 currentPassword: currentPassword,
                 newPassword: newPassword,
@@ -35,8 +47,15 @@ const PasswordChangeModal = ({ closeModal }) => {
                 }
             });
 
-            toast.success('Password changed successfully.');
+            toast.success('Password changed successfully.You will be redirected to the login page!',{
+                autoClose:2000,
+                position: "top-center"
+            });
             closeModal();
+            setTimeout(()=>{
+                navigate('/login');  
+            },3000);
+
         } catch (error) {
             console.error('An error occurred while changing password:', error);
             toast.error('Failed to change password.');
@@ -49,38 +68,56 @@ const PasswordChangeModal = ({ closeModal }) => {
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
             <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
                 <h2 className="text-2xl font-semibold mb-4">Change Password</h2>
-                <div className="mb-4">
+                <div className="mb-4 password-input">
                     <label className="block text-gray-700">Current Password</label>
                     <input
-                        type="text"
+                        type={showCurrentPassword ? 'text' : 'password'}
                         value={currentPassword}
                         onChange={(e) => setCurrentPassword(e.target.value)}
                         className="mt-1 p-2 border border-gray-300 rounded w-full"
                         required
                     />
+                    <span 
+                        className="eye-icon" 
+                        onClick={() => togglePasswordVisibility('current')}
+                    >
+                        {showCurrentPassword ? <FaEyeSlash /> : <FaEye />}
+                    </span>
                 </div>
-                <div className="mb-4">
+                <div className="mb-4 password-input">
                     <label className="block text-gray-700">New Password</label>
                     <input
-                        type="text"
+                        type={showNewPassword ? 'text' : 'password'}
                         value={newPassword}
                         onChange={(e) => setNewPassword(e.target.value)}
                         className="mt-1 p-2 border border-gray-300 rounded w-full"
                         required
                     />
+                    <span 
+                        className="eye-icon" 
+                        onClick={() => togglePasswordVisibility('new')}
+                    >
+                        {showNewPassword ? <FaEyeSlash /> : <FaEye />}
+                    </span>
                 </div>
-                <div className="mb-4">
+                <div className="mb-4 password-input">
                     <label className="block text-gray-700">Confirm New Password</label>
                     <input
-                        type="text"
+                        type={showConfirmPassword ? 'text' : 'password'}
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         className="mt-1 p-2 border border-gray-300 rounded w-full"
                         required
                     />
+                    <span 
+                        className="eye-icon" 
+                        onClick={() => togglePasswordVisibility('confirm')}
+                    >
+                        {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                    </span>
                 </div>
                 <div className="flex justify-end">
-                     <button
+                    <button
                         onClick={closeModal}
                         className="bg-gray-400 text-white py-2 px-4 rounded-lg shadow ml-4 hover:bg-gray-500 transition duration-200 mr-5"
                     >
@@ -93,7 +130,6 @@ const PasswordChangeModal = ({ closeModal }) => {
                     >
                         {loading ? 'Changing...' : 'Change Password'}
                     </button>
-                 
                 </div>
             </div>
         </div>

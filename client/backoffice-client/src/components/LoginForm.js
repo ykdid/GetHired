@@ -25,14 +25,25 @@ const LoginForm = () => {
                     setLoading(true);
                     localStorage.setItem('employerId', employerId);
                     sessionStorage.setItem('token', token);
-                    navigate('/main');  
+                    toast.success('Login succsessfully!',{
+                        autoClose : 1500,
+                        position: "top-center"
+                    });
+                    setTimeout(() => {
+                        navigate('/main');  
+                    }, 1500);
+                    
                 } else {
                     console.error('Employer ID not found in token.');
                 }
             }
         } catch (error) {
             console.error('Login failed:', error);
-            toast.error('Invalid email or password.');
+            toast.error('Invalid email or password.',{
+                autoClose : 1500,
+                position:"top-center"
+            }
+            );
         } finally {
             setLoading(false);
         }
