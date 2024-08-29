@@ -40,6 +40,7 @@ const MyStaffPage = () => {
             name: '',
             surname: '',
             regNo: '',
+            email: '',
             identityNo: ''
         });
         setTimeout(() => setShowFilterModal(true), 0);
@@ -50,9 +51,16 @@ const MyStaffPage = () => {
             surname: '',
             email: '',
             registrationNumber: '',
-            identityNumber: ''
+            identityNumber: '',
+            employmentType:'',
         });
         setTimeout(() => setShowAddModal(true), 0);
+    };
+
+    const employmentTypeLabels = {
+        'FullTime': 'Full Time',
+        'PartTime': 'Part Time',
+        'Intern': 'Internship'
     };
 
     useEffect(() => {
@@ -79,7 +87,7 @@ const MyStaffPage = () => {
         fetchEmployees();
     }, []);
 
-    const filteredData = employees.map(({id, ...rest}) => rest)
+    const filteredData = employees.map(({id,employerId,userId, ...rest}) => rest)
 
     const exportToExcel = () => {
         const ws = XLSX.utils.json_to_sheet(filteredData);
@@ -277,9 +285,10 @@ const MyStaffPage = () => {
                                     </button>
                                 </div>
                                 <h2 className="text-xl font-bold mb-2">{employee.name} {employee.surname}</h2>
-                                <p className="text-gray-700 mb-1">Email: {employee.email}</p>
-                                <p className="text-gray-700 mb-1">Registration Number: {employee.registrationNumber}</p>
-                                <p className="text-gray-700">Identity Number: {employee.identityNumber}</p>
+                                <p className="text-gray-700 mb-1">Email: <b>{employee.email}</b></p>
+                                <p className="text-gray-700 mb-1">Registration Number: <b>{employee.registrationNumber}</b></p>
+                                <p className="text-gray-700">Identity Number: <b>{employee.identityNumber}</b></p>
+                                <p className="text-gray-700">Employment Type: <b>{employmentTypeLabels[employee.employmentType]}</b></p>
                             </div>
                         ))}
                     </div>
@@ -403,6 +412,17 @@ const MyStaffPage = () => {
                                 className="w-full p-2 border border-gray-300 rounded-md"
                                 required
                             />
+                            <select
+                                name="employmentType"
+                                value={newEmployee.employmentType}
+                                onChange={handleNewEmployeeChange}
+                                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition "
+                                >
+                                <option value="">Select</option> 
+                                <option value="0">Full Time</option>
+                                <option value="1">Part Time</option>
+                                <option value="2">Internship</option>
+                            </select>
                             <div className="flex justify-end space-x-3">
                                 <button
                                     type="button"
