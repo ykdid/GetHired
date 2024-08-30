@@ -19,6 +19,54 @@ const RegisterForm = () => {
         setFormData({ ...formData, [name]: value });
     };
 
+    const validateForm = () => {
+        const { name, surname, email, password, companyName } = formData;
+        
+        if (name.length < 2) {
+            toast.error('Name must be at least 2 characters.',{
+                position:'top-center',
+                autoClose:4000
+            });
+            return false;
+        }
+
+        if (surname.length <= 2) {
+            toast.error('Surname must be at least 2 characters.',{
+                position:'top-center',
+                autoClose:4000
+            });
+            return false;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            toast.error('Please enter a valid email address.',{
+                position:'top-center',
+                autoClose:4000
+            });
+            return false;
+        }
+
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+        if (!passwordRegex.test(password)) {
+            toast.error('Password must be at least 8 characters, including a number, a lowercase and an uppercase letter.',{
+                position:'top-center',
+                autoClose:4000
+            });
+            return false;
+        }
+
+        if (companyName.length < 2) {
+            toast.error('Company name must be at least 2 characters.',{
+                position:'top-center',
+                autoClose:4000
+            });
+            return false;
+        }
+
+        return true;
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const { name, surname, email, password, companyName } = formData;
@@ -27,16 +75,19 @@ const RegisterForm = () => {
             toast.error('Please fill all the blanks.');
             return;
         }
+        if (!validateForm()) {
+            return;
+        }
 
         try {
             await axios.post('https://localhost:7053/api/Auth/register/employer', formData);
             toast.success('Registration completed successfully!',{
                 position:"top-center",
-                autoClose : 1500
+                autoClose : 1000
             });
             setTimeout(() => {
                 navigate('/login');
-            }, 1600);
+            }, 1500);
             
         } catch (error) {
             console.error('An error occurred while registration:', error);

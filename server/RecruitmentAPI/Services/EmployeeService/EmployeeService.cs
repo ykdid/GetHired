@@ -11,13 +11,28 @@ public class EmployeeService : IEmployeeService
 
     public EmployeeService(RecruitmentDbContext context)
     {
-        _context = context;
+        _context = context; 
     }
 
     public async Task<bool> CreateEmployee(Employee employee)
     {
-        _context.Employees.Add(employee);
+        if (_context.Employees.Any(e => e.Email == employee.Email))
+        {
+            throw new Exception("This email is already in use.");
+        }
+
+        if (_context.Employees.Any(e => e.RegistrationNumber == employee.RegistrationNumber))
+        {
+            throw new Exception("This registration number is already in use.");
+        }
+
+        if (_context.Employees.Any(e => e.IdentityNumber == employee.IdentityNumber))
+        {
+            throw new Exception("This identity number is already in use.");
+        }
         
+        _context.Employees.Add(employee);
+    
         var result = await _context.SaveChangesAsync();
 
         return result > 0;

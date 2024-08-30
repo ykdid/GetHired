@@ -15,8 +15,18 @@ const LoginForm = () => {
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        if (!emailRegex.test(email)) {
+            toast.error('Please enter a valid email address.', {
+                position: "top-center",
+                autoClose: 1500,
+            });
+            return;
+        }
         
         try {
             const response = await axios.post('https://localhost:7053/api/Auth/login/employer', { email, password });

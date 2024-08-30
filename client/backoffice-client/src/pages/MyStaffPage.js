@@ -248,7 +248,7 @@ const MyStaffPage = () => {
                 <Navbar isSidebarOpen={isSidebarOpen} handleSidebarToggle={handleSidebarToggle} />
                 <div className="p-6">
                     <div className="flex justify-between mb-6 items-center">
-                        <h1 className="text-2xl font-semibold text-gray-800">My Staff</h1>
+                        <h1 className="text-3xl font-extrabold text-gray-900 bg-gradient-to-r from-blue-500 to-teal-500 text-transparent bg-clip-text">My Staff</h1>
                         <div className='flex space-x-4'>
                             <button
                                 className="bg-green-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-green-700 transition-colors"
