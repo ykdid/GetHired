@@ -2,7 +2,7 @@ import React from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Quill'in varsayılan stilleri
 
-const UpdateAdModal = ({ showModal, setShowModal, handleSubmit, formData, handleInputChange }) => {
+const UpdateAdModal = ({ showModal, setShowModal, handleSubmit, formData, handleInputChange,errors }) => {
     if (!showModal) return null;
 
     const employmentTypes = [
@@ -43,9 +43,11 @@ const UpdateAdModal = ({ showModal, setShowModal, handleSubmit, formData, handle
                             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                             required
                         />
+                        {errors.title && <p className="text-red-500 text-xs mt-1">{errors.title}</p>}
                     </div>
                     <div className="mb-4">
                         <label className="block text-lg font-semibold text-gray-700">Description</label>
+                        {errors.description && <p className="text-red-500 text-xs mb-1">{errors.description}</p>}
                         <ReactQuill
                             name="description"
                             value={formData.description}
@@ -65,6 +67,7 @@ const UpdateAdModal = ({ showModal, setShowModal, handleSubmit, formData, handle
                             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                             required
                         />
+                        {errors.expireDate && <p className="text-red-500 text-xs mt-1">{errors.expireDate}</p>}
                     </div>
                     <div className="mb-6">
                         <label className="block text-lg font-semibold text-gray-700">Employment Type</label>
@@ -82,6 +85,9 @@ const UpdateAdModal = ({ showModal, setShowModal, handleSubmit, formData, handle
                                 </option>
                             ))}
                         </select>
+                        {errors.employmentType && (
+                            <p className="text-red-500 text-xs mt-1">{errors.employmentType}</p>
+                        )}
                     </div>
                     <div className="flex justify-end space-x-4">
                         <button

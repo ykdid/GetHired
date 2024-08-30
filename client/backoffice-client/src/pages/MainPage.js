@@ -18,17 +18,19 @@
         const [loading , setloading] = useState(true);
         const [ads, setAds] = useState([]);
         const [showModal, setShowModal] = useState(false);
+        const [errors, setErrors] = useState({});
         const [formData, setFormData] = useState({
             title: '',
             description: '',
             initDate: formattedDate,
             expireDate: '',
-            employmentType: '0'
+            employmentType: ''
         }); 
         const [isSidebarOpen, setIsSidebarOpen] = useState(false);
         const [selectedAd, setSelectedAd] = useState(null);
         const [showConfirmDelete, setShowConfirmDelete] = useState(false);
         const [showUpdateModal, setShowUpdateModal] = useState(false);
+        
 
         const handleCreateClick = () => {
             setFormData({
@@ -36,7 +38,7 @@
                 description: '',
                 initDate: formattedDate,
                 expireDate: '',
-                employmentType: '0'
+                employmentType: ''
             });
             setTimeout(() => setShowModal(true), 0);
         };
@@ -82,10 +84,40 @@
                 setFormData({ ...formData, [name]: value });
             }
         };
+
+        const validateForm = (formData) => {
+            const errors = {};
+        
+            if (!formData.title) {
+                errors.title = 'Title is required.';
+            } else if (formData.title.length < 10) {
+                errors.title = 'Title should be greater than 10 characters.';
+            }
+        
+            if (!formData.description) {
+                errors.description = 'Description is required.';
+            } else if (formData.description.length < 20) {
+                errors.description = 'Description should be greater than 20 characters.';
+            }
+        
+            if (!formData.expireDate) {
+                errors.expireDate = 'Expire date is required.';
+            } else if (new Date(formData.initDate) > new Date(formData.expireDate)) {
+                errors.expireDate = 'Expire date must be after the initial date.';
+            }
+        
+            return errors;
+        };
         
 
         const handleSubmit = async (event) => {
             event.preventDefault();
+
+            const errors = validateForm(formData);
+            if (Object.keys(errors).length > 0) {
+                setErrors(errors);
+                return;
+            }
         
             const employerId = localStorage.getItem('employerId');
             if (!employerId) {
@@ -93,7 +125,7 @@
                 return;
             }
         
-            // Create the JSON object to be sent in the POST request
+           
             const adData = {
                 title: formData.title,
                 description: formData.description,
@@ -179,6 +211,7 @@
                             handleSubmit={handleSubmit}
                             formData={formData}   
                             handleInputChange={handleInputChange}
+                            errors={errors}
                             
                         />
                         <div className="flex flex-col items-center space-y-4 py-4 w-full">
@@ -236,6 +269,8 @@
                         handleSubmit={handleSubmit}
                         formData={formData}
                         handleInputChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
+                        errors = {errors}
+                        
                     />
                 )}
                 {showConfirmDelete && (

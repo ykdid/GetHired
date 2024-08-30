@@ -29,7 +29,7 @@ const MyStaffPage = () => {
         email: '',
         registrationNumber: '',
         identityNumber: '',
-        employmentType: '0'
+        employmentType: ''
     });
     const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [showEditModal, setShowEditModal] = useState(false);

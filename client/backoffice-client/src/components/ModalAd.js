@@ -19,7 +19,7 @@ const formats = [
     'link','color'
 ];  
 
-const ModalAd = ({ showModal, setShowModal, handleSubmit, formData, handleInputChange }) => {
+const ModalAd = ({ showModal, setShowModal, handleSubmit, formData, handleInputChange,errors }) => {
  
     if (!showModal) return null;
 
@@ -38,9 +38,12 @@ const ModalAd = ({ showModal, setShowModal, handleSubmit, formData, handleInputC
                             className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                             required
                         />
+                        {errors.title && <p className="text-red-500 text-xs mt-1">{errors.title}</p>}
                     </div>
                     <div className="mb-4">
-                        <label className="block text-lg font-semibold text-gray-700  ">Description</label>
+                        
+                        <label className="block text-lg font-semibold text-gray-700 ">Description</label>
+                        {errors.description && <p className="text-red-500 text-xs mb-1">{errors.description}</p>}
                         <ReactQuill
                             name="description"
                             value={formData.description}
@@ -48,10 +51,12 @@ const ModalAd = ({ showModal, setShowModal, handleSubmit, formData, handleInputC
                             modules={modules}
                             formats={formats}
                             className="h-64"
+                            required
                         />
+                        
                     </div>
-                    <div className="mb-4">
-                        <label className="block text-gray-700 mt-16">Expire Date</label>
+                    <div className="mb-4 mt-16">
+                        <label className="block text-gray-700 ">Expire Date</label>
                         <input
                             type="date"
                             name="expireDate"
@@ -60,6 +65,7 @@ const ModalAd = ({ showModal, setShowModal, handleSubmit, formData, handleInputC
                             className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                             required
                         />
+                        {errors.expireDate && <p className="text-red-500 text-xs mt-1">{errors.expireDate}</p>}
                     </div>
                     <div className="mb-4">
                     <label className="block text-gray-700">Employment Type</label>
@@ -68,13 +74,17 @@ const ModalAd = ({ showModal, setShowModal, handleSubmit, formData, handleInputC
                         value={formData.employmentType}
                         onChange={handleInputChange}
                         className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition "
+                        required
                     >
+                        <option value="">Select</option>
                         <option value="0">Full Time</option>
                         <option value="1">Part Time</option>
                         <option value="2">Internship</option>
                     </select>
+                    {errors.employmentType && (
+                            <p className="text-red-500 text-xs mt-1">{errors.employmentType}</p>
+                        )}
                     </div>
-                  
                     <div className="flex justify-end">
                         <button
                             type="button"

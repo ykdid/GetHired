@@ -11,6 +11,7 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
     const navigate = useNavigate();
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
     const [showUpdateModal, setShowUpdateModal] = useState(false);
+    const [errors, setErrors] = useState({});
     const [formData, setFormData] = useState({
         title: ad.title,
         description: ad.description,
@@ -19,6 +20,29 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
         employmentType: ad.employmentType
     });
 
+    const validateForm = (formData) => {
+        const errors = {};
+    
+        if (!formData.title) {
+            errors.title = 'Title is required.';
+        } else if (formData.title.length < 10) {
+            errors.title = 'Title should be greater than 10 characters.';
+        }
+    
+        if (!formData.description) {
+            errors.description = 'Description is required.';
+        } else if (formData.description.length < 20) {
+            errors.description = 'Description should be greater than 20 characters.';
+        }
+    
+        if (!formData.expireDate) {
+            errors.expireDate = 'Expire date is required.';
+        } else if (new Date(formData.initDate) > new Date(formData.expireDate)) {
+            errors.expireDate = 'Expire date must be after the initial date.';
+        }
+    
+        return errors;
+    };
     const employmentTypeLabels = {
         'FullTime': 'Full Time',
         'PartTime': 'Part Time',
@@ -49,6 +73,12 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
 
     const handleUpdate = async (event) => {
         event.preventDefault();
+
+        const errors = validateForm(formData);
+            if (Object.keys(errors).length > 0) {
+                setErrors(errors);
+                return;
+            }
 
         const formDataToSend = new FormData();
         Object.keys(formData).forEach(key => {
@@ -122,6 +152,7 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
                 handleSubmit={handleUpdate}
                 formData={formData}
                 handleInputChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
+                errors = {errors}
             />
             <ConfirmDeleteModal
                 show={showConfirmDelete}
