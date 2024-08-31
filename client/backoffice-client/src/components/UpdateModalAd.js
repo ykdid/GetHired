@@ -28,7 +28,7 @@ const UpdateAdModal = ({ showModal, setShowModal, handleSubmit, formData, handle
     ];
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="sticky top-10">
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg relative" 
             >
                 <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Edit Advertisement</h2>

@@ -24,7 +24,7 @@ const ModalAd = ({ showModal, setShowModal, handleSubmit, formData, handleInputC
     if (!showModal) return null;
 
     return (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50">
             <div className="absolute top-40 left-1/2 transform -translate-x-1/2 bg-white p-6 rounded shadow-lg w-1/2 z-60">
                 <h2 className="text-2xl mb-2 font-bold text-gray-800">Create New Advertisement</h2>
                 <form onSubmit={handleSubmit}>

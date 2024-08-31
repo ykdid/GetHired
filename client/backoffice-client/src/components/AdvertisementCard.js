@@ -105,6 +105,8 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
     };
 
     return (
+
+        <>
         <div key={ad.id} className={`advertisement-card bg-white shadow-md p-4 rounded-lg w-[700px] h-[400px] flex flex-col justify-between relative ${isModalOpen ? 'opacity-50' : ''}`} >
             <div className="absolute top-2 right-2 flex space-x-2">
                 <button
@@ -145,21 +147,31 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
             </div>
             <p className="absolute bottom-2 left-2 text-gray-500 text-sm p-2">
                 {new Date(formData.initDate).toLocaleDateString()} - {new Date(ad.expireDate).toLocaleDateString()}
-            </p>
-            <UpdateAdModal
-                showModal={showUpdateModal}
-                setShowModal={setShowUpdateModal}
-                handleSubmit={handleUpdate}
-                formData={formData}
-                handleInputChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
-                errors = {errors}
-            />
+            </p> 
+
             <ConfirmDeleteModal
                 show={showConfirmDelete}
                 onClose={() => setShowConfirmDelete(false)}
                 onConfirm={handleDelete}
             />
         </div>
+        {
+            showUpdateModal && (
+                <div className='absolute top-0 p-0 flex flex-col justify-start items-center h-full w-full z-50 bg-black bg-opacity-50'>
+                    <UpdateAdModal
+                            showModal={showUpdateModal}
+                            setShowModal={setShowUpdateModal}
+                            handleSubmit={handleUpdate}
+                            formData={formData}
+                            handleInputChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
+                            errors = {errors}
+                        />
+                </div>
+            )
+        }
+       
+       
+        </>
     );
 };
 

@@ -196,7 +196,7 @@
                     onClick={handleContentClick}
                 >
                     <Navbar isSidebarOpen={isSidebarOpen} handleSidebarToggle={handleSidebarToggle} />
-                    <div className="p-6 flex-1 relative" onClick={(e) => e.stopPropagation()}>
+                    <div className="p-6 flex-1" onClick={(e) => e.stopPropagation()}>
                         <div className="flex justify-center mb-6">
                             <button
                                 onClick={handleCreateClick}
@@ -214,7 +214,7 @@
                             errors={errors}
                             
                         />
-                        <div className="flex flex-col items-center space-y-4 py-4 w-full">
+                        <div className="flex flex-col items-center py-4 w-full">
                         <div className="flex justify-center mb-6">
                             {Array.isArray(ads) && ads.length > 0 && (
                                 <h1 className="text-3xl font-extrabold text-gray-900 bg-gradient-to-r from-blue-500 to-teal-500 text-transparent bg-clip-text">
