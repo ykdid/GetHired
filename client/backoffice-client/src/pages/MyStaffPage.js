@@ -15,6 +15,7 @@ const MyStaffPage = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [showFilterModal, setShowFilterModal] = useState(false);
     const [showAddModal, setShowAddModal] = useState(false);
+    const [errors, setErrors] = useState({});
     const [filterData, setFilterData] = useState({
         name: '',
         surname: '',
@@ -46,6 +47,7 @@ const MyStaffPage = () => {
         setTimeout(() => setShowFilterModal(true), 0);
     };
     const addEmployees = () => {
+        setErrors({});
         setNewEmployee({
             name: '',
             surname: '',
@@ -55,6 +57,7 @@ const MyStaffPage = () => {
             employmentType:'',
         });
         setTimeout(() => setShowAddModal(true), 0);
+        
     };
 
     const employmentTypeLabels = {
@@ -62,6 +65,66 @@ const MyStaffPage = () => {
         'PartTime': 'Part Time',
         'Intern': 'Internship'
     };
+    const validateEmployee = () => {
+        const errors = {};
+        const {name,surname,email,registrationNumber,identityNumber, employmentType} = newEmployee;
+        
+        if(name.length < 3){
+            errors.name = 'Name must be at least 3 characters.'
+        }
+
+        if(surname.length < 3){
+            errors.surname = 'Surname must be at least 3 characters.'
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            errors.email = 'Email address is invalid.';
+        }
+    
+       if(registrationNumber.length !== 20){
+            errors.registrationNumber  = 'Registration Number should be equal 20 character.';
+        }
+    
+      if(identityNumber.length !== 11){
+            errors.identityNumber  = 'Identity Number should be equal 11 character.';
+        }
+
+        if (!employmentType) {
+            errors.employmentType = 'Please select an employment type.';
+        }
+        return errors;
+    };
+
+    const validateEditEmployee = (selectedEmployee) => {
+        const errors = {};
+        if(selectedEmployee.name.length < 3){
+            errors.name = 'Name must be at least 3 characters.'
+        }
+
+        if(selectedEmployee.surname.length < 3){
+            errors.surname = 'Surname must be at least 3 characters.'
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(selectedEmployee.email)) {
+            errors.email = 'Email address is invalid.';
+        }
+    
+       if(selectedEmployee.registrationNumber.length !== 20){
+            errors.registrationNumber  = 'Registration Number should be equal 20 character.';
+        }
+    
+      if(selectedEmployee.identityNumber.length !== 11){
+            errors.identityNumber  = 'Identity Number should be equal 11 character.';
+        }
+
+        if (!selectedEmployee.employmentType) {
+            errors.employmentType = 'Please select an employment type.';
+        }
+        return errors;
+    };
+    
 
     useEffect(() => {
         const fetchEmployees = async () => {
@@ -138,6 +201,16 @@ const MyStaffPage = () => {
 
     const handleAddEmployee = async (event) => {
         event.preventDefault();
+
+        const errors = validateEmployee();
+            if (Object.keys(errors).length > 0) {
+                setErrors(errors);
+                return;
+            }
+
+            setErrors({});
+        
+
         try {
             const token = sessionStorage.getItem('token');
             const employerId = localStorage.getItem('employerId');
@@ -163,12 +236,22 @@ const MyStaffPage = () => {
     };
 
     const handleEditEmployee = (employee) => {
+        
         setSelectedEmployee(employee);
         setShowEditModal(true);
+        setErrors({});
     };
 
     const handleUpdateEmployee = async (event) => {
         event.preventDefault();
+
+        const errors = validateEditEmployee(selectedEmployee);
+        if (Object.keys(errors).length > 0) {
+            setErrors(errors);
+            return;
+        }
+
+
         try {
             const token = sessionStorage.getItem('token');
             await axios.patch(`https://localhost:7053/api/Employee/updateEmployee/${selectedEmployee.id}`, {
@@ -376,6 +459,7 @@ const MyStaffPage = () => {
                                 className="w-full p-2 border border-gray-300 rounded-md"
                                 required
                             />
+                            {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
                             <input
                                 type="text"
                                 name="surname"
@@ -385,6 +469,7 @@ const MyStaffPage = () => {
                                 className="w-full p-2 border border-gray-300 rounded-md"
                                 required
                             />
+                            {errors.surname && <p className="text-red-500 text-sm">{errors.surname}</p>}
                             <input
                                 type="email"
                                 name="email"
@@ -394,6 +479,7 @@ const MyStaffPage = () => {
                                 className="w-full p-2 border border-gray-300 rounded-md"
                                 required
                             />
+                            {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
                             <input
                                 type="text"
                                 name="registrationNumber"
@@ -403,6 +489,7 @@ const MyStaffPage = () => {
                                 className="w-full p-2 border border-gray-300 rounded-md"
                                 required
                             />
+                            {errors.registrationNumber && <p className="text-red-500 text-sm">{errors.registrationNumber}</p>}
                             <input
                                 type="text"
                                 name="identityNumber"
@@ -412,6 +499,7 @@ const MyStaffPage = () => {
                                 className="w-full p-2 border border-gray-300 rounded-md"
                                 required
                             />
+                            {errors.identityNumber && <p className="text-red-500 text-sm">{errors.identityNumber}</p>}
                             <select
                                 name="employmentType"
                                 value={newEmployee.employmentType}
@@ -423,6 +511,7 @@ const MyStaffPage = () => {
                                 <option value="1">Part Time</option>
                                 <option value="2">Internship</option>
                             </select>
+                            {errors.employmentType && <p className="text-red-500 text-sm">{errors.employmentType}</p>}
                             <div className="flex justify-end space-x-3">
                                 <button
                                     type="button"
@@ -448,7 +537,8 @@ const MyStaffPage = () => {
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40">
                     <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
                         <h2 className="text-xl font-semibold mb-4">Edit Employee</h2>
-                        <form onSubmit={handleUpdateEmployee} className="space-y-4">
+                        <form onSubmit={handleUpdateEmployee} className="space-y-2">
+                        <label className="block text-gray-700 pt-3">Name:</label>
                             <input
                                 type="text"
                                 name="name"
@@ -458,6 +548,8 @@ const MyStaffPage = () => {
                                 className="w-full p-2 border border-gray-300 rounded-md"
                                 required
                             />
+                            {errors?.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+                            <label className="block text-gray-700 pt-3">Surname:</label>
                             <input
                                 type="text"
                                 name="surname"
@@ -467,6 +559,8 @@ const MyStaffPage = () => {
                                 className="w-full p-2 border border-gray-300 rounded-md"
                                 required
                             />
+                            {errors?.surname && <p className="text-red-500 text-sm">{errors.surname}</p>}
+                            <label className="block text-gray-700 pt-3">Email:</label>
                             <input
                                 type="email"
                                 name="email"
@@ -476,6 +570,8 @@ const MyStaffPage = () => {
                                 className="w-full p-2 border border-gray-300 rounded-md"
                                 required
                             />
+                            {errors?.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+                            <label className="block text-gray-700 pt-3">Registration Number:</label>
                             <input
                                 type="text"
                                 name="registrationNumber"
@@ -485,6 +581,8 @@ const MyStaffPage = () => {
                                 className="w-full p-2 border border-gray-300 rounded-md"
                                 required
                             />
+                            {errors?.registrationNumber && <p className="text-red-500 text-sm">{errors.registrationNumber}</p>}
+                            <label className="block text-gray-700 pt-3">Identity Number:</label>
                             <input
                                 type="text"
                                 name="identityNumber"
@@ -494,7 +592,19 @@ const MyStaffPage = () => {
                                 className="w-full p-2 border border-gray-300 rounded-md"
                                 required
                             />
-                            <div className="flex justify-end space-x-3">
+                            {errors?.identityNumber && <p className="text-red-500 text-sm">{errors.identityNumber}</p>}
+                            <label className="block text-gray-700 pt-3">Employment Type:</label>
+                             <select
+                                name="employmentType"
+                                value={selectedEmployee.employmentType}
+                                onChange={handleSelectedEmployeeChange}
+                                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition "
+                                >
+                                <option value="0">Full Time</option>
+                                <option value="1">Part Time</option>
+                                <option value="2">Internship</option>
+                            </select>
+                            <div className="flex justify-end space-x-3 pt-3">
                                 <button
                                     type="button"
                                     onClick={() => setShowEditModal(false)}
