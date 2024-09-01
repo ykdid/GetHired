@@ -48,7 +48,8 @@ namespace RecruitmentAPI.Controllers
 
             return Ok(advertisement);
         }
-
+        
+        [AllowAnonymous]
         [HttpGet("getAllJobAdvertisements")]
         
         public async Task<IActionResult> GetAllJobAdvertisements()
