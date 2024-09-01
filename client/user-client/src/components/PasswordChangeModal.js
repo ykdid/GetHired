@@ -30,9 +30,9 @@ const PasswordChangeModal = ({ closeModal }) => {
         setLoading(true);
         try {
             const token = sessionStorage.getItem('token');
-            const employerId = localStorage.getItem('employerId');
-            if (!token || !employerId) {
-                throw new Error('Token or Employer ID not found.');
+            const userId = localStorage.getItem('userId');
+            if (!token || !userId) {
+                throw new Error('Token or User ID not found.');
             }
 
             const passwordChangeModel = {
@@ -40,7 +40,7 @@ const PasswordChangeModal = ({ closeModal }) => {
                 newPassword: newPassword,
             };
 
-            await axios.patch(`https://localhost:7053/api/Employer/changePassword/${employerId}`, passwordChangeModel, {
+            await axios.patch(`https://localhost:7053/api/User/changePassword/${userId}`, passwordChangeModel, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'

@@ -64,8 +64,13 @@ namespace RecruitmentAPI.Services.AuthService
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            var token = GenerateJwtToken(request.Email );
-            return new AuthResponse { IsSuccess = true, Token = token };
+            var token = GenerateJwtToken(user.Email , userId: user.Id);
+            return new AuthResponse
+            {
+                IsSuccess = true, 
+                Token = token,
+                UserId = user.Id
+            };
         }
 
         public async Task<AuthResponse> LoginEmployer(EmployerLoginRequest request)

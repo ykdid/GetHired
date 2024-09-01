@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { storage } from '../firebase/FirebaseConfig';
 import PasswordChangeModal from '../components/PasswordChangeModal';
+import defaultAvatar from '../assets/default-avatar.jpg';
 
 const ProfilePage = () => {
     const [user, setUser] = useState({
@@ -20,6 +21,7 @@ const ProfilePage = () => {
     });
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
+    const [selectedCvFile, setSelectedCvFile] = useState(null);
     const [loading, setLoading] = useState(true);
     const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
 
@@ -30,7 +32,7 @@ const ProfilePage = () => {
                 const token = sessionStorage.getItem('token');
                 const userId = localStorage.getItem('userId');
                 if (!userId) {
-                    throw new Error('Employer ID not found in localStorage');
+                    throw new Error('User ID not found in localStorage');
                 }
                 if (!token) {
                     throw new Error('Token not found in sessionStorage');
@@ -59,6 +61,9 @@ const ProfilePage = () => {
     const handleFileChange = (event) => {
         setSelectedFile(event.target.files[0]);
     };
+    const handleCvFileChange = (event) => {
+        setSelectedCvFile(event.target.files[0]);
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -67,11 +72,12 @@ const ProfilePage = () => {
             const userId = localStorage.getItem('userId');
             const token = sessionStorage.getItem('token');  
             if (!userId || !token) {
-                console.error('Employer ID or Token not found');
+                console.error('User ID or Token not found');
                 return;
             }
 
             let imagePath = user.userProfileImagePath;
+            let cvPath =  user.cvFilePath;
 
             if (selectedFile) {
                 const storageRef = ref(storage, `Users/UserProfileImages/${userId}/${selectedFile.name}`);
@@ -92,7 +98,7 @@ const ProfilePage = () => {
                             const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
                             imagePath = downloadURL; 
                             
-                            setUser((prevUser) => ({ ...prevUser, employerImagePath: imagePath }));
+                            setUser((prevUser) => ({ ...prevUser, userProfileImagePath: imagePath }));
        
                             await axios.patch(`https://localhost:7053/api/User/updateUser/${userId}`, { ...user, userImagePath: imagePath }, {
                                 headers: {
@@ -112,7 +118,41 @@ const ProfilePage = () => {
                     }
                 );
             } 
-            else {
+            if (selectedCvFile) {
+                const cvStorageRef = ref(storage, `Users/UserCVs/${userId}/${selectedCvFile.name}`);
+                const cvUploadTask = uploadBytesResumable(cvStorageRef, selectedCvFile);
+    
+                cvUploadTask.on(
+                    'state_changed',
+                    (snapshot) => {
+                      
+                    },
+                    (error) => {
+                        console.error('CV upload failed:', error);
+                        toast.error('Failed to upload CV.');
+                    },
+                    async () => {
+                        try {
+                            const downloadCVURL = await getDownloadURL(cvUploadTask.snapshot.ref);
+                            cvPath = downloadCVURL;
+    
+                            setUser((prevUser) => ({ ...prevUser, cvFilePath: cvPath }));
+    
+                            await axios.patch(`https://localhost:7053/api/User/updateUser/${userId}`, { ...user, cvFilePath: cvPath }, {
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${token}`,
+                                },
+                            });
+                            toast.success('Your information updated successfully!');
+                        } catch (error) {
+                            console.error('An error occurred while updating user information:', error);
+                            toast.error('An error occurred while updating user information.');
+                        }
+                    }
+                );
+            }
+            if (!selectedFile && !selectedCvFile) {
                 await axios.patch(`https://localhost:7053/api/User/updateUser/${userId}`, user, {
                     headers: {
                         'Content-Type': 'application/json',
@@ -165,7 +205,7 @@ const ProfilePage = () => {
                         <h2 className="text-3xl font-semibold mb-6 text-center">Profile Information</h2>
                         <div className="mb-6">
                             <img
-                                src={user.employerImagePath || 'default-avatar.png'}
+                                src={user.userProfileImagePath || defaultAvatar}
                                 alt="User"
                                 className="w-64 h-64 mx-auto object-cover rounded-full shadow-md mt-5"
                             />
@@ -178,7 +218,8 @@ const ProfilePage = () => {
                         </div>
                     </div>
                     <div className="bg-white shadow-lg rounded-lg p-6 w-2/3">
-                        <h2 className="text-3xl font-semibold mb-6 text-center">Update Profile</h2>
+                        <h2 className="text-3xl font-semibold mb-3 text-center">Update Profile</h2>
+                        
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <div>
                                 <label className="block text-gray-700 text-lg">Name</label>
@@ -187,7 +228,7 @@ const ProfilePage = () => {
                                     name="name"
                                     value={user.name}
                                     onChange={handleInputChange}
-                                    className="mt-2 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="mt-1 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
                             </div>
                             <div>
@@ -197,7 +238,7 @@ const ProfilePage = () => {
                                     name="surname"
                                     value={user.surname}
                                     onChange={handleInputChange}
-                                    className="mt-2 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="mt-1 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
                             </div>
                             <div>
@@ -207,7 +248,7 @@ const ProfilePage = () => {
                                     name="email"
                                     value={user.email}
                                     onChange={handleInputChange}
-                                    className="mt-2 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="mt-1 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
                             </div>
                             <div>
@@ -217,7 +258,7 @@ const ProfilePage = () => {
                                     name="phoneNumber"
                                     value={user.phoneNumber}
                                     onChange={handleInputChange}
-                                    className="mt-2 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="mt-1 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
                             </div>
                             <div>
@@ -226,7 +267,7 @@ const ProfilePage = () => {
                                     type="file"
                                     name="userProfileImagePath"
                                     onChange={handleFileChange}
-                                    className="mt-2 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="mt-1 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
                             </div>
                             <div>
@@ -234,17 +275,17 @@ const ProfilePage = () => {
                                 <input
                                     type="file"
                                     name="cvFilePath"
-                                    onChange={handleFileChange}
-                                    className="mt-2 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    onChange={handleCvFileChange}
+                                    className="mt-1 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
                             </div>
-                            <div className="flex justify-end mt-6">      
+                            <div className="flex justify-end mt-3">      
                                 <button type="submit" className="bg-blue-600 text-white py-3 px-6 rounded-lg shadow hover:bg-blue-700 transition duration-200">
                                     Save Changes
                                 </button>
                             </div>
                         </form>
-                        <div className="flex justify-end mt-6">
+                        <div className="flex justify-end mt-3">
                             <button
                                 onClick={openPasswordModal}
                                 className="bg-green-500 text-white py-3 px-6 rounded-lg shadow hover:bg-green-600 transition duration-200"

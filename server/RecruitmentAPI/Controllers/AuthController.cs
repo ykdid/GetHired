@@ -25,7 +25,7 @@ namespace RecruitmentAPI.Controllers
             if (!response.IsSuccess)
                 return BadRequest(response.ErrorMessage);
 
-            return Ok(new { Token = response.Token });
+            return Ok(new { Token = response.Token ,UserId = response.UserId});
         }
 
         [HttpPost("register/user")]
@@ -35,7 +35,7 @@ namespace RecruitmentAPI.Controllers
             if (!response.IsSuccess)
                 return BadRequest(response.ErrorMessage);
 
-            return Ok(new { Token = response.Token });
+            return Ok(new { Token = response.Token , UserId = response.UserId});
         }
 
         [HttpPost("login/employer")]

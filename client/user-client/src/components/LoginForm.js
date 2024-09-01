@@ -34,6 +34,8 @@ const LoginForm = () => {
                 const token = response.data.token;
                 const decodedToken = jwtDecode(token);
                 const userId = decodedToken.userId;
+                console.log(decodedToken);
+                
                 if (userId && token) {
                     setLoading(true);
                     localStorage.setItem('userId', userId);
@@ -47,7 +49,7 @@ const LoginForm = () => {
                     }, 1500);
                     
                 } else {
-                    console.error('Employer ID not found in token.');
+                    console.error('User ID not found in token.');
                 }
             }
         } catch (error) {

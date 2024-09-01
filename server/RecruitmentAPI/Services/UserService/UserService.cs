@@ -56,10 +56,16 @@ public class UserService : IUserService
         user.Surname = updatedUser.Surname ?? user.Surname;
         user.Age = updatedUser.Age;
         user.UserProfileImagePath = updatedUser.UserProfileImagePath ?? user.UserProfileImagePath;
-        user.Email = updatedUser.Email ?? user.Email;
-        user.PhoneNumber = updatedUser.PhoneNumber ?? user.PhoneNumber;
-        user.HashPassword = updatedUser.HashPassword ?? user.HashPassword;
         user.CvFilePath = updatedUser.CvFilePath ?? user.CvFilePath;
+        
+        if (!string.IsNullOrEmpty(updatedUser.Email))
+        {
+            user.Email = _encryptionService.Encrypt((updatedUser.Email));
+        }
+        if (!string.IsNullOrEmpty(updatedUser.PhoneNumber))
+        {
+            user.PhoneNumber = _encryptionService.Encrypt((updatedUser.PhoneNumber));
+        }
 
         await _context.SaveChangesAsync();
 
