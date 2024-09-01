@@ -1,5 +1,5 @@
 import React from 'react';
-//import '../style/AdvertisementCard.scss';
+import '../style/AdvertisementCard.scss';
 
 const employmentTypeLabels = {
     0: 'Full Time',
