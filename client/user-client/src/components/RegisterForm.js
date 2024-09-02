@@ -25,7 +25,7 @@ const RegisterForm = () => {
     };
 
     const validateForm = () => {
-        const { name, surname, email, password } = formData;
+        const { name, surname, email, password,age } = formData;
         
         if (name.length < 2) {
             toast.error('Name must be at least 2 characters.',{
@@ -59,8 +59,15 @@ const RegisterForm = () => {
                 autoClose:4000
             });
             return false;
-        }
 
+        }
+        if(age < 18 || age > 60){
+            toast.error('Age must be at between 18-60 years interval.',{
+                position:'top-center',
+                autoClose:4000
+            });
+            return false;
+        }
 
         return true;
     };
