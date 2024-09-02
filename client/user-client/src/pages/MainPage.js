@@ -10,16 +10,39 @@ import CustomToastContainer from '../components/CustomToastContainer';
 const MainPage = () => {
     const [loading, setLoading] = useState(true);
     const [ads, setAds] = useState([]);
+    const [employers, setEmployers] = useState({}); 
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     useEffect(() => {
         const fetchAds = async () => {
             setLoading(true);
             try {
-                const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getAllJobAdvertisements`);
-                setAds(Array.isArray(response.data) ? response.data : []);
+                const token = sessionStorage.getItem('token');
+                const userId = localStorage.getItem('userId');
+                const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getAllJobAdvertisements/${userId}`,{
+                    headers:{
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                const adsData = Array.isArray(response.data) ? response.data : [];
+                setAds(adsData);
+                const employerPromises = adsData.map(ad =>
+                    axios.get(`https://localhost:7053/api/Employer/getEmployerById/${ad.employerId}`,{
+                        headers:{
+                            'Authorization': `Bearer ${token}`
+                        }
+                    })
+                );
+                const employerResponses = await Promise.all(employerPromises);
+                const employerData = employerResponses.reduce((acc, response) => {
+                    const employer = response.data;
+                    acc[employer.id] = employer; 
+                    return acc;
+                }, {});
+
+                setEmployers(employerData);
             } catch (error) {
-                console.error('An error occurred while getting advertisements:', error);
+                console.error('An error occurred while getting advertisements or employers:', error);
             } finally {
                 setLoading(false);
             }
@@ -50,22 +73,25 @@ const MainPage = () => {
                 onClick={handleContentClick}
             >
                 <Navbar isSidebarOpen={isSidebarOpen} handleSidebarToggle={handleSidebarToggle} />
-                <div className="p-6 flex-1" onClick={(e) => e.stopPropagation()}>
+                <div className="p-6 flex-1">
                     <div className="flex flex-col items-center py-4 w-full">
                         <div className="flex justify-center mb-6">
-                            <h1 className="text-3xl font-extrabold text-gray-900 bg-gradient-to-r from-blue-500 to-teal-500 text-transparent bg-clip-text">
-                                JobList
-                            </h1>
+                        {Array.isArray(ads) && ads.length > 0 && (
+                                <h1 className="text-3xl font-extrabold text-gray-900 bg-gradient-to-r from-blue-500 to-teal-500 text-transparent bg-clip-text mb-4">
+                                   JobList
+                                </h1>
+                            )}
                         </div>
                         {Array.isArray(ads) && ads.length > 0 ? (
                             ads.map((ad) => (
                                 <AdvertisementCard
                                     key={ad.id}
                                     ad={ad}
+                                    employer={employers[ad.employerId]} // İşveren bilgilerini prop olarak geçiyoruz
                                 />
                             ))
                         ) : (
-                            <p>Create an advertisement and find your employees!</p>
+                            <p>There is no new job advertisement yet.</p>
                         )}
                     </div>
                 </div>
@@ -76,4 +102,4 @@ const MainPage = () => {
     );
 };
 
-export default MainPage;    
+export default MainPage;

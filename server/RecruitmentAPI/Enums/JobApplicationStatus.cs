@@ -1,6 +1,11 @@
+using System.Text.Json.Serialization;
+
 namespace RecruitmentAPI.Enums;
 
-public class JobApplicationStatus
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum JobApplicationStatus
 {
-    
+    Pending,
+    Accepted,
+    Rejected
 }

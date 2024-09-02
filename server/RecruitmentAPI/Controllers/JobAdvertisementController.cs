@@ -35,6 +35,18 @@ namespace RecruitmentAPI.Controllers
             return BadRequest("Advertisement could not created.");
         }
         
+        [HttpGet("getJobAdvertisementsByJobAdvertisementId/{id}")]
+        public async Task<IActionResult> GetAdvertisementByJobAdvertisementId(int id)
+        {
+            var advertisement = await _jobAdvertisementService.GetAdvertisementByJobAdvertisementId(id);
+
+            if (advertisement == null )
+            {
+                return NoContent(); 
+            }
+
+            return Ok(advertisement);
+        }
         
         [HttpGet("getJobAdvertisementsByEmployer/{employerId}")]
         public async Task<IActionResult> GetAdvertisementsByEmployerId(int employerId)
@@ -49,12 +61,12 @@ namespace RecruitmentAPI.Controllers
             return Ok(advertisement);
         }
         
-        [AllowAnonymous]
-        [HttpGet("getAllJobAdvertisements")]
         
-        public async Task<IActionResult> GetAllJobAdvertisements()
+        [HttpGet("getAllJobAdvertisements/{userId}")]
+        
+        public async Task<IActionResult> GetAllJobAdvertisements(int userId)
         {
-            var advertisement = await _jobAdvertisementService.GetAllAdvertisements();
+            var advertisement = await _jobAdvertisementService.GetAllAdvertisements(userId);
 
             if (advertisement == null)
             {

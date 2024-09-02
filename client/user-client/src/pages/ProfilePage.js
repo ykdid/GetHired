@@ -100,7 +100,7 @@ const ProfilePage = () => {
                             
                             setUser((prevUser) => ({ ...prevUser, userProfileImagePath: imagePath }));
        
-                            await axios.patch(`https://localhost:7053/api/User/updateUser/${userId}`, { ...user, userImagePath: imagePath }, {
+                            await axios.patch(`https://localhost:7053/api/User/updateUser/${userId}`, { ...user, userProfileImagePath: imagePath }, {
                                 headers: {
                                     'Content-Type': 'application/json',
                                     'Authorization': `Bearer ${token}`,
@@ -202,15 +202,15 @@ const ProfilePage = () => {
                 <Navbar isSidebarOpen={isSidebarOpen} handleSidebarToggle={handleSidebarToggle} />
                 <div className="p-6 flex space-x-6">
                     <div className="bg-white shadow-lg rounded-lg p-6 w-1/3 flex flex-col justify-between">
-                        <h2 className="text-3xl font-semibold mb-6 text-center">Profile Information</h2>
-                        <div className="mb-6">
+                        <h2 className="text-3xl font-semibold mb-3 text-center">Profile Information</h2>
+                        <div className="mb-3">
                             <img
                                 src={user.userProfileImagePath || defaultAvatar}
                                 alt="User"
-                                className="w-64 h-64 mx-auto object-cover rounded-full shadow-md mt-5"
+                                className="w-64 h-64 mx-auto object-cover rounded-full shadow-md mt-10"
                             />
                         </div>
-                        <div className="mt-auto space-y-4">
+                        <div className="mt-auto space-y-4 mb-12">
                             <p className="text-lg"><strong>Name:</strong> {user.name}</p>
                             <p className="text-lg"><strong>Surname:</strong> {user.surname}</p>
                             <p className="text-lg"><strong>Email:</strong> {user.email}</p>
@@ -228,7 +228,7 @@ const ProfilePage = () => {
                                     name="name"
                                     value={user.name}
                                     onChange={handleInputChange}
-                                    className="mt-1 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="mt-1 p-2 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
                             </div>
                             <div>
@@ -238,7 +238,7 @@ const ProfilePage = () => {
                                     name="surname"
                                     value={user.surname}
                                     onChange={handleInputChange}
-                                    className="mt-1 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="mt-1 p-2 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
                             </div>
                             <div>
@@ -248,7 +248,7 @@ const ProfilePage = () => {
                                     name="email"
                                     value={user.email}
                                     onChange={handleInputChange}
-                                    className="mt-1 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="mt-1 p-2 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
                             </div>
                             <div>
@@ -258,7 +258,7 @@ const ProfilePage = () => {
                                     name="phoneNumber"
                                     value={user.phoneNumber}
                                     onChange={handleInputChange}
-                                    className="mt-1 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="mt-1 p-2 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
                             </div>
                             <div>
@@ -267,7 +267,7 @@ const ProfilePage = () => {
                                     type="file"
                                     name="userProfileImagePath"
                                     onChange={handleFileChange}
-                                    className="mt-1 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="mt-1 p-2 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
                             </div>
                             <div>
@@ -276,8 +276,16 @@ const ProfilePage = () => {
                                     type="file"
                                     name="cvFilePath"
                                     onChange={handleCvFileChange}
-                                    className="mt-1 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="mt-1 p-2 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    
                                 />
+                                {user.cvFilePath && (
+                                <div className="text-blue-600 mt-3">
+                                    <a href={user.cvFilePath} target="_blank" rel="noopener noreferrer" className="underline">
+                                        View Uploaded CV
+                                    </a>
+                                </div>
+                                )} 
                             </div>
                             <div className="flex justify-end mt-3">      
                                 <button type="submit" className="bg-blue-600 text-white py-3 px-6 rounded-lg shadow hover:bg-blue-700 transition duration-200">

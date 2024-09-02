@@ -53,7 +53,6 @@ public class EncryptionService : IEncryptionService
                 {
                     throw new ArgumentException("Invalid encryption key or IV length.");
                 }
-
                 using (var decryptor = aes.CreateDecryptor(aes.Key, aes.IV))
                 {
                     var inputBytes = Convert.FromBase64String(input);

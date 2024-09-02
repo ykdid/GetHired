@@ -22,6 +22,27 @@ public class JobAdvertisementService:IJobAdvertisementService
 
         return result > 0;
     }
+    
+    public async Task<JobAdvertisement> GetAdvertisementByJobAdvertisementId(int id)
+    {
+        try
+        {
+            var advertisement = await _context.JobAdvertisements.FindAsync(id);
+
+            if (advertisement == null)
+            {
+                throw new KeyNotFoundException($"JobAdvertisement with id {id} was not found.");
+            }
+
+            return advertisement;
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Failed.", e);
+        }
+    }
+    
+    
 
     public async Task<List<JobAdvertisement>> GetAdvertisementsByEmployerId(int employerId)
     {
@@ -38,23 +59,42 @@ public class JobAdvertisementService:IJobAdvertisementService
         }
     }
 
-    public async Task<List<JobAdvertisement>> GetAllAdvertisements()
+    public async Task<List<JobAdvertisement>> GetAllAdvertisements(int userId)
     {
-        return await _context.JobAdvertisements
+        var appliedAdvertisementIds = await _context.JobApplications
+            .Where(ja => ja.UserId == userId)
+            .Select(ja => ja.JobAdvertisementId)
+            .ToListAsync();
+
+        
+        var advertisements = await _context.JobAdvertisements
+            .Where(ad => !appliedAdvertisementIds.Contains(ad.Id))
             .OrderByDescending(ad => ad.InitDate)
             .ToListAsync();
+
+        return advertisements;
 
     }
 
     public async Task<bool> DeleteAdvertisement(int advertisementId)
     {
-        var advertisement = await _context.JobAdvertisements.FindAsync(advertisementId);
+        var applications = await _context.JobApplications
+            .Where(ja => ja.JobAdvertisementId == advertisementId)
+            .ToListAsync();
+
+        if (applications.Any())
+        {
+            _context.JobApplications.RemoveRange(applications);
+            await _context.SaveChangesAsync();
+        }
         
+        var advertisement = await _context.JobAdvertisements.FindAsync(advertisementId);
+
         if (advertisement == null)
         {
             return false;
         }
-
+        
         _context.JobAdvertisements.Remove(advertisement);
         var result = await _context.SaveChangesAsync();
 

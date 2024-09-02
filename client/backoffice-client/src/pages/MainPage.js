@@ -196,7 +196,7 @@
                     onClick={handleContentClick}
                 >
                     <Navbar isSidebarOpen={isSidebarOpen} handleSidebarToggle={handleSidebarToggle} />
-                    <div className="p-6 flex-1" onClick={(e) => e.stopPropagation()}>
+                    <div className="p-6 flex-1" >
                         <div className="flex justify-center mb-6">
                             <button
                                 onClick={handleCreateClick}
@@ -310,6 +310,7 @@
                 )}
                 <CustomToastContainer />
             </div>
+            
         );
     };
 

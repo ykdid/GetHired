@@ -1,4 +1,5 @@
 using RecruitmentAPI.Entities;
+using RecruitmentAPI.Enums;
 
 namespace RecruitmentAPI.Services.JobApplicationService;
 

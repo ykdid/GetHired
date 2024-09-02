@@ -1,16 +1,20 @@
 using Microsoft.EntityFrameworkCore;
 using RecruitmentAPI.Data;
 using RecruitmentAPI.Entities;
+using RecruitmentAPI.Enums;
+using RecruitmentAPI.Services.EncryptionService;
 
 namespace RecruitmentAPI.Services.JobApplicationService;
 
 public class JobApplicationService : IJobApplicationService
 {
     private readonly RecruitmentDbContext _context;
+    private readonly IEncryptionService _encryptionService;
 
-    public JobApplicationService(RecruitmentDbContext context)
+    public JobApplicationService(RecruitmentDbContext context,IEncryptionService encryptionService)
     {
         _context = context;
+        _encryptionService = encryptionService;
     }
     
 
@@ -35,7 +39,7 @@ public class JobApplicationService : IJobApplicationService
     public async Task<List<JobApplication>> GetJobApplicationsByAdvertisementId(int id)
     {
         return await _context.JobApplications
-            .Where(ja => ja.JobAdvertisementId == id)
+            .Where(ja => ja.JobAdvertisementId == id && ja.Status == JobApplicationStatus.Pending)
             .ToListAsync();
     }
 
@@ -84,7 +88,7 @@ public class JobApplicationService : IJobApplicationService
                 IdentityNumber = user.IdentityNumber,
                 RegistrationNumber = user.RegistrationNumber,
                 EmployerId = employerId,
-                Email = user.Email
+                Email = _encryptionService.Decrypt(user.Email)
             };
 
             _context.Employees.Add(employee);

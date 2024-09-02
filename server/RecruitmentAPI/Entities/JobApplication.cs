@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using RecruitmentAPI.Enums;
 
 namespace RecruitmentAPI.Entities
 {
@@ -13,10 +14,5 @@ namespace RecruitmentAPI.Entities
         public JobApplicationStatus Status { get; set; } = JobApplicationStatus.Pending;
     }
 
-    public enum JobApplicationStatus
-    {
-        Pending,
-        Accepted,
-        Rejected
-    }
+    
 }

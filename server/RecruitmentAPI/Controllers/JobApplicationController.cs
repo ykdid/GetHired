@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RecruitmentAPI.Data;
+using RecruitmentAPI.DTOs.Models;
 using RecruitmentAPI.Entities;
+using RecruitmentAPI.Enums;
 using RecruitmentAPI.Services.JobApplicationService;
 
 namespace RecruitmentAPI.Controllers
@@ -83,11 +85,11 @@ namespace RecruitmentAPI.Controllers
        
         [HttpPatch("{jobApplicationId}/status")]
         
-        public async Task<IActionResult> UpdateJobApplicationStatus(int jobApplicationId, [FromBody]JobApplicationStatus status)
+        public async Task<IActionResult> UpdateJobApplicationStatus(int jobApplicationId, [FromBody] UpdateJobApplicationStatusRequest request)
         {
             try
             {
-                await _jobApplicationService.UpdateJobApplicationStatus(jobApplicationId, status);
+                await _jobApplicationService.UpdateJobApplicationStatus(jobApplicationId, request.Status);
                 return Ok("Job application status updated successfully.");
             }
             catch (KeyNotFoundException e)

@@ -128,7 +128,7 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
             <div>
                 <h3 className="text-lg font-bold mb-2">{ad.title}</h3>
                 <p className="text-gray-700 mb-2">Type: {employmentTypeLabels[ad.employmentType]}</p>
-                <div className="description text-gray-700 mb-2" dangerouslySetInnerHTML={{ __html: ad.description }}></div>
+                <div className="description text-gray-900 mb-2" dangerouslySetInnerHTML={{ __html: ad.description }}></div>
                 {ad.imagePath && (
                     <img
                         src={ad.imagePath}
