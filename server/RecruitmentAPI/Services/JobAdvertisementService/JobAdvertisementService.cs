@@ -41,8 +41,6 @@ public class JobAdvertisementService:IJobAdvertisementService
             throw new Exception("Failed.", e);
         }
     }
-    
-    
 
     public async Task<List<JobAdvertisement>> GetAdvertisementsByEmployerId(int employerId)
     {
@@ -113,7 +111,7 @@ public class JobAdvertisementService:IJobAdvertisementService
         adv.Description = updatedAdv.Description ?? adv.Description;
         adv.Title = updatedAdv.Title ?? adv.Title;
 
-        if (updatedAdv.EmploymentType != null)
+        if (updatedAdv.EmploymentType != null)  
         {
             adv.EmploymentType = updatedAdv.EmploymentType;
         }

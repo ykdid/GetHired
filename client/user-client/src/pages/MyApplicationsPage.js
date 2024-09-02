@@ -144,7 +144,7 @@ const MyApplicationsPage = () => {
                         }
     
                         return (
-                            <div key={application.id} className="bg-white shadow-lg p-6 rounded-lg w-[600px] relative">
+                            <div key={application.id} className="bg-white shadow-lg p-6 rounded-lg w-[700px] relative">
                             <h2 className="text-xl font-bold absolute top-4 left-4">
                                 {advertisement?.title || 'Advertisement Title'}
                             </h2>

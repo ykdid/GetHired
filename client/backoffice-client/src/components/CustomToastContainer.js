@@ -15,7 +15,6 @@ const CustomToastContainer = () =>{
             draggable
             pauseOnHover
         />
-        
     );
 };
 

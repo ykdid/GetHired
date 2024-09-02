@@ -21,11 +21,37 @@ const RegisterForm = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        
+        if (name === 'birthdate') {
+            const age = calculateAge(value);
+            setFormData({
+                ...formData,
+                [name]: value,
+                age: age
+            });
+        } else {
+            setFormData({
+                ...formData,
+                [name]: value
+            });
+        }
+    };
+    
+    const calculateAge = (birthdate) => {
+        const today = new Date();
+        const birthDate = new Date(birthdate);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDifference = today.getMonth() - birthDate.getMonth();
+    
+        if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+    
+        return age;
     };
 
     const validateForm = () => {
-        const { name, surname, email, password,age } = formData;
+        const { name, surname, email, password,age ,identityNumber,registrationNumber} = formData;
         
         if (name.length < 2) {
             toast.error('Name must be at least 2 characters.',{
@@ -67,6 +93,22 @@ const RegisterForm = () => {
                 autoClose:4000
             });
             return false;
+        }
+
+        const identityNumberRegex = /^\d{11}$/; 
+        if (!identityNumberRegex.test(identityNumber)) {
+            toast.error('Identity Number must be 11 digits.', {
+                position: 'top-center',
+                autoClose: 4000
+            });
+            return false;
+        }
+        if(registrationNumber.length !== 20){
+            toast.error('Registration Number must be 20 character.', {
+                position: 'top-center',
+                autoClose: 4000
+            });
+            return false;    
         }
 
         return true;
@@ -163,11 +205,11 @@ const RegisterForm = () => {
                         </span>
                     </div>
                     <div className="mb-4">
-                        <label className="block text-gray-700">Age</label>
+                        <label className="block text-gray-700">Date of Birth</label>
                         <input
-                            type="text"
-                            name="age"
-                            value={formData.age}
+                            type="date"
+                            name="birthdate"
+                            value={formData.birthdate}
                             onChange={handleChange}
                             className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                             required

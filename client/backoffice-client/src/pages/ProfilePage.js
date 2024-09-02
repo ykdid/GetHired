@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { storage } from '../firebase/FirebaseConfig';
 import PasswordChangeModal from '../components/PasswordChangeModal';
+import defaultAvatar from '../assets/default-avatar.jpg';
 
 const ProfilePage = () => {
     const [user, setUser] = useState({
@@ -164,7 +165,7 @@ const ProfilePage = () => {
                         <h2 className="text-3xl font-semibold mb-6 text-center">Profile Information</h2>
                         <div className="mb-6">
                             <img
-                                src={user.employerImagePath || 'default-avatar.png'}
+                                src={user.employerImagePath || defaultAvatar}
                                 alt="Employer"
                                 className="w-64 h-64 mx-auto object-cover rounded-full shadow-md mt-5"
                             />

@@ -7,6 +7,7 @@ import ScrollToTop from '../components/ScrollToTop';
 import Loading from '../components/Loading';
 import CustomToastContainer from '../components/CustomToastContainer';
 import { toast } from 'react-toastify';
+import defaultAvatar from '../assets/default-avatar.jpg';
 
 
 const ApplicationsPage = () => {
@@ -140,11 +141,12 @@ const ApplicationsPage = () => {
                             Applications
                         </h1>
                     </div>
+                    {applications.length > 0 ? (
                     <div className="flex flex-col items-center space-y-4 flex-wrap justify-center gap-4">
                         {applications.map((application, index) => (
                             <div key={application.id} className="bg-white shadow-md p-4 rounded-lg w-[600px]">
                                 <img
-                                    src={users[index]?.userProfileImagePath}
+                                    src={users[index]?.userProfileImagePath || defaultAvatar}
                                     alt={`${users[index]?.name} ${users[index]?.surname}`}
                                     className="w-32 h-32 object-cover rounded-full mb-2"
                                 />
@@ -156,7 +158,7 @@ const ApplicationsPage = () => {
                                 <p className="text-gray-700 mb-2">Phone Number: {users[index]?.phoneNumber}</p>
                                 <p className="text-gray-700 mb-2">
                                     CV:{' '}
-                                    {users[index]?.cvFilePath && (
+                                    {users[index]?.cvFilePath ? (
                                         <a
                                             href={users[index]?.cvFilePath}
                                             target="_blank"
@@ -165,7 +167,7 @@ const ApplicationsPage = () => {
                                         >
                                             View CV
                                         </a>
-                                    )}
+                                    ): ('None')}
                                 </p>
                                 <div className="flex justify-end gap-2 mt-4">
                                     <button
@@ -188,6 +190,11 @@ const ApplicationsPage = () => {
                             </div>
                         ))}
                     </div>
+                    ) : (
+                        <div className="text-center text-gray-500">
+                            There is no application for this position yet.
+                        </div>
+                    )}
                 </div>
                 <ScrollToTop />
             </div>

@@ -25,8 +25,8 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
     
         if (!formData.title) {
             errors.title = 'Title is required.';
-        } else if (formData.title.length < 10) {
-            errors.title = 'Title should be greater than 10 characters.';
+        } else if (formData.title.length < 10 || formData.title.length > 40) {
+            errors.title = 'Title should be greater than 10 and smaller than 40 characters.';
         }
     
         if (!formData.description) {

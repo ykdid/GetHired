@@ -90,8 +90,8 @@
         
             if (!formData.title) {
                 errors.title = 'Title is required.';
-            } else if (formData.title.length < 10) {
-                errors.title = 'Title should be greater than 10 characters.';
+            }else if (formData.title.length < 10 || formData.title.length >40) {
+                errors.title = 'Title should be greater than 10 and smaller than 40 characters.';
             }
         
             if (!formData.description) {
@@ -147,7 +147,6 @@
                 toast.success('Advertisement created successfully!');
                 setShowModal(false);
         
-                // Fetch updated ads list
                 const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -215,7 +214,7 @@
                             
                         />
                         <div className="flex flex-col items-center py-4 w-full">
-                        <div className="flex justify-center mb-6">
+                        <div className="flex justify-center mb-4">
                             {Array.isArray(ads) && ads.length > 0 && (
                                 <h1 className="text-3xl font-extrabold text-gray-900 bg-gradient-to-r from-blue-500 to-teal-500 text-transparent bg-clip-text">
                                     My Job List
@@ -256,7 +255,10 @@
                             ))
                         ) : (
 
-                            <p>Create an advertisement and find your employees!</p>
+                        <div className="text-center text-gray-500">
+                            Create an advertisement and find your employees!
+                        </div>
+                            
                         )}
                         </div>
                     </div>

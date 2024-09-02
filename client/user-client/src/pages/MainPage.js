@@ -87,7 +87,7 @@ const MainPage = () => {
                                 <AdvertisementCard
                                     key={ad.id}
                                     ad={ad}
-                                    employer={employers[ad.employerId]} // İşveren bilgilerini prop olarak geçiyoruz
+                                    employer={employers[ad.employerId]} 
                                 />
                             ))
                         ) : (
