@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import '../style/RegisterForm.scss'; 
+import '../style/RegisterForm.scss';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const RegisterForm = () => {
+    const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
         surname: '',
@@ -98,6 +100,10 @@ const RegisterForm = () => {
         }
     };
 
+    const togglePasswordVisibility = () => {
+        setShowPassword(prevState => !prevState);
+    };
+
     return (
         <div className="register-bg">
             <div className="register-container">
@@ -136,16 +142,22 @@ const RegisterForm = () => {
                             required
                         />
                     </div>
-                    <div className="mb-4">
+                    <div className="mb-4 password-input-register">
                         <label className="block text-gray-700">Password</label>
                         <input
-                            type="password"
+                            type={showPassword ? 'text' : 'password'}
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
                             className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                             required
                         />
+                          <span 
+                        className="eye-icon-register" 
+                        onClick={() => togglePasswordVisibility('')}
+                        >
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        </span>
                     </div>
                     <div className="mb-4">
                         <label className="block text-gray-700">Company Name</label>

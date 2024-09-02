@@ -218,7 +218,7 @@
                         <div className="flex justify-center mb-6">
                             {Array.isArray(ads) && ads.length > 0 && (
                                 <h1 className="text-3xl font-extrabold text-gray-900 bg-gradient-to-r from-blue-500 to-teal-500 text-transparent bg-clip-text">
-                                    My JobList
+                                    My Job List
                                 </h1>
                             )}
                         </div>

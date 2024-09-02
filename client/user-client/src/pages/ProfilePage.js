@@ -278,6 +278,7 @@ const ProfilePage = () => {
                                     onChange={handleCvFileChange}
                                     className="mt-1 p-2 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     
+                                    
                                 />
                                 {user.cvFilePath && (
                                 <div className="text-blue-600 mt-3">

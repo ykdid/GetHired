@@ -95,7 +95,7 @@ const LoginForm = () => {
                         />
                          <span 
                         className="eye-icon-login" 
-                        onClick={() => togglePasswordVisibility('confirm')}
+                        onClick={() => togglePasswordVisibility('')}
                         >
                             {showPassword ? <FaEyeSlash /> : <FaEye />}
                         </span>
