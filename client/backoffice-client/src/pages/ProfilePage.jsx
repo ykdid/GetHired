@@ -11,7 +11,7 @@ import PasswordChangeModal from '../components/PasswordChangeModal';
 import defaultAvatar from '../assets/default-avatar.jpg';
 
 const ProfilePage = () => {
-    const [user, setUser] = useState({
+    const [employer, setEmployer] = useState({
         name: '',
         surname: '',
         email: '',
@@ -25,7 +25,7 @@ const ProfilePage = () => {
 
     useEffect(() => {
         setLoading(true);
-        const fetchUser = async () => { 
+        const fetchEmployer = async () => { 
             try {
                 const token = sessionStorage.getItem('token');
                 const employerId = localStorage.getItem('employerId');
@@ -41,19 +41,19 @@ const ProfilePage = () => {
                         'Authorization': `Bearer ${token}`
                     }
                 });
-                setUser(response.data);
+                setEmployer(response.data);
             } catch (error) {
-                console.error('An error occurred while fetching user data:', error);
+                console.error('An error occurred while fetching employer data:', error);
             } finally {
                 setLoading(false);
             }
         };
-        fetchUser();
+        fetchEmployer();
     }, []);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-        setUser({ ...user, [name]: value });
+        setEmployer({ ...employer, [name]: value });
     };
 
     const handleFileChange = (event) => {
@@ -71,7 +71,7 @@ const ProfilePage = () => {
                 return;
             }
 
-            let imagePath = user.employerImagePath;
+            let imagePath = employer.employerImagePath;
 
             if (selectedFile) {
                 const storageRef = ref(storage, `Employers/EmployerProfileImages/${employerId}/${selectedFile.name}`);
@@ -92,9 +92,9 @@ const ProfilePage = () => {
                             const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
                             imagePath = downloadURL; 
                             
-                            setUser((prevUser) => ({ ...prevUser, employerImagePath: imagePath }));
+                            setEmployer((prevEmployer) => ({ ...prevEmployer, employerImagePath: imagePath }));
        
-                            await axios.patch(`https://localhost:7053/api/Employer/updateEmployer/${employerId}`, { ...user, employerImagePath: imagePath }, {
+                            await axios.patch(`https://localhost:7053/api/Employer/updateEmployer/${employerId}`, { ...employer, employerImagePath: imagePath }, {
                                 headers: {
                                     'Content-Type': 'application/json',
                                     'Authorization': `Bearer ${token}`,
@@ -103,8 +103,8 @@ const ProfilePage = () => {
                             toast.success('Your information updated successfully!');
                         }
                         catch(error){
-                            console.error('An error occurred while updating user information:', error);
-                            toast.error('An error occurred while updating user information.');
+                            console.error('An error occurred while updating employer information:', error);
+                            toast.error('An error occurred while updating employer information.');
                         }
                         finally{
                             setLoading(false);
@@ -113,7 +113,7 @@ const ProfilePage = () => {
                 );
             } 
             else {
-                await axios.patch(`https://localhost:7053/api/Employer/updateEmployer/${employerId}`, user, {
+                await axios.patch(`https://localhost:7053/api/Employer/updateEmployer/${employerId}`, employer, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`,
@@ -122,8 +122,8 @@ const ProfilePage = () => {
                 toast.success('Your information updated successfully!');   
             }
         } catch (error) {
-            console.error('An error occurred while updating user information:', error);
-            toast.error('An error occurred while updating user information.');
+            console.error('An error occurred while updating employer information:', error);
+            toast.error('An error occurred while updating employer information.');
         }
         finally{
             setLoading(false)
@@ -148,6 +148,8 @@ const ProfilePage = () => {
         setIsPasswordModalOpen(false);
     };
 
+    
+
     if (loading) {
         return <Loading />;
     }
@@ -165,16 +167,16 @@ const ProfilePage = () => {
                         <h2 className="text-3xl font-semibold mb-6 text-center">Profile Information</h2>
                         <div className="mb-6">
                             <img
-                                src={user.employerImagePath || defaultAvatar}
+                                src={employer.employerImagePath || defaultAvatar}
                                 alt="Employer"
                                 className="w-64 h-64 mx-auto object-cover rounded-full shadow-md mt-5"
                             />
                         </div>
                         <div className="mt-auto space-y-4">
-                            <p className="text-lg"><strong>Name:</strong> {user.name}</p>
-                            <p className="text-lg"><strong>Surname:</strong> {user.surname}</p>
-                            <p className="text-lg"><strong>Email:</strong> {user.email}</p>
-                            <p className="text-lg"><strong>Company Name:</strong> {user.companyName}</p>
+                            <p className="text-lg"><strong>Name:</strong> {employer.name}</p>
+                            <p className="text-lg"><strong>Surname:</strong> {employer.surname}</p>
+                            <p className="text-lg"><strong>Email:</strong> {employer.email}</p>
+                            <p className="text-lg"><strong>Company Name:</strong> {employer.companyName}</p>
                         </div>
                     </div>
                     <div className="bg-white shadow-lg rounded-lg p-6 w-2/3">
@@ -185,7 +187,7 @@ const ProfilePage = () => {
                                 <input
                                     type="text"
                                     name="name"
-                                    value={user.name}
+                                    value={employer.name}
                                     onChange={handleInputChange}
                                     className="mt-2 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
@@ -195,7 +197,7 @@ const ProfilePage = () => {
                                 <input
                                     type="text"
                                     name="surname"
-                                    value={user.surname}
+                                    value={employer.surname}
                                     onChange={handleInputChange}
                                     className="mt-2 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
@@ -205,7 +207,7 @@ const ProfilePage = () => {
                                 <input
                                     type="email"
                                     name="email"
-                                    value={user.email}
+                                    value={employer.email}
                                     onChange={handleInputChange}
                                     className="mt-2 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
@@ -215,7 +217,7 @@ const ProfilePage = () => {
                                 <input
                                     type="text"
                                     name="companyName"
-                                    value={user.companyName}
+                                    value={employer.companyName}
                                     onChange={handleInputChange}
                                     className="mt-2 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
