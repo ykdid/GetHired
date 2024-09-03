@@ -62,6 +62,11 @@ const ProfilePage = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        if (!validateEmployer()) {
+            return;
+        }
+
         setLoading(true);
         try {
             const employerId = localStorage.getItem('employerId');
@@ -147,7 +152,44 @@ const ProfilePage = () => {
     const closePasswordModal = () => {
         setIsPasswordModalOpen(false);
     };
+    
+    const validateEmployer = () =>{
+        const { name, surname, email, companyName } = employer;
 
+        if (name.length < 2) {
+            toast.error('Name must be at least 2 characters.',{
+                position:'top-center',
+                autoClose:4000
+            });
+            return false;
+        }
+
+        if (surname.length <= 2) {
+            toast.error('Surname must be at least 2 characters.',{
+                position:'top-center',
+                autoClose:4000
+            });
+            return false;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            toast.error('Please enter a valid email address.',{
+                position:'top-center',
+                autoClose:4000
+            });
+            return false;
+        }
+        if (companyName.length < 3) {
+            toast.error('Company name must be at least 3 characters.',{
+                position:'top-center',
+                autoClose:4000
+            });
+            return false;
+        }
+
+        return true;
+    }
     
 
     if (loading) {

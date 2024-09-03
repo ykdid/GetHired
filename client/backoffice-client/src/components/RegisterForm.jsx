@@ -58,8 +58,8 @@ const RegisterForm = () => {
             return false;
         }
 
-        if (companyName.length < 2) {
-            toast.error('Company name must be at least 2 characters.',{
+        if (companyName.length < 3) {
+            toast.error('Company name must be at least 3 characters.',{
                 position:'top-center',
                 autoClose:4000
             });
