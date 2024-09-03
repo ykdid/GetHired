@@ -21,12 +21,31 @@ const PasswordChangeModal = ({ closeModal }) => {
         if (type === 'confirm') setShowConfirmPassword(!showConfirmPassword);
     };
 
-    const handlePasswordChange = async () => {
+    const validatePassword = () => {
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+        if (!passwordRegex.test(newPassword)) {
+            toast.error('Password must be at least 8 characters, including a number, a lowercase and an uppercase letter.', {
+                position: 'top-center',
+                autoClose: 4000
+            });
+            return false;
+        }
+
         if (newPassword !== confirmPassword) {
-            toast.error('New passwords do not match.');
+            toast.error('New passwords do not match.', {
+                position: 'top-center',
+                autoClose: 4000
+            });
+            return false;
+        }
+
+        return true;
+    };
+
+    const handlePasswordChange = async () => {
+        if (!validatePassword()) {
             return;
         }
-    
         setLoading(true);
         try {
             const token = sessionStorage.getItem('token');
