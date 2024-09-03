@@ -25,6 +25,46 @@ const ProfilePage = () => {
     const [loading, setLoading] = useState(true);
     const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
 
+    const validateUser = () => {
+        const {name, surname, email, phoneNumber} = user;
+
+        if (name.length < 2) {
+            toast.error('Name must be at least 2 characters.',{
+                position:'top-center',
+                autoClose:4000
+            });
+            return false;
+        }
+
+        if (surname.length <= 2) {
+            toast.error('Surname must be at least 2 characters.',{
+                position:'top-center',
+                autoClose:4000
+            });
+            return false;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            toast.error('Please enter a valid email address.',{
+                position:'top-center',
+                autoClose:4000
+            });
+            return false;
+        }
+
+        const phoneNumberRegex = /^(\+90|0)?5\d{9}$/;
+        if (!phoneNumberRegex.test(phoneNumber)) {
+            toast.error('Please enter a valid Turkish phone number.', {
+                position: 'top-center',
+                autoClose: 4000
+            });
+            return false;
+        }
+
+        return true;
+    }
+
     useEffect(() => {
         setLoading(true);
         const fetchUser = async () => { 
@@ -67,6 +107,11 @@ const ProfilePage = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        if (!validateUser()) {
+            return;
+        }
+
         setLoading(true);
         try {
             const userId = localStorage.getItem('userId');

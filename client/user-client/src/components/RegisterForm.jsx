@@ -51,7 +51,7 @@ const RegisterForm = () => {
     };
 
     const validateForm = () => {
-        const { name, surname, email, password,age ,identityNumber,registrationNumber} = formData;
+        const { name, surname, email, password,age ,identityNumber,registrationNumber,phoneNumber} = formData;
         
         if (name.length < 2) {
             toast.error('Name must be at least 2 characters.',{
@@ -109,6 +109,15 @@ const RegisterForm = () => {
                 autoClose: 4000
             });
             return false;    
+        }
+
+        const phoneNumberRegex = /^(\+90|0)?5\d{9}$/;
+        if (!phoneNumberRegex.test(phoneNumber)) {
+            toast.error('Please enter a valid Turkish phone number.', {
+                position: 'top-center',
+                autoClose: 4000
+            });
+            return false;
         }
 
         return true;
