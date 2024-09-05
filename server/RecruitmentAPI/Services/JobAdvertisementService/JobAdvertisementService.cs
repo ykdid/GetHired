@@ -137,6 +137,28 @@ public class JobAdvertisementService:IJobAdvertisementService
 
         return filteredAdvertisements;
     }
+    public async Task DeleteExpiredAdvertisements()
+    {
+        try
+        {
+            var now = DateTime.UtcNow;
+
+            var expiredAdvertisements = await _context.JobAdvertisements
+                .Where(ad => ad.ExpireDate < now)
+                .ToListAsync();
+
+            if (expiredAdvertisements.Any())
+            {
+                _context.JobAdvertisements.RemoveRange(expiredAdvertisements);
+
+                await _context.SaveChangesAsync();
+            }
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Deleting expired job postings failed.", e);
+        }
+    }
     
     
 }

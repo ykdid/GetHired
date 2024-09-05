@@ -12,5 +12,6 @@ public interface IJobAdvertisementService
     Task<bool> DeleteAdvertisement(int advertisementId);
     Task<JobAdvertisement> UpdateAdvertisement(int id,JobAdvertisement updatedAdv);
     Task<List<JobAdvertisement>> GetFilteredJobAdvertisements(int userId, TypesOfEmployment employmentType);
+    Task DeleteExpiredAdvertisements();
 
 }   

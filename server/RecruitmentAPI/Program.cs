@@ -6,6 +6,7 @@ using RecruitmentAPI.Data;
 using Microsoft.OpenApi.Models;
 
 using RecruitmentAPI.Services.AuthService;
+using RecruitmentAPI.Services.CleanExpiredAdvertisementsService;
 using RecruitmentAPI.Services.EmployeeService;
 using RecruitmentAPI.Services.EmployerService;
 using RecruitmentAPI.Services.EncryptionService;
@@ -43,6 +44,7 @@ builder.Services.AddTransient<IJobAdvertisementService, JobAdvertisementService>
 builder.Services.AddTransient<IEmployeeService, EmployeeService>();
 builder.Services.AddTransient<IJobApplicationService, JobApplicationService>();
 builder.Services.AddTransient<IEncryptionService, EncryptionService>();
+builder.Services.AddHostedService<CleanExpiredAdvertisementsService>();
 
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]);
