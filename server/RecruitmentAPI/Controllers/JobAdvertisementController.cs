@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RecruitmentAPI.Data;
 using RecruitmentAPI.Entities;
+using RecruitmentAPI.Enums;
 using RecruitmentAPI.Services.JobAdvertisementService;
 
 namespace RecruitmentAPI.Controllers
@@ -74,6 +75,26 @@ namespace RecruitmentAPI.Controllers
             }
 
             return Ok(advertisement);
+        }
+        
+        [HttpGet("getFilteredJobAdvertisements/{userId}")]
+        public async Task<IActionResult> GetFilteredJobAdvertisements(int userId, TypesOfEmployment employmentType)
+        {
+            try
+            {
+                var filteredAdvertisements = await _jobAdvertisementService.GetFilteredJobAdvertisements(userId, employmentType);
+                
+                if (filteredAdvertisements == null || !filteredAdvertisements.Any())
+                {
+                    return NotFound("No job advertisements found with the given filters.");
+                }
+
+                return Ok(filteredAdvertisements);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
         
         [HttpDelete("deleteAdvertisement/{advertisementId}")]

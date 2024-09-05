@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using RecruitmentAPI.Data;
 using RecruitmentAPI.Entities;
+using RecruitmentAPI.Enums;
 
 namespace RecruitmentAPI.Services.JobAdvertisementService;
 
@@ -120,6 +121,21 @@ public class JobAdvertisementService:IJobAdvertisementService
 
         return adv;
 
+    }
+    
+    public async Task<List<JobAdvertisement>> GetFilteredJobAdvertisements(int userId, TypesOfEmployment employmentType)
+    {
+        var appliedAdvertisementIds = await _context.JobApplications
+            .Where(ja => ja.UserId == userId)
+            .Select(ja => ja.JobAdvertisementId)
+            .ToListAsync();
+        
+        var filteredAdvertisements = await _context.JobAdvertisements
+            .Where(ad => ad.EmploymentType == employmentType && !appliedAdvertisementIds.Contains(ad.Id))
+            .OrderByDescending(ad => ad.InitDate)
+            .ToListAsync();
+
+        return filteredAdvertisements;
     }
     
     
