@@ -21,10 +21,10 @@ export const AuthProvider = ({ children }) => {
             if (token) {
                 const decodedToken = jwtDecode(token);
                 const expiryTime = decodedToken.exp * 1000; 
-                setSessionExpired(true); 
                 if (Date.now() >= expiryTime) {
                     sessionStorage.removeItem('token');
                     localStorage.removeItem('employerId');
+                    setSessionExpired(true); 
                     if(currentPath !== '/register'){
                         toast.error(
                             <div>
