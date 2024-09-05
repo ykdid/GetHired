@@ -160,9 +160,10 @@ const MyApplicationsPage = () => {
                                 </div>
                             </div>
                             <p className="absolute top-8 left-4  text-sm text-gray-700 pt-5">{employer?.companyName}</p>
-                            <div className="pt-24 flex items-center justify-between">
-                                <p className={`text-lg font-semibold ${statusColor}`}>
-                                    Application Status: {application.status}
+                            <div className="pt-24 flex items-center ">
+                                Application Status:
+                                <p className={`pl-2 text-lg font-semibold ${statusColor}`}>
+                                     {application.status}
                                 </p>
                                 {application.status === 'Pending' && (
                                     <button

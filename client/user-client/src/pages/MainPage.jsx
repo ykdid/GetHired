@@ -76,11 +76,11 @@ const MainPage = () => {
                 <div className="p-6 flex-1">
                     <div className="flex flex-col items-center py-4 w-full">
                         <div className="flex justify-center mb-6">
-                        {Array.isArray(ads) && ads.length > 0 && (
+                        
                                 <h1 className="text-3xl font-extrabold text-gray-900 bg-gradient-to-r from-blue-500 to-teal-500 text-transparent bg-clip-text mb-4">
-                                   JobList
+                                   Job List
                                 </h1>
-                            )}
+                            
                         </div>
                         {Array.isArray(ads) && ads.length > 0 ? (
                             ads.map((ad) => (
@@ -91,7 +91,10 @@ const MainPage = () => {
                                 />
                             ))
                         ) : (
-                            <p>There is no new job advertisement yet.</p>
+                            
+                            <div className="text-center text-gray-500">
+                            There is no new job advertisement yet.
+                            </div>
                         )}
                     </div>
                 </div>
