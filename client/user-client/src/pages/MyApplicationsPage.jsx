@@ -160,20 +160,22 @@ const MyApplicationsPage = () => {
                                 </div>
                             </div>
                             <p className="absolute top-8 left-4  text-sm text-gray-700 pt-5">{employer?.companyName}</p>
-                            <div className="pt-24 flex items-center ">
-                                Application Status:
-                                <p className={`pl-2 text-lg font-semibold ${statusColor}`}>
-                                     {application.status}
-                                </p>
-                                {application.status === 'Pending' && (
-                                    <button
-                                        className="bg-red-500 text-white py-1 px-4 rounded"
-                                        onClick={() => handleCancelApplication(application.id)}
-                                    >
-                                        Cancel Application
-                                    </button>
-                                )}
-                            </div>
+                            <div className="pt-24 flex items-center justify-between">
+    <div className="flex items-center">
+        <span>Application Status:</span>
+        <p className={`pl-2 text-lg font-semibold ${statusColor}`}>
+            {application.status}
+        </p>
+    </div>
+    {application.status === 'Pending' && (
+        <button
+            className="bg-red-500 text-white py-1 px-4 rounded ml-auto"
+            onClick={() => handleCancelApplication(application.id)}
+        >
+            Cancel Application
+        </button>
+    )}
+</div>
                         </div>
                         );
                     })}
