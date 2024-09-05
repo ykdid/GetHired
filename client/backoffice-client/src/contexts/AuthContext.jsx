@@ -9,6 +9,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [auth, setAuth] = useState({ token: null, employerId: null });
+    const [sessionExpired, setSessionExpired] = useState(false);
     
     const navigate = useNavigate();
 
@@ -16,9 +17,11 @@ export const AuthProvider = ({ children }) => {
         const checkTokenExpiry = () => {
             const token = sessionStorage.getItem('token');
             const currentPath = window.location.pathname;
+
             if (token) {
                 const decodedToken = jwtDecode(token);
                 const expiryTime = decodedToken.exp * 1000; 
+                setSessionExpired(true); 
                 if (Date.now() >= expiryTime) {
                     sessionStorage.removeItem('token');
                     localStorage.removeItem('employerId');
@@ -27,7 +30,10 @@ export const AuthProvider = ({ children }) => {
                             <div>
                                 <p>Session has expired. You are directed to the login page.</p>
                                 <button
-                                    onClick={() => navigate('/login')}
+                                      onClick={() => {
+                                        setSessionExpired(false); 
+                                        navigate('/login');
+                                    }}
                                     className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
                                 >
                                     OK
@@ -59,7 +65,14 @@ export const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={auth}>
-            {children}
+            {sessionExpired && (
+                <div className="fixed inset-0 bg-gray-800 bg-opacity-75 z-50 flex justify-center items-center">
+                    <p className="text-white">Session expired. Click OK to log in again.</p>
+                </div>
+            )}
+            <div className={`${sessionExpired ? 'pointer-events-none' : ''}`}>
+                {children}
+            </div>
             <CustomToastContainer />    
         </AuthContext.Provider>
     );
