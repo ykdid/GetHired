@@ -60,9 +60,12 @@ export const AuthProvider = ({ children }) => {
         return () => clearInterval(interval);
     }, [navigate]);
 
+    const currentPath = window.location.pathname;
+    const showSessionExpired = sessionExpired && currentPath !== '/login' && currentPath !== '/' && currentPath!== '/register' ;
+
     return (
         <AuthContext.Provider value={auth}>
-            {sessionExpired && (
+            {showSessionExpired && (
                 <div className="fixed inset-0 bg-gray-800 bg-opacity-75 z-50 flex justify-center items-center">
                     <p className="text-white">Session expired. Click OK to log in again.</p>
                 </div>
