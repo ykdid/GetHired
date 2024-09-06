@@ -67,7 +67,7 @@ export const AuthProvider = ({ children }) => {
         <AuthContext.Provider value={auth}>
             {showSessionExpired && (
                 <div className="fixed inset-0 bg-gray-800 bg-opacity-75 z-50 flex justify-center items-center">
-                    <p className="text-white">Session expired. Click OK to log in again.</p>
+                    <p className="text-white">Sessions expired. Click OK to login again.</p>
                 </div>
             )}
             <div className={`${showSessionExpired ? 'pointer-events-none' : ''}`}>
