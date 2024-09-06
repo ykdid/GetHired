@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar';
 import AdvertisementCard from '../components/AdvertisementCard';
 import ScrollToTop from '../components/ScrollToTop';
 import Loading from '../components/Loading';
-import CustomToastContainer from '../components/CustomToastContainer';
+import CustomToastContainer from '../components/CustomToastContainer';  
 
 const MainPage = () => {
     const [loading, setLoading] = useState(true);

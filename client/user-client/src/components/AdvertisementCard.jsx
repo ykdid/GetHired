@@ -77,7 +77,7 @@ const AdvertisementCard = ({ ad, employer }) => {
                     onClick={handleApplyJob}
                     disabled={isApplied}
                 >
-                    {isApplied ? 'Applied' : 'Apply To Job'}
+                    {isApplied ? 'Applied ': 'Apply To Job'}
                 </button>
             </div>
         </div>

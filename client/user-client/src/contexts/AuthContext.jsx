@@ -70,7 +70,7 @@ export const AuthProvider = ({ children }) => {
                     <p className="text-white">Session expired. Click OK to log in again.</p>
                 </div>
             )}
-            <div className={`${sessionExpired ? 'pointer-events-none' : ''}`}>
+            <div className={`${showSessionExpired ? 'pointer-events-none' : ''}`}>
                 {children}
             </div>
             <CustomToastContainer />
