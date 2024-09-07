@@ -27,7 +27,6 @@ const MyApplicationsPage = () => {
                     throw new Error('Token not found in sessionStorage');
                 }
 
-                // Fetch job applications by userId
                 const response = await axios.get(
                     `https://localhost:7053/api/JobApplication/getJobApplicationsByUser/${userId}`,
                     {
@@ -39,7 +38,6 @@ const MyApplicationsPage = () => {
                 const applicationsData = response.data;
                 setApplications(applicationsData);
 
-                // Fetch employer details for each application
                 const employerRequests = applicationsData.map(application =>
                     axios.get(
                         `https://localhost:7053/api/Employer/getEmployerById/${application.employerId}`,
@@ -58,7 +56,6 @@ const MyApplicationsPage = () => {
                 }, {});
                 setEmployers(employersData);
 
-                // Fetch advertisement details for each application
                 const advertisementRequests = applicationsData.map(application =>
                     axios.get(
                         `https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByJobAdvertisementId/${application.jobAdvertisementId}`,
@@ -161,21 +158,21 @@ const MyApplicationsPage = () => {
                             </div>
                             <p className="absolute top-8 left-4  text-sm text-gray-700 pt-5">{employer?.companyName}</p>
                             <div className="pt-24 flex items-center justify-between">
-    <div className="flex items-center">
-        <span>Application Status:</span>
-        <p className={`pl-2 text-lg font-semibold ${statusColor}`}>
-            {application.status}
-        </p>
-    </div>
-    {application.status === 'Pending' && (
-        <button
-            className="bg-red-500 text-white py-1 px-4 rounded ml-auto"
-            onClick={() => handleCancelApplication(application.id)}
-        >
-            Cancel Application
-        </button>
-    )}
-</div>
+                                <div className="flex items-center">
+                                    <span>Application Status:</span>
+                                    <p className={`pl-2 text-lg font-semibold ${statusColor}`}>
+                                        {application.status}
+                                    </p>
+                                </div>
+                                {application.status === 'Pending' && (
+                                    <button
+                                        className="bg-red-500 text-white py-1 px-4 rounded ml-auto"
+                                        onClick={() => handleCancelApplication(application.id)}
+                                    >
+                                        Cancel Application
+                                    </button>
+                                )}
+                            </div>
                         </div>
                         );
                     })}

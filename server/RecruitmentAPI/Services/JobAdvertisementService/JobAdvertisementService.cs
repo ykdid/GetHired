@@ -149,14 +149,25 @@ public class JobAdvertisementService:IJobAdvertisementService
 
             if (expiredAdvertisements.Any())
             {
-                _context.JobAdvertisements.RemoveRange(expiredAdvertisements);
+                var expiredAdvertisementIds = expiredAdvertisements.Select(ad => ad.Id).ToList();
+                
+                var relatedApplications = await _context.JobApplications
+                    .Where(app => expiredAdvertisementIds.Contains(app.JobAdvertisementId))
+                    .ToListAsync();
 
+                if (relatedApplications.Any())
+                {
+                    _context.JobApplications.RemoveRange(relatedApplications);
+                }
+                
+                _context.JobAdvertisements.RemoveRange(expiredAdvertisements);
+                
                 await _context.SaveChangesAsync();
             }
         }
         catch (Exception e)
         {
-            throw new Exception("Deleting expired job postings failed.", e);
+            throw new Exception("Deleting expired job postings and their related applications failed.", e);
         }
     }
     

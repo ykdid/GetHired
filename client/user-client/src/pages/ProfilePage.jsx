@@ -350,8 +350,8 @@ const ProfilePage = () => {
                     </div>
                 </div>
                 {isPasswordModalOpen && <PasswordChangeModal closeModal={closePasswordModal} />}
-                <CustomToastContainer />
             </div>
+            <CustomToastContainer />
         </div>
     );
 };

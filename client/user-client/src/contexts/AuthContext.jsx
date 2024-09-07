@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 import CustomToastContainer from '../components/CustomToastContainer';
 import { toast } from 'react-toastify';
 
@@ -60,11 +60,18 @@ export const AuthProvider = ({ children }) => {
         return () => clearInterval(interval);
     }, [navigate]);
 
+    const handleLogin = (token) => {
+        const decodedToken = jwtDecode(token);
+        setAuth({ token, userId: decodedToken.userId });
+        setSessionExpired(false); // Oturum açıldığında sessionExpired durumunu sıfırla
+        navigate('/'); // Anasayfaya yönlendir
+    };
+
     const currentPath = window.location.pathname;
-    const showSessionExpired = sessionExpired && currentPath !== '/login' && currentPath !== '/' && currentPath!== '/register' ;
+    const showSessionExpired = sessionExpired && currentPath !== '/login' && currentPath !== '/' && currentPath !== '/register';
 
     return (
-        <AuthContext.Provider value={auth}>
+        <AuthContext.Provider value={{ ...auth, handleLogin }}>
             {showSessionExpired && (
                 <div className="fixed inset-0 bg-gray-800 bg-opacity-75 z-50 flex justify-center items-center">
                     <p className="text-white">Sessions expired. Click OK to login again.</p>

@@ -1,35 +1,41 @@
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 using RecruitmentAPI.Services.JobAdvertisementService;
 
-namespace RecruitmentAPI.Services.CleanExpiredAdvertisementsService;
-
-public class CleanExpiredAdvertisementsService : IHostedService
+namespace RecruitmentAPI.Services.CleanExpiredAdvertisementsService
 {
-    private readonly IJobAdvertisementService _jobAdvertisementService;
-    private Timer _timer;
-
-    public CleanExpiredAdvertisementsService(IJobAdvertisementService jobAdvertisementService)
+    public class CleanExpiredAdvertisementsService : IHostedService
     {
-        _jobAdvertisementService = jobAdvertisementService;
-    }
+        private readonly IServiceScopeFactory _scopeFactory;
+        private Timer _timer;
 
-    public Task StartAsync(CancellationToken cancellationToken)
-    {
-        _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromDays(1)); 
-        return Task.CompletedTask;
-    }
+        public CleanExpiredAdvertisementsService(IServiceScopeFactory scopeFactory)
+        {
+            _scopeFactory = scopeFactory;
+        }
 
-    private async void DoWork(object state)
-    {
-        await _jobAdvertisementService.DeleteExpiredAdvertisements();
-    }
+        public Task StartAsync(CancellationToken cancellationToken)
+        {
+            _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromDays(1));
+            return Task.CompletedTask;
+        }
 
-    public Task StopAsync(CancellationToken cancellationToken)
-    {
-        _timer?.Change(Timeout.Infinite, 0);
-        return Task.CompletedTask;
+        private void DoWork(object state)
+        {
+            using (var scope = _scopeFactory.CreateScope())
+            {
+                var jobAdvertisementService = scope.ServiceProvider.GetRequiredService<IJobAdvertisementService>();
+                jobAdvertisementService.DeleteExpiredAdvertisements().Wait(); 
+            }
+        }
+
+        public Task StopAsync(CancellationToken cancellationToken)
+        {
+            _timer?.Change(Timeout.Infinite, 0);
+            return Task.CompletedTask;
+        }
     }
 }
