@@ -4,13 +4,13 @@ services:
   recruitmentapi:
     image: recruitmentapi
     build:
-      context: ./RecruitmentAPI 
-      dockerfile: Dockerfile
+      context: ./
+      dockerfile: RecruitmentAPI/Dockerfile
     ports:
       - "7053:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=postgres;Database=RecruitmentDb;Username=postgres;Password=1234
+      - ConnectionStrings__DefaultConnection=Host=postgres;Database=RecruitmentDb;Username=postgres;Password=1234;Port=5432
     depends_on:
       - postgres
   
@@ -22,7 +22,7 @@ services:
       POSTGRES_PASSWORD: 1234
       POSTGRES_DB: RecruitmentDb
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
