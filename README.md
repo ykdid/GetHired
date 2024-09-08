@@ -51,7 +51,7 @@
 
 ## Getting Started
 
-### Front-End
+### Front-End-(backoffice)
 
 1. **Clone the repository:**
    ```bash
@@ -62,6 +62,28 @@
    ```bash
    cd client
    cd backoffice-client
+   ```
+
+3. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+4. **Run the development server:**
+   ```bash
+   npm start
+   ```
+   ### Front-End-(user)
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/ykdid/GetHired.git
+   ```
+
+2. **Navigate to the project directory:**
+   ```bash
+   cd client
+   cd user-client
    ```
 
 3. **Install dependencies:**
