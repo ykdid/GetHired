@@ -133,7 +133,7 @@ const MyStaffPage = () => {
                 const token = sessionStorage.getItem('token');
                 const employerId = localStorage.getItem('employerId');
                 if (employerId) {
-                    const response = await axios.get(`https://localhost:7053/api/Employee/getEmployeesByEmployer/${employerId}`,{
+                    const response = await axios.get(`http://localhost:7053/api/Employee/getEmployeesByEmployer/${employerId}`,{
                         headers:{
                             'Authorization':`Bearer ${token}`
                         }
@@ -185,7 +185,7 @@ const MyStaffPage = () => {
             const token = sessionStorage.getItem('token');
             const employerId = localStorage.getItem('employerId');
             if (employerId && token) {
-                const response = await axios.get('https://localhost:7053/api/Employee/getFilteredEmployees', {
+                const response = await axios.get('http://localhost:7053/api/Employee/getFilteredEmployees', {
                     params: { ...filterData, employerId },
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -215,14 +215,14 @@ const MyStaffPage = () => {
             const token = sessionStorage.getItem('token');
             const employerId = localStorage.getItem('employerId');
             if (employerId) {
-                await axios.post('https://localhost:7053/api/Employee/addEmployee', { ...newEmployee, employerId } ,{
+                await axios.post('http://localhost:7053/api/Employee/addEmployee', { ...newEmployee, employerId } ,{
                     headers:{
                         'Authorization':`Bearer ${token}`
                     }
                 });
                 toast.success('Employee added successfully!');
                 setShowAddModal(false);
-                const response = await axios.get(`https://localhost:7053/api/Employee/getEmployeesByEmployer/${employerId}`,{
+                const response = await axios.get(`http://localhost:7053/api/Employee/getEmployeesByEmployer/${employerId}`,{
                     headers:{
                         'Authorization':`Bearer ${token}`
                     }
@@ -254,7 +254,7 @@ const MyStaffPage = () => {
 
         try {
             const token = sessionStorage.getItem('token');
-            await axios.patch(`https://localhost:7053/api/Employee/updateEmployee/${selectedEmployee.id}`, {
+            await axios.patch(`http://localhost:7053/api/Employee/updateEmployee/${selectedEmployee.id}`, {
                 ...selectedEmployee,  
             }, {
                 headers: {
@@ -266,7 +266,7 @@ const MyStaffPage = () => {
             setShowEditModal(false);
             const employerId = localStorage.getItem('employerId');
             if (employerId) {
-                const response = await axios.get(`https://localhost:7053/api/Employee/getEmployeesByEmployer/${employerId}`,{
+                const response = await axios.get(`http://localhost:7053/api/Employee/getEmployeesByEmployer/${employerId}`,{
                     headers:{
                         'Authorization':`Bearer ${token}`
                     }
@@ -282,7 +282,7 @@ const MyStaffPage = () => {
     const handleDeleteEmployee = async () => {
         try {
             const token = sessionStorage.getItem('token');
-            await axios.delete(`https://localhost:7053/api/Employee/deleteEmployee/${selectedEmployee.id}`,{
+            await axios.delete(`http://localhost:7053/api/Employee/deleteEmployee/${selectedEmployee.id}`,{
                 headers:{
                     'Authorization':`Bearer ${token}`
                 }
@@ -291,7 +291,7 @@ const MyStaffPage = () => {
             setShowDeleteModal(false);
             const employerId = localStorage.getItem('employerId');
             if (employerId) {
-                const response = await axios.get(`https://localhost:7053/api/Employee/getEmployeesByEmployer/${employerId}`,{
+                const response = await axios.get(`http://localhost:7053/api/Employee/getEmployeesByEmployer/${employerId}`,{
                     headers:{
                         'Authorization':`Bearer ${token}`
                     }

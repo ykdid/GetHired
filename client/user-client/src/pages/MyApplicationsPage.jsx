@@ -28,7 +28,7 @@ const MyApplicationsPage = () => {
                 }
 
                 const response = await axios.get(
-                    `https://localhost:7053/api/JobApplication/getJobApplicationsByUser/${userId}`,
+                    `http://localhost:7053/api/JobApplication/getJobApplicationsByUser/${userId}`,
                     {
                         headers: {
                             'Authorization': `Bearer ${token}`,
@@ -40,7 +40,7 @@ const MyApplicationsPage = () => {
 
                 const employerRequests = applicationsData.map(application =>
                     axios.get(
-                        `https://localhost:7053/api/Employer/getEmployerById/${application.employerId}`,
+                        `http://localhost:7053/api/Employer/getEmployerById/${application.employerId}`,
                         {
                             headers: {
                                 'Authorization': `Bearer ${token}`,
@@ -58,7 +58,7 @@ const MyApplicationsPage = () => {
 
                 const advertisementRequests = applicationsData.map(application =>
                     axios.get(
-                        `https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByJobAdvertisementId/${application.jobAdvertisementId}`,
+                        `http://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByJobAdvertisementId/${application.jobAdvertisementId}`,
                         {
                             headers: {
                                 'Authorization': `Bearer ${token}`,
@@ -89,7 +89,7 @@ const MyApplicationsPage = () => {
         try {
             const token = sessionStorage.getItem('token');
             await axios.delete(
-                `https://localhost:7053/api/JobApplication/getJobApplicationByUser/${jobApplicationId}`,
+                `http://localhost:7053/api/JobApplication/getJobApplicationByUser/${jobApplicationId}`,
                 {
                     headers: {
                         'Authorization': `Bearer ${token}`,

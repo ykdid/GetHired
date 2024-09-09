@@ -27,10 +27,10 @@ const MainPage = () => {
             try {
                 const token = sessionStorage.getItem('token');
                 const userId = localStorage.getItem('userId');
-                let apiUrl = `https://localhost:7053/api/JobAdvertisement/getAllJobAdvertisements/${userId}`;
+                let apiUrl = `http://localhost:7053/api/JobAdvertisement/getAllJobAdvertisements/${userId}`;
 
                 if (selectedEmploymentType) {
-                    apiUrl = `https://localhost:7053/api/JobAdvertisement/getFilteredJobAdvertisements/${userId}?employmentType=${selectedEmploymentType}`;
+                    apiUrl = `http://localhost:7053/api/JobAdvertisement/getFilteredJobAdvertisements/${userId}?employmentType=${selectedEmploymentType}`;
                 }
 
                 const response = await axios.get(apiUrl, {
@@ -43,7 +43,7 @@ const MainPage = () => {
                 setAds(adsData);
 
                 const employerPromises = adsData.map(ad =>
-                    axios.get(`https://localhost:7053/api/Employer/getEmployerById/${ad.employerId}`, {
+                    axios.get(`http://localhost:7053/api/Employer/getEmployerById/${ad.employerId}`, {
                         headers: {
                             'Authorization': `Bearer ${token}`
                         }

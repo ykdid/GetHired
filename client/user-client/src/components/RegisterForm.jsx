@@ -136,7 +136,7 @@ const RegisterForm = () => {
         }
 
         try {
-            await axios.post('https://localhost:7053/api/Auth/register/user', formData);
+            await axios.post('http://localhost:7053/api/Auth/register/user', formData);
             toast.success('Registration completed successfully!',{
                 position:"top-center",
                 autoClose : 1000

@@ -29,7 +29,7 @@ const LoginForm = () => {
         }
         
         try {
-            const response = await axios.post('https://localhost:7053/api/Auth/login/employer', { email, password });
+            const response = await axios.post('http://localhost:7053/api/Auth/login/employer', { email, password });
             if (response.status === 200) {
                 const token = response.data.token;
                 const decodedToken = jwtDecode(token);

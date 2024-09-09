@@ -53,7 +53,7 @@
                     if (!token && employerId) {
                         throw new Error('Employer ID not found in localStorage or token not found in sessionStorage');
                     }
-                    const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`,{
+                    const response = await axios.get(`http://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`,{
                         headers:{
                             'Authorization': `Bearer ${token}`
                         }
@@ -138,7 +138,7 @@
             try {
                 const employerId = localStorage.getItem('employerId');
                 const token = sessionStorage.getItem('token');
-                await axios.post('https://localhost:7053/api/JobAdvertisement/addJobAdvertisement', adData, {
+                await axios.post('http://localhost:7053/api/JobAdvertisement/addJobAdvertisement', adData, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json', // Ensure JSON is being sent
@@ -147,7 +147,7 @@
                 toast.success('Advertisement created successfully!');
                 setShowModal(false);
         
-                const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`, {
+                const response = await axios.get(`http://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                     },
@@ -235,7 +235,7 @@
                                                     throw new Error('Employer ID not found in localStorage');
                                                 }
 
-                                                const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`, {
+                                                const response = await axios.get(`http://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`, {
                                                     headers: {
                                                         'Authorization': `Bearer ${token}`
                                                     }
@@ -283,14 +283,14 @@
                             if (selectedAd) {
                                 try {
                                     const token = sessionStorage.getItem('token');               
-                                    await axios.delete(`https://localhost:7053/api/JobAdvertisement/deleteAdvertisement/${selectedAd.id}`,{
+                                    await axios.delete(`http://localhost:7053/api/JobAdvertisement/deleteAdvertisement/${selectedAd.id}`,{
                                         headers : {
                                             'Authorization':`Bearer ${token}`
                                         }
                                     });
                                     toast.success('Advertisement deleted successfully!');
                                     const employerId = localStorage.getItem('employerId');
-                                    const response = await axios.get(`https://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`,{
+                                    const response = await axios.get(`http://localhost:7053/api/JobAdvertisement/getJobAdvertisementsByEmployer/${employerId}`,{
                                         headers :{
                                             'Authorization':`Bearer ${token}`
                                         }

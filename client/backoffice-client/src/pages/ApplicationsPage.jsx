@@ -34,7 +34,7 @@ const ApplicationsPage = () => {
                 }
 
                 const response = await axios.get(
-                    `https://localhost:7053/api/JobApplication/getJobApplicationsByAdvertisement/${advertisementId}`,
+                    `http://localhost:7053/api/JobApplication/getJobApplicationsByAdvertisement/${advertisementId}`,
                     {
                         headers: {
                             'Authorization': `Bearer ${token}`,
@@ -46,7 +46,7 @@ const ApplicationsPage = () => {
 
                 const userRequests = applicationsData.map(application =>
                     axios.get(
-                        `https://localhost:7053/api/User/getUserById/${application.userId}`,
+                        `http://localhost:7053/api/User/getUserById/${application.userId}`,
                         {
                             headers: {
                                 'Authorization': `Bearer ${token}`,
@@ -86,7 +86,7 @@ const ApplicationsPage = () => {
         try {
             const token = sessionStorage.getItem('token');
             await axios.patch(
-                `https://localhost:7053/api/JobApplication/${applicationId}/status`, 
+                `http://localhost:7053/api/JobApplication/${applicationId}/status`, 
                 { status: 'Accepted' },
                 {
                     headers: {
@@ -108,7 +108,7 @@ const ApplicationsPage = () => {
         try {
             const token = sessionStorage.getItem('token');
             await axios.patch(
-                `https://localhost:7053/api/JobApplication/${applicationId}/status`, 
+                `http://localhost:7053/api/JobApplication/${applicationId}/status`, 
                 { status: 'Rejected' },
                 {
                     headers: {

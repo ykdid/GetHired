@@ -23,7 +23,7 @@ const AdvertisementCard = ({ ad, employer }) => {
             }
 
             await axios.post(
-                'https://localhost:7053/api/JobApplication/applyJob',
+                'http://localhost:7053/api/JobApplication/applyJob',
                 {
                     userId: parseInt(userId, 10),
                     jobAdvertisementId: ad.id,

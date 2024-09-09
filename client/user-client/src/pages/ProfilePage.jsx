@@ -78,7 +78,7 @@ const ProfilePage = () => {
                     throw new Error('Token not found in sessionStorage');
                 }
 
-                const response = await axios.get(`https://localhost:7053/api/User/getUserById/${userId}`, {
+                const response = await axios.get(`http://localhost:7053/api/User/getUserById/${userId}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -145,7 +145,7 @@ const ProfilePage = () => {
                             
                             setUser((prevUser) => ({ ...prevUser, userProfileImagePath: imagePath }));
        
-                            await axios.patch(`https://localhost:7053/api/User/updateUser/${userId}`, { ...user, userProfileImagePath: imagePath }, {
+                            await axios.patch(`http://localhost:7053/api/User/updateUser/${userId}`, { ...user, userProfileImagePath: imagePath }, {
                                 headers: {
                                     'Content-Type': 'application/json',
                                     'Authorization': `Bearer ${token}`,
@@ -183,7 +183,7 @@ const ProfilePage = () => {
     
                             setUser((prevUser) => ({ ...prevUser, cvFilePath: cvPath }));
     
-                            await axios.patch(`https://localhost:7053/api/User/updateUser/${userId}`, { ...user, cvFilePath: cvPath }, {
+                            await axios.patch(`http://localhost:7053/api/User/updateUser/${userId}`, { ...user, cvFilePath: cvPath }, {
                                 headers: {
                                     'Content-Type': 'application/json',
                                     'Authorization': `Bearer ${token}`,
@@ -198,7 +198,7 @@ const ProfilePage = () => {
                 );
             }
             if (!selectedFile && !selectedCvFile) {
-                await axios.patch(`https://localhost:7053/api/User/updateUser/${userId}`, user, {
+                await axios.patch(`http://localhost:7053/api/User/updateUser/${userId}`, user, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`,

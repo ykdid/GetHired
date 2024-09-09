@@ -56,7 +56,7 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
     const handleDelete = async () => {
         try {
             const token = sessionStorage.getItem('token');
-            await axios.delete(`https://localhost:7053/api/JobAdvertisement/deleteAdvertisement/${ad.id}`, {
+            await axios.delete(`http://localhost:7053/api/JobAdvertisement/deleteAdvertisement/${ad.id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 }
@@ -88,7 +88,7 @@ const AdvertisementCard = ({ ad, onUpdate, isModalOpen }) => {
         formDataToSend.set('imagePath', formData.imagePath);
         try {
             const token = sessionStorage.getItem('token');
-            await axios.patch(`https://localhost:7053/api/JobAdvertisement/updateAdvertisement/${ad.id}`, formDataToSend, {
+            await axios.patch(`http://localhost:7053/api/JobAdvertisement/updateAdvertisement/${ad.id}`, formDataToSend, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,

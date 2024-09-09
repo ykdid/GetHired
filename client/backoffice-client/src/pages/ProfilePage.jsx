@@ -36,7 +36,7 @@ const ProfilePage = () => {
                     throw new Error('Token not found in sessionStorage');
                 }
 
-                const response = await axios.get(`https://localhost:7053/api/Employer/getEmployerById/${employerId}`, {
+                const response = await axios.get(`http://localhost:7053/api/Employer/getEmployerById/${employerId}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -99,7 +99,7 @@ const ProfilePage = () => {
                             
                             setEmployer((prevEmployer) => ({ ...prevEmployer, employerImagePath: imagePath }));
        
-                            await axios.patch(`https://localhost:7053/api/Employer/updateEmployer/${employerId}`, { ...employer, employerImagePath: imagePath }, {
+                            await axios.patch(`http://localhost:7053/api/Employer/updateEmployer/${employerId}`, { ...employer, employerImagePath: imagePath }, {
                                 headers: {
                                     'Content-Type': 'application/json',
                                     'Authorization': `Bearer ${token}`,
@@ -118,7 +118,7 @@ const ProfilePage = () => {
                 );
             } 
             else {
-                await axios.patch(`https://localhost:7053/api/Employer/updateEmployer/${employerId}`, employer, {
+                await axios.patch(`http://localhost:7053/api/Employer/updateEmployer/${employerId}`, employer, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`,

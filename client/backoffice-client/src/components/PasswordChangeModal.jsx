@@ -59,7 +59,7 @@ const PasswordChangeModal = ({ closeModal }) => {
                 newPassword: newPassword,
             };
 
-            await axios.patch(`https://localhost:7053/api/Employer/changePassword/${employerId}`, passwordChangeModel, {
+            await axios.patch(`http://localhost:7053/api/Employer/changePassword/${employerId}`, passwordChangeModel, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
