@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RecruitmentAPI.Data;
 using Microsoft.OpenApi.Models;
-
+using RecruitmentAPI.Services;
 using RecruitmentAPI.Services.AuthService;
 using RecruitmentAPI.Services.CleanExpiredAdvertisementsService;
 using RecruitmentAPI.Services.EmployeeService;
@@ -45,6 +45,7 @@ builder.Services.AddTransient<IEmployeeService, EmployeeService>();
 builder.Services.AddTransient<IJobApplicationService, JobApplicationService>();
 builder.Services.AddTransient<IEncryptionService, EncryptionService>();
 builder.Services.AddHostedService<CleanExpiredAdvertisementsService>();
+builder.Services.AddHostedService<MigrationService>();
 
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]);
@@ -110,14 +111,14 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RecruitmentAPI v1"));
-}
+//}
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseRouting();
 
