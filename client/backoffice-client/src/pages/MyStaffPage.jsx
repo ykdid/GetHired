@@ -370,8 +370,8 @@ const MyStaffPage = () => {
                                 <h2 className="text-xl font-bold mb-2">{employee.name} {employee.surname}</h2>
                                 <p className="text-gray-700 mb-1">Email: <b>{employee.email}</b></p>
                                 <p className="text-gray-700 mb-1">Registration Number: <b>{employee.registrationNumber}</b></p>
-                                <p className="text-gray-700">Identity Number: <b>{employee.identityNumber}</b></p>
-                                <p className="text-gray-700">Employment Type: <b>{employmentTypeLabels[employee.employmentType]}</b></p>
+                                <p className="text-gray-700 mb-1">Identity Number: <b>{employee.identityNumber}</b></p>
+                                <p className="text-gray-700 mb-1">Employment Type: <b>{employmentTypeLabels[employee.employmentType]}</b></p>
                             </div>
                         ))}
                     </div>
